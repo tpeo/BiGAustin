@@ -1,0 +1,45 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap');
+
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+}
+
+h2 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 30px;
+}
+
+h3 {
+    font-family: 'Nunito', sans-serif;
+    font-size: 35px;
+    margin-top: 20px;
+}
+
+
+h4 {
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: transparent;
+}
+
+
+
+
+button,
+.ant-btn {
+    background-color: #219D80;
+    border-color: #219D80;
+    height: 40px;
+}
+
+.ant-btn.ant-btn-background-ghost {
+    border-color: #219D80;
+}

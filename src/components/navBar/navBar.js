@@ -7,7 +7,7 @@ import {
   withRouter
 } from "react-router-dom";
 import SiteNav, { ContentGroup } from "react-site-nav";
-import "./NavBar.css";
+import "./navBar.css";
 
 export default function NavBar() {
   const [showModal, setShowModal] = React.useState(false);
