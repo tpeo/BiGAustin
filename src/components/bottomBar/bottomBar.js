@@ -9,7 +9,7 @@ export default function BottomBar() {
         <div className="flex-container">
           <span className="num-10-k">10k</span>
           <span className="worldwide-client-alr">
-            Worldwide Client Already Connected
+            Worldwide Client <br /> Already Connected
           </span>
         </div>
         <div className="flex-container-1">

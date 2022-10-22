@@ -19,7 +19,7 @@
   flex-basis: 100%;
   justify-content: space-evenly;
   align-items: center;
-  padding: 40px 80px 43px; 
+  padding: 30px 60px 43px; 
   display: flex;
   vertical-align: top;
 }
@@ -142,7 +142,7 @@
   justify-content: space-between;
   align-self: flex-start;
   align-items: stretch;
-  margin-top: 133px;
+  margin-top: 138px;
   display: flex;
   float: left;
   vertical-align: top;
@@ -166,7 +166,8 @@
   flex-basis: 21%;
   justify-content: space-between;
   align-items: stretch;
-  margin-bottom: 34px;
+  /* margin-bottom: 34px; */
+  margin-top: 0px;
   font-family: Playfair Display;
   font-size: .875rem;
   display: flex;
