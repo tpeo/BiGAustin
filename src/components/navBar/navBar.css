@@ -1,6 +1,9 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 @import url("https://kit-free.fontawesome.com/releases/latest/css/free.min.css");
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap');
 
 section,
 h1 {
@@ -11,11 +14,13 @@ nav {
 }
 ul {
   list-style-type: none;
+  font-family: 'Montserrat' sans-serif;
 }
 
 ul li {
   position: relative;
   margin-top: 20px;
+  font-family: 'Montserrat' sans-serif;
 }
 
 a {
@@ -28,7 +33,7 @@ header {
   display: grid;
   grid-template-columns: 100px auto 100px;
   grid-template-rows: 60px;
-  background: #fff;
+  background: transparent;
 }
 .logo {
   width: "100%";

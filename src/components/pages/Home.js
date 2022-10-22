@@ -1,41 +1,38 @@
-//import "./NewEvent.css";
 import { useEffect, useState, Fragment } from "react";
 import { Typography } from 'antd';
 import NavBar from "../navBar/navBar.js";
-import { Button, Col, Row, Image, Carousel, Card} from 'antd';
+import Footer from "../footer/footer.js";
+import { Button, Col, Row, Image, Carousel, Card, Input} from 'antd';
 import {helpIcon} from "../images/helpicon.png";
-import "./Home.css"
+import "./Pages.css"
 import { Tab } from "react-bootstrap";
 import {backgroundImage} from "../images/backgroundheader.png"
+import { ArrowLeftOutlined, ArrowRightOutlined, CalendarTodayOutlined } from "@material-ui/icons";
 
 const { Title} = Typography;
 
 
 export default function Home(props) {
   console.log('in new event');
-  
 
   return (
     <div>
-      {/* <navBar/> */}
-      <div id="new_event_container" style = {{backgroundColor:"blue", textAlign:"center", justifyContent:"center", height: "600px"}}>
-            {/* <NavBar/> */}
-            <NavBar/>
-            <Row style = {{marginTop:100, marginBottom: 100}}>
-              <Col span={14} offset={5}>
-                <Title style = {{color:"white", fontSize: 50, fontWeight: "bold"}}> 
-                  Providing Innovative Solutions And <br/> Creating Financial Strength
-                </Title>
-                <Title level = {4} style = {{color:"white", fontFamily:"Montserrat"}}> 
-                Innovative Employment And Entrepreneurship Programs Launch Central <br/> Texans To Financial Success.
-                </Title>
-                
-                <Button type = "primary" style = {{marginTop: 20}}>Donate Now</Button> 
-                <Button style = {{marginLeft:50}} ghost>Schedule Appointment</Button>
-              </Col>
-            </Row>
-            
-        </div>
+      <div id="new_event_container" style = {{backgroundColor:"#3D4451", textAlign:"center", justifyContent:"center", height: "600px"}}>
+      <NavBar/>
+        <Row style = {{marginTop:100, marginBottom: 100}}>
+        
+          <Col span={14} offset={5}>
+            <Title style = {{color:"white", fontSize: 50, fontWeight: "bold"}}> 
+              Providing Innovative Solutions And <br/> Creating Financial Strength
+            </Title>
+            <Title level = {4} style = {{color:"white", fontFamily:"Montserrat"}}> 
+            Innovative Employment And Entrepreneurship Programs Launch Central <br/> Texans To Financial Success.
+            </Title>
+            <Button type = "primary" style = {{marginTop: 20}}>Donate Now</Button> 
+            <Button style = {{marginLeft:50}} ghost>Schedule Appointment</Button>
+          </Col>
+        </Row>
+      </div>
         
         <div style = {{marginTop:100, marginBottom: 100}}>
         <Row>
@@ -129,7 +126,7 @@ export default function Home(props) {
           <Col span={12} offset={6}>
             <h4 style = {{marginTop: 50, color:"white"}}>Our Testimonials</h4>
             <h2 style = {{color:"white"}}>What People Say</h2>
-            <Carousel style = {{height:"400px"}} arrows>
+            <Carousel style = {{height:"400px"}} arrows nextArrow={<ArrowRightOutlined />} prevArrow={<ArrowLeftOutlined/>}>
               <div>
                 <Image
                   width={100}
@@ -152,14 +149,14 @@ export default function Home(props) {
         </Row>
       </div>
 
-      <div style = {{marginTop:100, marginBottom: 100}}>
+      <div style = {{marginTop:100}}>
         <Row>
           <Col span={12} offset={6}>
             <Title level = {5}>Latest News</Title>
             <h2>Articles You May Read</h2>
           </Col>
         </Row>
-        <Row>
+        <Row gutter = {[20,20]}>
           <Col span={4} offset={6}>
             <Card bodyStyle={{padding:10}}>
             <div className="custom-image">
@@ -169,9 +166,9 @@ export default function Home(props) {
                 <body>Esther Howard  12 Dec 2021</body>
               </div>
               <div className="custom-card">
-              <Title level = {4}>Charity, Expectations vs. Reality</Title>
-                <p>Lorem ipsum dolor sit amet, consetetur sadipscing sed diam nonumy  <br/>
-                  tempor invidunt ut labore et <br/>
+              <h2 style = {{fontSize:23}}>Charity, Expectations vs. Reality</h2>
+                <p>Lorem ipsum dolor sit amet, consetetur sadipscing sed diam nonumy
+                  tempor invidunt ut labore et 
                   magna aliquyam erat, sed diam voluptua.....
                   </p>
               </div>
@@ -186,12 +183,12 @@ export default function Home(props) {
                 <img alt="example" width="100%" src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"/>
               </div>
               <div className="custom-image">
-                <body>Esther Howard  12 Dec 2021</body>
+                <body>Esther Howard 12 Dec 2021</body>
               </div>
               <div className="custom-card">
-              <Title level = {4}>Charity, Expectations vs. Reality</Title>
-                <p>Lorem ipsum dolor sit amet, consetetur sadipscing sed diam nonumy  <br/>
-                  tempor invidunt ut labore et <br/>
+              <h2 style = {{fontSize:23}}>Charity, Expectations vs. Reality</h2>
+                <p>Lorem ipsum dolor sit amet, consetetur sadipscing sed diam nonumy 
+                  tempor invidunt ut labore et 
                   magna aliquyam erat, sed diam voluptua.....
                   </p>
               </div>
@@ -209,9 +206,9 @@ export default function Home(props) {
                 <body>Esther Howard  12 Dec 2021</body>
               </div>
               <div className="custom-card">
-              <Title level = {4}>Charity, Expectations vs. Reality</Title>
-                <p>Lorem ipsum dolor sit amet, consetetur sadipscing sed diam nonumy  <br/>
-                  tempor invidunt ut labore et <br/>
+              <h2 style = {{fontSize:23}}>Charity, Expectations vs. Reality</h2>
+                <p>Lorem ipsum dolor sit amet, consetetur sadipscing sed diam nonumy 
+                  tempor invidunt ut labore et
                   magna aliquyam erat, sed diam voluptua.....
                   </p>
               </div>
@@ -222,6 +219,8 @@ export default function Home(props) {
           </Col>
         </Row>
       </div>
+
+      <Footer/>
     </div>
 
     

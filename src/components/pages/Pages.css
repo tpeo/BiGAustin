@@ -43,3 +43,17 @@ button,
 .ant-btn.ant-btn-background-ghost {
     border-color: #219D80;
 }
+
+.ant-carousel .slick-prev,
+.ant-carousel .slick-next {
+  color: white;
+  font-size: 80px;
+}
+
+.ant-carousel .slick-prev:hover,
+.ant-carousel .slick-next:hover,
+.ant-carousel .slick-prev:focus,
+.ant-carousel .slick-next:focus {
+  color: white;
+  font-size: 80px;
+}
