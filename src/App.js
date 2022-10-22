@@ -11,6 +11,8 @@ import {
 
 
 import Home from './components/pages/Home.js';
+import About from './components/pages/About.js';
+import Impact from './components/pages/Impact.js';
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
               <Routes>
                 console.log("going to home");
                   <Route path={"/"} element={<Home />} />
+                  <Route path={"/about"} element={<About />} />
+                  <Route path={"/ourimpact"} element={<Impact />} />
               </Routes>
           </div>
       </BrowserRouter>

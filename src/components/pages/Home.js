@@ -1,21 +1,14 @@
-//import "./NewEvent.css";
-import { useEffect, useState, Fragment } from "react";
 import { Typography } from 'antd';
 import BottomBar from "../bottomBar/bottomBar.js";
-import NavBar from "../NavBar/navBar.js";
+import NavBar from "../navBar/navBar.js";
 import { Button, Col, Row, Image, Carousel, Card} from 'antd';
-import {helpIcon} from "../images/helpicon.png";
-import "./Home.css"
-import { Tab } from "react-bootstrap";
+import "./Pages.css"
 import headerBackgroundImage from "../images/backgroundheader.png"
-import SiteNav, { ContentGroup } from "react-site-nav";
-
+import { ArrowLeftOutlined, ArrowRightOutlined } from "@material-ui/icons";
 const { Title} = Typography;
-
 
 export default function Home(props) {
   console.log('in home screen');
-  
 
   return (
     <div style= {{position: "relative", height: "100vh"}}>
@@ -129,7 +122,7 @@ export default function Home(props) {
           <Col span={12} offset={6}>
             <h4 style = {{marginTop: 50, color:"white"}}>Our Testimonials</h4>
             <h2 style = {{color:"white"}}>What People Say</h2>
-            <Carousel style = {{height:"400px"}} arrows>
+            <Carousel style = {{height:"400px"}} arrows nextArrow={<ArrowRightOutlined />} prevArrow={<ArrowLeftOutlined/>}>
               <div>
                 <Image
                   width={100}
@@ -164,7 +157,7 @@ export default function Home(props) {
             <h2>Articles You May Read</h2>
           </Col>
         </Row>
-        <Row>
+        <Row gutter = {[20,20]}>
           <Col span={4} offset={6}>
             <Card bodyStyle={{padding:10}}>
             <div className="custom-image">
@@ -174,9 +167,9 @@ export default function Home(props) {
                 <body>Esther Howard  12 Dec 2021</body>
               </div>
               <div className="custom-card">
-              <Title level = {4}>Charity, Expectations vs. Reality</Title>
-                <p>Lorem ipsum dolor sit amet, consetetur sadipscing sed diam nonumy  <br/>
-                  tempor invidunt ut labore et <br/>
+              <h2 style = {{fontSize:23}}>Charity, Expectations vs. Reality</h2>
+                <p>Lorem ipsum dolor sit amet, consetetur sadipscing sed diam nonumy
+                  tempor invidunt ut labore et 
                   magna aliquyam erat, sed diam voluptua.....
                   </p>
               </div>
@@ -191,12 +184,12 @@ export default function Home(props) {
                 <img alt="example" width="100%" src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"/>
               </div>
               <div className="custom-image">
-                <body>Esther Howard  12 Dec 2021</body>
+                <body>Esther Howard 12 Dec 2021</body>
               </div>
               <div className="custom-card">
-              <Title level = {4}>Charity, Expectations vs. Reality</Title>
-                <p>Lorem ipsum dolor sit amet, consetetur sadipscing sed diam nonumy  <br/>
-                  tempor invidunt ut labore et <br/>
+              <h2 style = {{fontSize:23}}>Charity, Expectations vs. Reality</h2>
+                <p>Lorem ipsum dolor sit amet, consetetur sadipscing sed diam nonumy 
+                  tempor invidunt ut labore et 
                   magna aliquyam erat, sed diam voluptua.....
                   </p>
               </div>
@@ -214,9 +207,9 @@ export default function Home(props) {
                 <body>Esther Howard  12 Dec 2021</body>
               </div>
               <div className="custom-card">
-              <Title level = {4}>Charity, Expectations vs. Reality</Title>
-                <p>Lorem ipsum dolor sit amet, consetetur sadipscing sed diam nonumy  <br/>
-                  tempor invidunt ut labore et <br/>
+              <h2 style = {{fontSize:23}}>Charity, Expectations vs. Reality</h2>
+                <p>Lorem ipsum dolor sit amet, consetetur sadipscing sed diam nonumy 
+                  tempor invidunt ut labore et
                   magna aliquyam erat, sed diam voluptua.....
                   </p>
               </div>
@@ -227,33 +220,6 @@ export default function Home(props) {
           </Col>
         </Row>
       </div>
-
-    {/* <div  id="bottomBarContainer" style = {{backgroundColor:"#3D4451", textAlign:"center", color:"white", height: 500}}>
-      <Row style = {{marginTop:100, marginBottom: 100}}>
-      
-          <Col span={3} offset={2}>
-          <h1 style= {{color:"white"}}> Home</h1>
-            <h1> Quick Link</h1>
-            <h1> About Us</h1>
-            <h1> Blog Post</h1>
-            <h1> Photo Gallery</h1>
-          </Col>
-          <Col span={3} offset={2}>
-            <h1 style= {{color:"white"}}> Get In Touch</h1>
-            <h1> Contact Us</h1>
-            <h1> Our Services</h1>
-          </Col>
-          <Col span={3} offset={2}>
-            <h1 style= {{color:"white"}}> Address</h1>
-            <h1> 2464 Royal Ln. Mesa, New</h1>
-            <h1> Jersey 45463</h1>
-          </Col>
-          <Col span={3} offset={2}>
-            <h1 style= {{color:"white"}}> NewsLetter</h1>
-          </Col>
-        </Row>
-      </div> */}
-
     <BottomBar/>
     </div>
 

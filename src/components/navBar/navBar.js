@@ -1,3 +1,4 @@
+import { Button } from "antd";
 import React from "react";
 import {
   Switch,
@@ -12,7 +13,6 @@ import "./navBar.css";
 export default function NavBar() {
   const [showModal, setShowModal] = React.useState(false);
   return (
-    // <BrowserRouter>
       <div className="container-fluid">
         <header>
           <div className="logo">
@@ -25,14 +25,14 @@ export default function NavBar() {
               />
             </Link>
           </div>
-          <SiteNav color="#3F3F3F" background="#fff">
+          <SiteNav color="white" background="transparent" align = "right" fontFamily="Montserrat, sans-serif" rowHeight="100">
             <ContentGroup title="About" width="200" height="150">
               <ul>
                 <li>
-                  <Link to="/link-2"> About BiGAUSTIN</Link>
+                  <Link to="/about"> About BiGAUSTIN</Link>
                 </li>
                 <li>
-                  <Link to="/link-2">Our Impact</Link>
+                  <Link to="/ourimpact">Our Impact</Link>
                 </li>
                 <li>
                   <Link to="/link-2">Our Team</Link>
@@ -65,10 +65,8 @@ export default function NavBar() {
                 </li>
               </ul>
             </ContentGroup>
-            <ContentGroup title="What’s New" width="200" height="0">
-            </ContentGroup>
-            <ContentGroup title="Donate" width="200" height="0">
-            </ContentGroup>
+            <ContentGroup title="What’s New" rootURL="/"/>
+            <ContentGroup title="Donate" rootURL="/" background="white"/>
           </SiteNav>
         </header>
       </div>
