@@ -1,38 +1,40 @@
 import { useEffect, useState, Fragment } from "react";
 import { Typography } from 'antd';
-import NavBar from "../navBar/navBar.js";
-import Footer from "../footer/footer.js";
-import { Button, Col, Row, Image, Carousel, Card, Input} from 'antd';
+import BottomBar from "../bottomBar/bottomBar.js";
+import NavBar from "../NavBar/navBar.js";
+import { Button, Col, Row, Image, Carousel, Card} from 'antd';
 import {helpIcon} from "../images/helpicon.png";
 import "./Pages.css"
 import { Tab } from "react-bootstrap";
-import {backgroundImage} from "../images/backgroundheader.png"
-import { ArrowLeftOutlined, ArrowRightOutlined, CalendarTodayOutlined } from "@material-ui/icons";
+import headerBackgroundImage from "../images/backgroundheader.png"
+import SiteNav, { ContentGroup } from "react-site-nav";
 
 const { Title} = Typography;
 
 
 export default function Home(props) {
-  console.log('in new event');
+  console.log('in home screen');
+  
 
   return (
-    <div>
-      <div id="new_event_container" style = {{backgroundColor:"#3D4451", textAlign:"center", justifyContent:"center", height: "600px"}}>
-      <NavBar/>
-        <Row style = {{marginTop:100, marginBottom: 100}}>
-        
-          <Col span={14} offset={5}>
-            <Title style = {{color:"white", fontSize: 50, fontWeight: "bold"}}> 
-              Providing Innovative Solutions And <br/> Creating Financial Strength
-            </Title>
-            <Title level = {4} style = {{color:"white", fontFamily:"Montserrat"}}> 
-            Innovative Employment And Entrepreneurship Programs Launch Central <br/> Texans To Financial Success.
-            </Title>
-            <Button type = "primary" style = {{marginTop: 20}}>Donate Now</Button> 
-            <Button style = {{marginLeft:50}} ghost>Schedule Appointment</Button>
-          </Col>
-        </Row>
-      </div>
+    <div style= {{position: "relative", height: "100vh"}}>
+      <div class="new_event_container" style = {{backgroundImage: `url(${headerBackgroundImage})`, textAlign:"center", justifyContent:"center", height: "600px"}}>
+           <NavBar/>
+            <Row style = {{marginTop:100, marginBottom: 100}}>
+              <Col span={14} offset={5}>
+                <Title style = {{color:"white", fontSize: 50, fontWeight: "bold"}}> 
+                  Providing Innovative Solutions And <br/> Creating Financial Strength
+                </Title>
+                <Title level = {4} style = {{color:"white", fontFamily:"Montserrat"}}> 
+                Innovative Employment And Entrepreneurship Programs Launch Central <br/> Texans To Financial Success.
+                </Title>
+                
+                <Button type = "primary" style = {{marginTop: 20}}>Donate Now</Button> 
+                <Button style = {{marginLeft:50}} ghost>Schedule Appointment</Button>
+              </Col>
+            </Row>
+            
+        </div>
         
         <div style = {{marginTop:100, marginBottom: 100}}>
         <Row>
@@ -149,7 +151,12 @@ export default function Home(props) {
         </Row>
       </div>
 
-      <div style = {{marginTop:100}}>
+      <div className="partners" style = {{backgroundColor:"#D9D9D9", height: 600 , textAlign:"center", color:"black", marginTop:100, marginBottom: 100}}>
+        <p> Partners</p>
+      </div>
+      
+
+      <div style = {{marginTop:100, marginBottom: 100}}>
         <Row>
           <Col span={12} offset={6}>
             <Title level = {5}>Latest News</Title>
@@ -220,7 +227,33 @@ export default function Home(props) {
         </Row>
       </div>
 
-      <Footer/>
+    {/* <div  id="bottomBarContainer" style = {{backgroundColor:"#3D4451", textAlign:"center", color:"white", height: 500}}>
+      <Row style = {{marginTop:100, marginBottom: 100}}>
+      
+          <Col span={3} offset={2}>
+          <h1 style= {{color:"white"}}> Home</h1>
+            <h1> Quick Link</h1>
+            <h1> About Us</h1>
+            <h1> Blog Post</h1>
+            <h1> Photo Gallery</h1>
+          </Col>
+          <Col span={3} offset={2}>
+            <h1 style= {{color:"white"}}> Get In Touch</h1>
+            <h1> Contact Us</h1>
+            <h1> Our Services</h1>
+          </Col>
+          <Col span={3} offset={2}>
+            <h1 style= {{color:"white"}}> Address</h1>
+            <h1> 2464 Royal Ln. Mesa, New</h1>
+            <h1> Jersey 45463</h1>
+          </Col>
+          <Col span={3} offset={2}>
+            <h1 style= {{color:"white"}}> NewsLetter</h1>
+          </Col>
+        </Row>
+      </div> */}
+
+    <BottomBar/>
     </div>
 
     
