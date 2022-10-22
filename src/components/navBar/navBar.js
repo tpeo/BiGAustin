@@ -15,7 +15,7 @@ export default function NavBar() {
   return (
       <div className="container-fluid">
         <header>
-          <div className="logo" style = {{marginTop:50}}>
+          <div className="logo">
             <Link to="/">
               <img
                 alt={"logo"}
@@ -29,7 +29,7 @@ export default function NavBar() {
             <ContentGroup title="About" width="200" height="150">
               <ul>
                 <li>
-                  <Link to="/link-2"> About BiGAUSTIN</Link>
+                  <Link to="/about"> About BiGAUSTIN</Link>
                 </li>
                 <li>
                   <Link to="/ourimpact">Our Impact</Link>

@@ -1,21 +1,15 @@
-import { useEffect, useState, Fragment } from "react";
 import { Typography } from 'antd';
 import NavBar from "../navBar/navBar.js";
-import Footer from "../footer/footer.js";
-import { Button, Col, Row, Image, Carousel, Card, Progress} from 'antd';
-import {helpIcon} from "../images/helpicon.png";
+import BottomBar from "../bottomBar/bottomBar.js";
+import {Col, Row, Image, Carousel, Card, Progress} from 'antd';
 import "./Pages.css"
-import { Tab } from "react-bootstrap";
-import {backgroundImage} from "../images/backgroundheader.png"
-import { ArrowLeftOutlined, ArrowRightOutlined, CalendarTodayOutlined } from "@material-ui/icons";
-
-const { Title} = Typography;
-
+import headerBackgroundImage from "../images/backgroundheader2.png"
+import { ArrowLeftOutlined, ArrowRightOutlined} from "@material-ui/icons";
 
 export default function Impact(props) {
   return (
     <div>
-        <div id="new_event_container" style = {{backgroundColor:"#3D4451", textAlign:"center", justifyContent:"center", height: "600px"}}>
+        <div id="new_event_container" style = {{backgroundImage: `url(${headerBackgroundImage})`, backgroundColor:"#3D4451", textAlign:"center", justifyContent:"center", height: "600px"}}>
             <NavBar/>           
         </div>
         <div style = {{marginTop:100, marginBottom: 100, textAlign:"center"}}>
@@ -118,7 +112,7 @@ export default function Impact(props) {
           </Col>
         </Row>
       </div>
-      <Footer/>
+      <BottomBar/>
     </div>
 
     
