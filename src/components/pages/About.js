@@ -1,3 +1,4 @@
+import React from "react";
 import { Typography } from 'antd';
 import BottomBar from "../bottomBar/bottomBar.js";
 import NavBar from "../navBar/navBar.js";

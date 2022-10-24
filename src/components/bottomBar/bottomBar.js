@@ -1,3 +1,4 @@
+import React from "react";
 import "./bottomBar.css";
 // import group3251 from "./assets/group3251.svg";
 

@@ -1,4 +1,4 @@
-import { Typography } from 'antd';
+import React from "react";
 import NavBar from "../navBar/navBar.js";
 import BottomBar from "../bottomBar/bottomBar.js";
 import {Col, Row, Image, Carousel, Card, Progress} from 'antd';
