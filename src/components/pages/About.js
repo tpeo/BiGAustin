@@ -13,9 +13,9 @@ export default function About(props) {
     <div style= {{position: "relative", height: "100vh"}}>
       <div class="new_event_container" style = {{backgroundImage: `url(${headerBackgroundImage})`, textAlign:"center", justifyContent:"center", height: "500px"}}>
            <NavBar/>
-            <Row style = {{marginTop:150, marginBottom: 100}}>
+            <Row style = {{marginBottom: 100}}>
               <Col span={14} offset={5}>
-                <Title style = {{color:"white", fontSize: 50, fontWeight: "bold"}}> 
+                <Title style = {{color:"white", fontSize: 50, fontWeight: "bold", marginTop:150}}> 
                   About BiG Austin
                 </Title>
               </Col>
