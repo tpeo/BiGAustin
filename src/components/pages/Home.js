@@ -5,6 +5,11 @@ import NavBar from "../navBar/navBar.js";
 import { Button, Col, Row, Image, Carousel, Card} from 'antd';
 import "./Pages.css"
 import headerBackgroundImage from "../images/backgroundheader.png"
+import logo from "../images/_logo.png"
+import logo1 from "../images/_logo (1).png"
+import logo2 from "../images/_logo (2).png"
+import logo3 from "../images/_logo (3).png"
+
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@material-ui/icons";
 const { Title} = Typography;
 
@@ -121,8 +126,8 @@ export default function Home(props) {
       <div className="testimonials" style = {{backgroundColor:"#3D4451", textAlign:"center", color:"white", marginTop:100, marginBottom: 100}}>
       <Row>
           <Col span={12} offset={6}>
-            <h4 style = {{marginTop: 50, color:"white"}}>Our Testimonials</h4>
-            <h2 style = {{color:"white"}}>What People Say</h2>
+            {/* <h4 style = {{marginTop: 50, color:"white"}}>Our Testimonials</h4> */}
+            <h2 style = {{color:"white"}}>Testimonials</h2>
             <Carousel style = {{height:"400px"}} arrows nextArrow={<ArrowRightOutlined />} prevArrow={<ArrowLeftOutlined/>}>
               <div>
                 <Image
@@ -146,9 +151,54 @@ export default function Home(props) {
         </Row>
       </div>
 
+      <div className="partners-section" style = {{textAlign:"center", color:"black", marginTop:100, marginBottom: 100}}>
+      <Row>
+          <Col span={12} offset={6}>
+            <h2 style = {{color:"black"}}>Our Partners</h2>
+            <p style = {{color:"black"}}>
+            BiGAUSTIN has been at the heart of Central Texas entrepreneurship for over 27 years!  
+            We are focused on a combination of small business and workforce development.  
+            We provide innovative solutions and create financial strength for our clients. 
+            We remain proudly committed to building healthy, sustainable communities. <br/>
+                </p>
+          </Col>
+        </Row>
+        <Row style = {{textAlign:"center", marginTop:50}}>
+          <Col span={3} offset={6}>
+            <img 
+              width={100}
+              src={logo}
+            />
+          </Col>
+          <Col span={3}>
+            <img 
+              width={100}
+              src={logo1}
+              />
+          </Col>
+          <Col span={3}>
+            <img 
+              width={100}
+              src={logo2}
+            />
+          </Col>
+          <Col span={3}>
+            <img 
+              width={100}
+              src={logo3}
+            />
+          </Col>
+        </Row>
+        <Row style = {{textAlign:"center"}}>
+          <Col span={4} offset={10}>
+            <Button type = "primary" style = {{marginTop: 20}}>Partner With Us</Button> 
+          </Col>
+        </Row>
+      </div>
+{/* 
       <div className="partners" style = {{backgroundColor:"#D9D9D9", height: 600 , textAlign:"center", color:"black", marginTop:100, marginBottom: 100}}>
         <p> Partners</p>
-      </div>
+      </div> */}
       
 
       <div style = {{marginTop:100, marginBottom: 100}}>
