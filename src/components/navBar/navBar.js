@@ -1,5 +1,5 @@
 import React from "react";
-import SiteNav, { ContentGroup } from "react-site-nav";
+// import SiteNav, { ContentGroup } from "react-site-nav";
 import {
   Switch,
   Link,
@@ -14,7 +14,7 @@ export default function NavBar() {
   const [showModal, setShowModal] = React.useState(false);
   return (
       <div className="container-fluid">
-         <header>
+         {/* <header>
            <div className="logo">
              <Link to="/">
                <img 
@@ -68,7 +68,7 @@ export default function NavBar() {
             <ContentGroup title="What’s New" rootURL="/"/>
             <ContentGroup title="Donate" rootURL="/" background="white"/>
           </SiteNav>
-        </header>
+        </header> */}
       </div> 
   );
 }
