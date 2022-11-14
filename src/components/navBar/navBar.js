@@ -1,12 +1,14 @@
 import React from "react";
-// import SiteNav, { ContentGroup } from "react-site-nav";
-import {
-  Switch,
-  Link,
-  Route,
-  BrowserRouter,
-  withRouter
-} from "react-router-dom";
+import SiteNav, { ContentGroup } from "react-site-nav";
+// import {
+//   Switch,
+//   Link,
+//   Route,
+//   BrowserRouter,
+//   withRouter
+// } from "react-router-dom";
+import Link from "../../components/Link";
+import Route from "../../components/Route";
 
 import "./navBar.css";
 
@@ -14,7 +16,7 @@ export default function NavBar() {
   const [showModal, setShowModal] = React.useState(false);
   return (
       <div className="container-fluid">
-         {/* <header>
+         <header>
            <div className="logo">
              <Link to="/">
                <img 
@@ -29,46 +31,74 @@ export default function NavBar() {
             <ContentGroup title="About" width="200" height="150">
               <ul>
                 <li>
-                  <Link to="/about"> About BiGAUSTIN</Link>
+                  {/* <Link to="/about"> About BiGAUSTIN</Link> */}
+                  <Link href="/about">
+                  About BiGAUSTIN
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/ourimpact">Our Impact</Link>
+                  {/* <Link to="/ourimpact">Our Impact</Link> */}
+                  <Link href="/ourimpact">
+                  Our Impact
+                  </Link>
+
                 </li>
                 <li>
-                  <Link to="/link-2">Our Team</Link>
+                  {/* <Link to="/link-2">Our Team</Link> */}
+                  <Link href="/link-2">
+                    Our Team
+                  </Link>
                 </li>
               </ul>
             </ContentGroup>
             <ContentGroup title="How We Help" width="200" height="150">
               <ul>
                 <li>
-                  <Link to="/link-2">Services</Link>
+                  {/* <Link to="/link-2">Services</Link> */}
+                  <Link href="/link-2">
+                  Services
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/link-2">Programs</Link>
+                  {/* <Link to="/link-2">Programs</Link> */}
+                  <Link href="/link-2">
+                  Programs
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/link-2">Workshops</Link>
+                  {/* <Link to="/link-2">Workshops</Link> */}
+                  <Link href="/link-2">
+                  Workshops
+                  </Link>
                 </li>
               </ul>
             </ContentGroup>
             <ContentGroup title="Get Involved" width="200" height="150">
               <ul>
                 <li>
-                  <Link to="/link-2">Volunteer</Link>
+                  {/* <Link to="/link-2">Volunteer</Link> */}
+                  <Link href="/link-2">
+                  Volunteer
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/link-2">Partner</Link>
+                  {/* <Link to="/link-2">Partner</Link> */}
+                  <Link href="/link-2">
+                  Partner
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/link-2">Contact Us</Link>
+                  {/* <Link to="/link-2">Contact Us</Link> */}
+                  <Link href="/link-2">
+                  Contact Us
+                  </Link>
                 </li>
               </ul>
             </ContentGroup>
             <ContentGroup title="What’s New" rootURL="/"/>
             <ContentGroup title="Donate" rootURL="/" background="white"/>
           </SiteNav>
-        </header> */}
+        </header>
       </div> 
   );
 }
