@@ -5,7 +5,9 @@ import { Button, Col, Row, Image, Carousel, Card} from 'antd';
 import "./Pages.css"
 import headerBackgroundImage from "../images/backgroundheader.png"
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@material-ui/icons";
+import React from 'react';
 const { Title} = Typography;
+
 
 export default function Home(props) {
   console.log('in home screen');

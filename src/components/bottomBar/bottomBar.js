@@ -1,4 +1,5 @@
 import "./bottomBar.css";
+import React from 'react';
 // import group3251 from "./assets/group3251.svg";
 
 

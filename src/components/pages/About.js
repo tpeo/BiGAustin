@@ -2,10 +2,12 @@ import { Typography } from 'antd';
 import BottomBar from "../bottomBar/bottomBar.js";
 import NavBar from "../navBar/navBar.js";
 import { Button, Col, Row, Image, Carousel, Card} from 'antd';
+import React from 'react';
 import "./Pages.css"
 import headerBackgroundImage from "../images/backgroundheader2.png"
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@material-ui/icons";
 const { Title} = Typography;
+
 
 export default function About(props) {
   return (

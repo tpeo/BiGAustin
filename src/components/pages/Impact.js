@@ -5,6 +5,7 @@ import {Col, Row, Image, Carousel, Card, Progress} from 'antd';
 import "./Pages.css"
 import headerBackgroundImage from "../images/backgroundheader2.png"
 import { ArrowLeftOutlined, ArrowRightOutlined} from "@material-ui/icons";
+import React from 'react';
 
 export default function Impact(props) {
   return (
