@@ -42,13 +42,13 @@ export default function NavBar() {
             <ContentGroup title="How We Help" width="200" height="150">
               <ul>
                 <li>
-                  <Link to="/link-2">Services</Link>
+                  <Link to="/services">Services</Link>
                 </li>
                 <li>
                   <Link to="/link-2">Programs</Link>
                 </li>
                 <li>
-                  <Link to="/link-2">Workshops</Link>
+                  <Link to="/workshops">Workshops</Link>
                 </li>
               </ul>
             </ContentGroup>
@@ -58,7 +58,7 @@ export default function NavBar() {
                   <Link to="/link-2">Volunteer</Link>
                 </li>
                 <li>
-                  <Link to="/link-2">Partner</Link>
+                  <Link to="/partners">Partner</Link>
                 </li>
                 <li>
                   <Link to="/link-2">Contact Us</Link>

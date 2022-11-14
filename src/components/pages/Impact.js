@@ -1,11 +1,10 @@
-import { Typography } from 'antd';
+import React from "react";
 import NavBar from "../navBar/navBar.js";
 import BottomBar from "../bottomBar/bottomBar.js";
 import {Col, Row, Image, Carousel, Card, Progress} from 'antd';
 import "./Pages.css"
 import headerBackgroundImage from "../images/backgroundheader2.png"
 import { ArrowLeftOutlined, ArrowRightOutlined} from "@material-ui/icons";
-import React from 'react';
 
 export default function Impact(props) {
   return (

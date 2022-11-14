@@ -1,22 +1,21 @@
+import React from "react";
 import { Typography } from 'antd';
 import BottomBar from "../bottomBar/bottomBar.js";
 import NavBar from "../navBar/navBar.js";
 import { Button, Col, Row, Image, Carousel, Card} from 'antd';
-import React from 'react';
 import "./Pages.css"
 import headerBackgroundImage from "../images/backgroundheader2.png"
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@material-ui/icons";
 const { Title} = Typography;
-
 
 export default function About(props) {
   return (
     <div style= {{position: "relative", height: "100vh"}}>
       <div class="new_event_container" style = {{backgroundImage: `url(${headerBackgroundImage})`, textAlign:"center", justifyContent:"center", height: "500px"}}>
            <NavBar/>
-            <Row style = {{marginTop:150, marginBottom: 100}}>
+            <Row style = {{marginBottom: 100}}>
               <Col span={14} offset={5}>
-                <Title style = {{color:"white", fontSize: 50, fontWeight: "bold"}}> 
+                <Title style = {{color:"white", fontSize: 50, fontWeight: "bold", marginTop:150}}> 
                   About BiG Austin
                 </Title>
               </Col>
