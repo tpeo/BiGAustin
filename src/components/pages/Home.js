@@ -10,11 +10,23 @@ import logo1 from "../images/_logo (1).png"
 import logo2 from "../images/_logo (2).png"
 import logo3 from "../images/_logo (3).png"
 
-import { ArrowLeftOutlined, ArrowRightOutlined } from "@material-ui/icons";
+
+import { ArrowLeftOutlined, ArrowRightOutlined, TrendingUpRounded } from "@material-ui/icons";
+const {Meta}= Card;
 const { Title} = Typography;
 
 export default function Home(props) {
   console.log('in home screen');
+  const cardStyle = {
+        borderRadius: "16px", 
+        padding:"10%",
+        // marginRight: "24px", 
+        // marginLeft: "24px", 
+        boxShadow: "5px 8px 24px 5px rgb(220,220,220)", 
+        width: "102%",
+        height: "95%"
+    };
+
 
   return (
     <div style= {{position: "relative", height: "100vh"}}>
@@ -23,14 +35,14 @@ export default function Home(props) {
             <Row style = {{marginBottom: 100}}>
               <Col span={14} offset={5}>
                 <Title style = {{color:"white", fontSize: 50, fontWeight: "bold", marginTop:100}}> 
-                  Providing Innovative Solutions And <br/> Creating Financial Strength
+                  Providing Innovative Solutions and <br/> Creating Financial Strength
                 </Title>
                 <Title level = {4} style = {{color:"white", fontFamily:"Montserrat"}}> 
                 Innovative Employment And Entrepreneurship Programs Launch Central <br/> Texans To Financial Success.
                 </Title>
                 
                 <Button type = "primary" style = {{marginTop: 20}}>Donate Now</Button> 
-                <Button style = {{marginLeft:50}} ghost>Schedule Appointment</Button>
+                <Button type = "primary" style = {{marginLeft:50, marginTop: 20}}>Schedule An Appointment</Button>
               </Col>
             </Row>
             
@@ -86,34 +98,44 @@ export default function Home(props) {
         <Row>
           <Col span={12} offset={6}>
             <h2>Ways We Help</h2>
-            <body>BiGAUSTIN has been at the heart of Central Texas entrepreneurship for over 27 years!  We
-              are focused on a combination of small business and workforce development.  We provide 
-              innovative solutions and create financial strength for our clients.  We remain proudly 
-              committed to building healthy, sustainable communities.
-            </body>
           </Col>
         </Row>
         <Row style = {{textAlign:"center", marginTop:20}} gutter = {[16,16]}>
           <Col span={4} offset={6}>
-            <Image 
-              width={200}
-              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-            />
-            <h3>Funding</h3>
+          <Card style = {cardStyle} 
+            cover = {
+              <Image 
+              src={require('../images/funding_cropped.jpg')}
+            />}>
+              <Meta
+              title= "Funding"
+              description= "Micro-loans of up to $50,000 to help grow your business"
+              />
+            </Card>
           </Col>
           <Col span={4}>
-            <Image 
-              width={200}
-              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-            />
-            <h3>Consulting</h3>
+          <Card style = {cardStyle} 
+            cover = {
+              <Image 
+              src={require('../images/consulting_cropped.jpg')}
+            />}>
+              <Meta
+              title= "Consulting"
+              description= "One-on-one consultations with experienced professionals to help address your business needs"
+              />
+            </Card>
             </Col>
           <Col span={4}>
-            <Image 
-              width={200}
-              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-            />
-            <h3>Education</h3>
+          <Card style = {cardStyle} 
+            cover = {
+              <Image 
+              src={require('../images/education_cropped.jpg')}
+            />}>
+              <Meta
+              title= "Education"
+              description= "Classes instructed by industry experts catered to specific business needs"
+              />
+            </Card>
           </Col>
         </Row>
         <Row style = {{textAlign:"center"}}>
@@ -126,7 +148,6 @@ export default function Home(props) {
       <div className="testimonials" style = {{backgroundColor:"#3D4451", textAlign:"center", color:"white", marginTop:100, marginBottom: 100}}>
       <Row>
           <Col span={12} offset={6}>
-            {/* <h4 style = {{marginTop: 50, color:"white"}}>Our Testimonials</h4> */}
             <h2 style = {{color:"white"}}>Testimonials</h2>
             <Carousel style = {{height:"400px"}} arrows nextArrow={<ArrowRightOutlined />} prevArrow={<ArrowLeftOutlined/>}>
               <div>
