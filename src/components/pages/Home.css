@@ -1,0 +1,22 @@
+.carousel {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row-reverse;
+    margin: auto;
+  }
+  
+  .carousel .content {
+    display: flex;
+    flex: 1;
+    padding: 10px;
+    margin: auto;
+  }
+
+  .image {
+    margin: auto;
+  }
+
+  .carousel_text {
+    padding-left: 50px;
+    padding-top: 20px;
+  }
