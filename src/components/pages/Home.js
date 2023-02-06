@@ -4,6 +4,7 @@ import BottomBar from "../bottomBar/bottomBar.js";
 import NavBar from "../navBar/navBar.js";
 import { Button, Col, Row, Image, Carousel, Card} from 'antd';
 import "./Pages.css"
+import "./Home.css"
 import headerBackgroundImage from "../images/backgroundheader.png"
 import logo from "../images/_logo.png"
 import logo1 from "../images/_logo (1).png"
@@ -34,8 +35,7 @@ export default function Home(props) {
            <NavBar/>
             <Row style = {{marginBottom: 100}}>
               <Col span={14} offset={5}>
-                <Title style = {{color:"white", fontSize: 50, fontWeight: "bold", marginTop:100}}> 
-                  Providing Innovative Solutions and <br/> Creating Financial Strength
+                <Title offset={3} style = {{color:"white", fontSize: 50, fontWeight: "bold", marginTop:100}}> Providing Innovative Solutions and Creating Financial Strength
                 </Title>
                 <Title level = {4} style = {{color:"white", fontFamily:"Montserrat"}}> 
                 Innovative Employment And Entrepreneurship Programs Launch Central <br/> Texans To Financial Success.
@@ -148,21 +148,26 @@ export default function Home(props) {
       <div className="testimonials" style = {{backgroundColor:"#3D4451", textAlign:"center", color:"white", marginTop:100, marginBottom: 100}}>
       <Row>
           <Col span={12} offset={6}>
-            <h2 style = {{color:"white"}}>Testimonials</h2>
-            <Carousel style = {{height:"400px"}} arrows nextArrow={<ArrowRightOutlined />} prevArrow={<ArrowLeftOutlined/>}>
-              <div>
-                <Image
-                  width={100}
-                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                  style = {{borderRadius:"50%"}}
-                />
-                <h1 style = {{fontSize: 18, color:"white"}}>Cameron Williamson</h1>
-                <h4 style = {{color:"white"}}>Founder</h4>
-                <body style = {{color:"white"}}>
-                Sea chub demoiselle whalefish zebra lionfish mud cat pelican eel. Minnow snoek icefish velvet-belly shark, California <br/>
-                halibut round stingray northern sea robin. Southern grayling trout-perchSharksucker sea toad candiru rocket <br/>
-                danio tilefish stingray deepwater stingray Sacramento splittail, Canthigaster rostrata. <br/>
+            <h2 style = {{color:"white", padding: "30px"}}>Testimonials</h2>
+            
+            <Carousel style = {{height:"350px"}} arrows nextArrow={<ArrowRightOutlined />} prevArrow={<ArrowLeftOutlined/>}>
+            <div class = "carousel">
+                <div class = "content">
+                <div class = "image">
+                  <Image
+                    width={150}
+                    src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                    style = {{borderRadius:"50%"}}
+                  />
+                  <h4 style = {{fontSize: 18, color:"white", margin: "5px"}}>Mario Carlin</h4>
+                  <p style = {{fontSize: 12, color:"white"}}> CEO, Mario Carlin Management, LLC</p>
+                </div>
+                <div class = "carousel_text">
+                  <body style = {{fontSize: 15, color:"white"}}>
+                  I heard about BiGAUSTIN in 2008 from the Texas Business Opportunity and Development program. They walked me through the whole process. They assisted me with consulting, education, networking and funding. BiGAUSTIN provides experts that really understand small business and they enabled me to reach my highest potential.
                 </body>
+                </div>
+                </div>
               </div>
               <div><h3>2</h3></div>
               <div><h3>3</h3></div>
@@ -172,15 +177,12 @@ export default function Home(props) {
         </Row>
       </div>
 
-      <div className="partners-section" style = {{textAlign:"center", color:"black", marginTop:100, marginBottom: 100}}>
+      <div className="partners-section" style = {{textAlign:"left", color:"black", marginTop:100, marginBottom: 100}}>
       <Row>
           <Col span={12} offset={6}>
             <h2 style = {{color:"black"}}>Our Partners</h2>
             <p style = {{color:"black"}}>
-            BiGAUSTIN has been at the heart of Central Texas entrepreneurship for over 27 years!  
-            We are focused on a combination of small business and workforce development.  
-            We provide innovative solutions and create financial strength for our clients. 
-            We remain proudly committed to building healthy, sustainable communities. <br/>
+            Trusted Partnerships with Leading Organizations <br/>
                 </p>
           </Col>
         </Row>
@@ -222,76 +224,7 @@ export default function Home(props) {
       </div> */}
       
 
-      <div style = {{marginTop:100, marginBottom: 100}}>
-        <Row>
-          <Col span={12} offset={6}>
-            <Title level = {5}>Latest News</Title>
-            <h2>Articles You May Read</h2>
-          </Col>
-        </Row>
-        <Row gutter = {[20,20]}>
-          <Col span={4} offset={6}>
-            <Card bodyStyle={{padding:10}}>
-            <div className="custom-image">
-                <img alt="example" width="100%" src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"/>
-              </div>
-              <div className="custom-image">
-                <body>Esther Howard  12 Dec 2021</body>
-              </div>
-              <div className="custom-card">
-              <h2 style = {{fontSize:23}}>Charity, Expectations vs. Reality</h2>
-                <p>Lorem ipsum dolor sit amet, consetetur sadipscing sed diam nonumy
-                  tempor invidunt ut labore et 
-                  magna aliquyam erat, sed diam voluptua.....
-                  </p>
-              </div>
-              <div>
-              <Button type = "primary" style = {{backgroundColor: "#219D80"}}>Read More</Button>
-              </div>
-            </Card>
-          </Col>
-          <Col span={4} >
-          <Card bodyStyle={{padding:10}}>
-            <div className="custom-image">
-                <img alt="example" width="100%" src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"/>
-              </div>
-              <div className="custom-image">
-                <body>Esther Howard 12 Dec 2021</body>
-              </div>
-              <div className="custom-card">
-              <h2 style = {{fontSize:23}}>Charity, Expectations vs. Reality</h2>
-                <p>Lorem ipsum dolor sit amet, consetetur sadipscing sed diam nonumy 
-                  tempor invidunt ut labore et 
-                  magna aliquyam erat, sed diam voluptua.....
-                  </p>
-              </div>
-              <div>
-              <Button type = "primary" style = {{backgroundColor: "#219D80"}}>Read More</Button>
-              </div>
-            </Card>
-            </Col>
-          <Col span={4}>
-          <Card bodyStyle={{padding:10}}>
-            <div className="custom-image">
-                <img alt="example" width="100%" src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"/>
-              </div>
-              <div className="custom-image">
-                <body>Esther Howard  12 Dec 2021</body>
-              </div>
-              <div className="custom-card">
-              <h2 style = {{fontSize:23}}>Charity, Expectations vs. Reality</h2>
-                <p>Lorem ipsum dolor sit amet, consetetur sadipscing sed diam nonumy 
-                  tempor invidunt ut labore et
-                  magna aliquyam erat, sed diam voluptua.....
-                  </p>
-              </div>
-              <div>
-                <Button type = "primary" style = {{backgroundColor: "#219D80"}}>Read More</Button>
-              </div>
-            </Card>
-          </Col>
-        </Row>
-      </div>
+      
     <BottomBar/>
     </div>
 

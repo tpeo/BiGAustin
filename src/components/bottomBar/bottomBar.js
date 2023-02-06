@@ -8,28 +8,38 @@ export default function BottomBar() {
     <div className="bottomBarContainer">
       <div className="rectangle">
         <div className="flex-container">
-          <span className="num-10-k">10k</span>
-          <span className="worldwide-client-alr">
-            Worldwide Client <br /> Already Connected
+          <span className="address">Address</span>
+          <span className="address_text">
+          2464 Royal Ln. Mesa, New Jersey 45463
           </span>
         </div>
         <div className="flex-container-1">
-          <span className="quick-link">Quick Link</span>
-          <span className="home">Home</span>
-          <span className="about-us">About us</span>
-          <span className="blog-post">Blog post</span>
-          <span className="photo-gallery">Photo gallery</span>
+          <span className="header_text">Quick Links</span>
+          <span className="link_text">Home</span>
+          <span className="link_text">Donate</span>
+          <span className="link_text">News</span>
+          <span className="link_text">Contact Us</span>
         </div>
-        <div className="flex-container-2">
-          <span className="get-in-touch">Get In Touch</span>
-          <span className="contact-us">Contact us</span>
-          <span className="our-services">Our services</span>
+        <div className="flex-container-1">
+          <span className="header_text">Get In Touch</span>
+          <span className="link_text">Home</span>
+          <span className="link_text">Donate</span>
+          <span className="link_text">News</span>
+          <span className="link_text">Contact Us</span>
         </div>
-        <div className="flex-container-3">
-          <span className="address">Address</span>
-          <span className="address-thing">
-            2464 Royal Ln. 
-          </span>
+        <div className="flex-container-1">
+          <span className="header_text">How We Help</span>
+          <span className="link_text">Home</span>
+          <span className="link_text">Donate</span>
+          <span className="link_text">News</span>
+          <span className="link_text">Contact Us</span>
+        </div>
+        <div className="flex-container-1">
+          <span className="header_text">Get Involved</span>
+          <span className="link_text">Home</span>
+          <span className="link_text">Donate</span>
+          <span className="link_text">News</span>
+          <span className="link_text">Contact Us</span>
         </div>
         <div className="flex-container-4">
           <span className="newsletter">Newsletter</span>
@@ -41,8 +51,8 @@ export default function BottomBar() {
               <span className="subscribe">Subscribe</span>
             </div>
           </div>
-          <span className="email-frame">
-            Your email is safe with us,we don’t spam.
+          <span className="spam_text">
+            Your email is safe with us, we don’t spam.
           </span>
           <span className="follow-me">Follow Me</span>
           {/* <img className="group-3251" src={group3251} /> */}
