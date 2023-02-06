@@ -16,6 +16,7 @@ import Impact from './components/pages/Impact.js';
 import Services from './components/pages/Services.js';
 import Workshops from './components/pages/Workshops.js';
 import Partners from './components/pages/Partners.js';
+import DreamTeam from './components/pages/DreamTeam.js';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
                   <Route path={"/services"} element={<Services />} />
                   <Route path={"/workshops"} element={<Workshops />} />
                   <Route path={"/partners"} element={<Partners />} />
+                  <Route path={"/dreamteam"} element={<DreamTeam />} />
               </Routes>
           </div>
       </BrowserRouter>

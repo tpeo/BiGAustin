@@ -63,6 +63,9 @@ export default function NavBar() {
                 <li>
                   <Link to="/link-2">Contact Us</Link>
                 </li>
+                <li>
+                  <Link to="/dreamteam">Dream Team</Link>
+                </li>
               </ul>
             </ContentGroup>
             <ContentGroup title="What’s New" rootURL="/"/>
