@@ -5,36 +5,64 @@ import {Col, Row, Image, Carousel, Card, Progress} from 'antd';
 import "./Pages.css"
 import headerBackgroundImage from "../images/backgroundheader2.png"
 import { ArrowLeftOutlined, ArrowRightOutlined} from "@material-ui/icons";
+import { Doughnut } from 'react-chartjs-2';
+import { Chart as ChartJS } from "chart.js/auto"
+
+export const data = {
+  labels: ['Blue', 'Green'],
+  animation: {
+    animateScale: true
+  },
+  datasets: [
+    {
+      data: [75, 15],
+      backgroundColor: [
+        '#D0E8FF',
+        '#A9F4D0',
+      ],
+      borderColor: [
+        '#D0E8FF',
+        '#A9F4D0',
+      ],
+      borderWidth: 1,
+    },
+  ],
+};
+
+var options = {
+  animation: {
+    // loop: true,
+    // delay: 100,
+    duration: 5000
+},
+  plugins: {
+      legend: {
+          display: false
+      },
+  },
+  cutout: "50%"
+} 
 
 export default function Impact(props) {
   return (
     <div>
         <div id="new_event_container" style = {{backgroundImage: `url(${headerBackgroundImage})`, backgroundColor:"#3D4451", textAlign:"center", justifyContent:"center", height: "600px"}}>
-            <NavBar/>           
+            <NavBar/>       
         </div>
         <div style = {{marginTop:100, marginBottom: 100, textAlign:"center"}}>
             <h2> Targeted Audience </h2>
             <Row style = {{textAlign:"center", marginTop:50}}>
-                <Col span={4} offset={6}>
-                    <img 
-                    width={100}
-                    src={require('../images/helpicon.png')}
-                    />
+                <Col span={3} offset={6} >
+                    <Doughnut data={data} options={options}/> 
                     <h3>4597+</h3>
                     <body>People Rised</body>
                 </Col>
-                <Col span={4}>
-                    <img 
-                    width={100}
-                    src={require('../images/helpicon.png')}
-                    />
+                <Col span={3} offset={1}>
+                    <Doughnut data={data} options={options}/> 
                     <h3>8945+</h3>
                     <body>Volunteer</body></Col>
-                <Col span={4}>
-                    <img 
-                    width={100}
-                    src={require('../images/helpicon.png')}
-                    />
+                <Col span={3} offset={1}>
+                    <Doughnut data={data} options={options}/> 
                     <h3>10M+</h3>
                     <body>Poor People Saved</body>
                 </Col>
