@@ -5,7 +5,7 @@ import {Col, Row, Image, Carousel, Card, Progress} from 'antd';
 import "./Pages.css"
 import headerBackgroundImage from "../images/backgroundheader2.png"
 import { ArrowLeftOutlined, ArrowRightOutlined} from "@material-ui/icons";
-import { Doughnut } from 'react-chartjs-2';
+import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto"
 
 export const data = {
