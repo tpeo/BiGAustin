@@ -36,37 +36,30 @@ export default function About(props) {
 
       <div style = {{marginTop:100, marginBottom: 100}}>
         <Row gutter = {[50,100]}>
-          <Col span={6} offset={6}>
+          <Col span={9} offset={3}>
             <h2>Our Mission</h2>
             <body>
             Empowering underserved Texans to excel and prosper through education, counseling, and capital.
             <br></br>
             <br></br>
             BiGAUSTIN, an Austin-based CDFI, has been at the intersection of economic and community development in Central Texas for nearly three decades. Focused on a combination of small business and workforce development efforts, we provide solutions and create financial strength for women, minorities, and clients facing systemic inequalities. We remain proudly committed to building healthy, sustainable communities and value efforts that lead to the creation of equitable economic participation.
-
-
-
-
-
-
             </body>
           </Col>
-          <Col span={6}>
+          <Col span={9}>
             <img
-            width = {800}
             src={require('../images/about_right.jpg')} 
-            style = {{marginTop:20}}
+            style = {{marginTop:20, top: 24}}
             />
           </Col>
 
-          <Col span={6} offset={6}>
+          <Col span={9} offset={3}>
             <img
             width = {400}
             src={require('../images/about_left.jpg')} 
             style = {{marginTop:20}}
             />
           </Col>
-          <Col span={6}>
+          <Col span={9}>
             <h2>Our History</h2>
             <body>
             BiGAUSTIN was founded in 1992 as a City of Austin-funded organization designed to help people start their own small business, particularly low to moderate income minorities. In 1995, BiGAUSTIN obtained its 501(c)(3) non-profit status and began independent operations.

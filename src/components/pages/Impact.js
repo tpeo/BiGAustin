@@ -139,7 +139,7 @@ export default function Impact(props) {
       </div>
 
       <div style = {{marginTop:100, marginBottom: 100}}>
-        <Row gutter = {[16,40]}>
+        {/* <Row gutter = {[16,40]}>
             <Col span={2} offset={6}>
                 Annual Education Hours
             </Col>
@@ -161,7 +161,7 @@ export default function Impact(props) {
             <Col span={10}>
                 <Progress percent={55} format={() => '5092'} strokeColor={{'0%': '#88BEB7','100%': '#63A697'}} trailColor = "transparent" status="active"/>
             </Col>
-        </Row>
+        </Row> */}
       </div>
 
       <div>
