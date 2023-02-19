@@ -7,6 +7,15 @@ import headerBackgroundImage from "../images/backgroundheader2.png"
 import { ArrowLeftOutlined, ArrowRightOutlined} from "@material-ui/icons";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto"
+import {
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
 
 export const data = {
   labels: ['Blue', 'Green'],
@@ -43,12 +52,72 @@ var options = {
   cutout: "50%"
 } 
 
+export const optionsBar = {
+  barThickness: 15,
+  scales: {
+    x: {
+      ticks: {
+        tickWidth: 10,
+        display: false,
+      },
+      grid: {
+        lineWidth: 0
+      }
+    },
+    y: {
+      ticks: {
+        tickWidth: 10,
+        display: false,
+      },
+      grid: {
+        lineWidth: 0
+      }
+    }
+  },
+  indexAxis: 'y',
+  elements: {
+    bar: {
+      borderWidth: 5,
+    },
+  },
+  responsive: true,
+  plugins: {
+    legend: {
+      display:false,
+    },
+    title: {
+      display: true,
+      text: 'Demographical Description',
+    },
+  },
+};
+
+const labels = ['Education', 'Clients', 'Consulting'];
+
+export const dataBar = {
+  labels: ["Education", "Clients", "Consulting"],
+  datasets: [
+    {
+      labels: ["Education", "Clients", "Consulting"],
+      data: [2,10,7],
+      borderColor: '#88BEB7',
+      backgroundColor: '#88BEB7',
+    }
+  ],
+};
+
 export default function Impact(props) {
   return (
     <div>
         <div id="new_event_container" style = {{backgroundImage: `url(${headerBackgroundImage})`, backgroundColor:"#3D4451", textAlign:"center", justifyContent:"center", height: "600px"}}>
             <NavBar/>       
         </div>
+        <div style = {{marginTop:100, marginBottom: 100, textAlign:"center"}}>
+         <Col span={12} offset={6}>
+          <Bar options={optionsBar} data={dataBar} />
+         </Col>
+         </div>
+        
         <div style = {{marginTop:100, marginBottom: 100, textAlign:"center"}}>
             <h2> Targeted Audience </h2>
             <Row style = {{textAlign:"center", marginTop:50}}>
@@ -75,7 +144,7 @@ export default function Impact(props) {
                 Annual Education Hours
             </Col>
             <Col span={10}>
-                <Progress percent={30} format={() => '5343'} strokeColor={{'0%': '#88BEB7','100%': '#63A697'}} trailColor = "transparent"/>
+                <Progress percent={30} format={() => '5343'} strokeColor={{'0%': '#88BEB7','100%': '#63A697'}} trailColor = "transparent" status="active"/>
             </Col>
         
 
@@ -83,14 +152,14 @@ export default function Impact(props) {
                 Annual Clients Served
             </Col>
             <Col span={10}>
-                <Progress percent={99} format={() => '4212'} strokeColor={{'0%': '#88BEB7','100%': '#63A697'}} trailColor = "transparent"/>
+                <Progress percent={99} format={() => '4212'} strokeColor={{'0%': '#88BEB7','100%': '#63A697'}} trailColor = "transparent" status="active"/>
             </Col>
 
             <Col span={2} offset={6}>
                 Total Consulting Hours
             </Col>
             <Col span={10}>
-                <Progress percent={55} format={() => '5092'} strokeColor={{'0%': '#88BEB7','100%': '#63A697'}} trailColor = "transparent"/>
+                <Progress percent={55} format={() => '5092'} strokeColor={{'0%': '#88BEB7','100%': '#63A697'}} trailColor = "transparent" status="active"/>
             </Col>
         </Row>
       </div>

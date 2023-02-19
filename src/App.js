@@ -17,6 +17,7 @@ import Services from './components/pages/Services.js';
 import Workshops from './components/pages/Workshops.js';
 import Partners from './components/pages/Partners.js';
 import DreamTeam from './components/pages/DreamTeam.js';
+import BizInc from './components/pages/BizInc.js';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
                   <Route path={"/workshops"} element={<Workshops />} />
                   <Route path={"/partners"} element={<Partners />} />
                   <Route path={"/dreamteam"} element={<DreamTeam />} />
+                  <Route path={"/bizinc"} element={<BizInc />} />
               </Routes>
           </div>
       </BrowserRouter>

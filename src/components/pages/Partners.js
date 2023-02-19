@@ -3,7 +3,7 @@ import NavBar from "../navBar/navBar.js";
 import BottomBar from "../bottomBar/bottomBar.js";
 import {Col, Row, Button} from 'antd';
 import "./Pages.css"
-import headerBackgroundImage from "../images/backgroundheader2.png"
+import headerBackgroundImage from "../images/partners_header.png"
 
 export default function Partners(props) {
   return (
