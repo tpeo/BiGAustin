@@ -6,11 +6,7 @@ import { Button, Col, Row, Image, Carousel, Card} from 'antd';
 import "./Pages.css"
 import "./Home.css"
 import headerBackgroundImage from "../images/backgroundheader.png"
-import logo from "../images/_logo.png"
-import logo1 from "../images/_logo (1).png"
-import logo2 from "../images/_logo (2).png"
-import logo3 from "../images/_logo (3).png"
-
+import { Link } from "react-router-dom";
 
 import { ArrowLeftOutlined, ArrowRightOutlined, TrendingUpRounded } from "@material-ui/icons";
 const {Meta}= Card;
@@ -156,7 +152,7 @@ export default function Home(props) {
                 <div class = "image">
                   <Image
                     width={150}
-                    src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                    src= {require('../images/mario_carin.png')}
                     style = {{borderRadius:"50%"}}
                   />
                   <h4 style = {{fontSize: 18, color:"white", margin: "5px"}}>Mario Carlin</h4>
@@ -186,35 +182,37 @@ export default function Home(props) {
                 </p>
           </Col>
         </Row>
-        <Row style = {{textAlign:"center", marginTop:50}}>
+        <Row style = {{textAlign:"center", marginTop:50}} align = "middle" gutter = {[20,70]}>
           <Col span={3} offset={6}>
             <img 
               width={100}
-              src={logo}
+              src={require('../images/Partners/cdfi_fund.png')}
             />
           </Col>
           <Col span={3}>
             <img 
               width={100}
-              src={logo1}
+              src={require('../images/Partners/capital_one_logo.png')}
               />
           </Col>
           <Col span={3}>
             <img 
               width={100}
-              src={logo2}
+              src={require('../images/Partners/economic_development_logo.png')}
             />
           </Col>
           <Col span={3}>
             <img 
               width={100}
-              src={logo3}
+              src={require('../images/Partners/frost_logo.png')}
             />
           </Col>
         </Row>
         <Row style = {{textAlign:"center"}}>
           <Col span={4} offset={10}>
-            <Button type = "primary" style = {{marginTop: 20}}>Partner With Us</Button> 
+            <Link to="/partners">
+            <Button type = "primary" style = {{marginTop: 20}}>Partner With Us</Button>
+            </Link>
           </Col>
         </Row>
       </div>

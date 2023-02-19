@@ -3,7 +3,7 @@ import NavBar from "../navBar/navBar.js";
 import BottomBar from "../bottomBar/bottomBar.js";
 import {Col, Row, Image, Carousel, Card, Progress} from 'antd';
 import "./Pages.css"
-import headerBackgroundImage from "../images/backgroundheader2.png"
+import headerBackgroundImage from "../images/impact_header.jpg"
 import { ArrowLeftOutlined, ArrowRightOutlined} from "@material-ui/icons";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto"
@@ -53,6 +53,11 @@ var options = {
 } 
 
 export const optionsBar = {
+  animation: {
+    // loop: true,
+    // delay: 100,
+    duration: 5000
+  },
   barThickness: 15,
   scales: {
     x: {
