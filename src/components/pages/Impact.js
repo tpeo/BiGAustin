@@ -17,14 +17,56 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
-export const data = {
-  labels: ['Blue', 'Green'],
+export const dataGender =  {
+  labels: ['Women', 'Men'],
   animation: {
     animateScale: true
   },
   datasets: [
     {
-      data: [75, 15],
+      data: [83, 17],
+      backgroundColor: [
+        '#D0E8FF',
+        '#A9F4D0',
+      ],
+      borderColor: [
+        '#D0E8FF',
+        '#A9F4D0',
+      ],
+      borderWidth: 1,
+    },
+  ],
+};
+
+export const dataRace =  {
+  labels: ['African-American', 'Other'],
+  animation: {
+    animateScale: true
+  },
+  datasets: [
+    {
+      data: [40, 60],
+      backgroundColor: [
+        '#D0E8FF',
+        '#A9F4D0',
+      ],
+      borderColor: [
+        '#D0E8FF',
+        '#A9F4D0',
+      ],
+      borderWidth: 1,
+    },
+  ],
+};
+
+export const dataEthnicity =  {
+  labels: ['Hispanic', 'Non-hispanic'],
+  animation: {
+    animateScale: true
+  },
+  datasets: [
+    {
+      data: [71, 29],
       backgroundColor: [
         '#D0E8FF',
         '#A9F4D0',
@@ -46,11 +88,15 @@ var options = {
 },
   plugins: {
       legend: {
-          display: false
+          display: true,
+          position: 'bottom',
+          maxHeight: 100
       },
   },
   cutout: "50%"
 } 
+
+const labels = ["Annual Education Hours", "Total Consulting Hours", "Annual Clients Served"]
 
 export const optionsBar = {
   animation: {
@@ -72,7 +118,9 @@ export const optionsBar = {
     y: {
       ticks: {
         tickWidth: 10,
-        display: false,
+        callback: function(value, index, ticks) {
+          return labels[value];
+        }
       },
       grid: {
         lineWidth: 0
@@ -91,20 +139,18 @@ export const optionsBar = {
       display:false,
     },
     title: {
-      display: true,
+      display: false,
       text: 'Demographical Description',
     },
   },
 };
 
-const labels = ['Education', 'Clients', 'Consulting'];
-
 export const dataBar = {
-  labels: ["Education", "Clients", "Consulting"],
+  labels: ["Annual Education Hours", "Total Consulting Hours", "Annual Clients Served"],
   datasets: [
     {
-      labels: ["Education", "Clients", "Consulting"],
-      data: [2,10,7],
+      labels: ["Annual Education Hours", "Total Consulting Hours", "Annual Clients Served"],
+      data: [5343,5092,4212],
       borderColor: '#88BEB7',
       backgroundColor: '#88BEB7',
     }
@@ -118,6 +164,7 @@ export default function Impact(props) {
             <NavBar/>       
         </div>
         <div style = {{marginTop:100, marginBottom: 100, textAlign:"center"}}>
+        <h2> Demographical Description </h2>
          <Col span={12} offset={6}>
           <Bar options={optionsBar} data={dataBar} />
          </Col>
@@ -125,20 +172,18 @@ export default function Impact(props) {
         
         <div style = {{marginTop:100, marginBottom: 100, textAlign:"center"}}>
             <h2> Targeted Audience </h2>
-            <Row style = {{textAlign:"center", marginTop:50}}>
+            <Row style = {{textAlign:"center", marginTop:50, marginLeft: 45}}>
                 <Col span={3} offset={6} >
-                    <Doughnut data={data} options={options}/> 
-                    <h3>4597+</h3>
-                    <body>People Rised</body>
+                    <Doughnut data={dataGender} options={options}/> 
+                    <h3>Gender</h3>
                 </Col>
                 <Col span={3} offset={1}>
-                    <Doughnut data={data} options={options}/> 
-                    <h3>8945+</h3>
-                    <body>Volunteer</body></Col>
+                    <Doughnut data={dataEthnicity} options={options}/> 
+                    <h3>Ethnicity</h3>
+                </Col>
                 <Col span={3} offset={1}>
-                    <Doughnut data={data} options={options}/> 
-                    <h3>10M+</h3>
-                    <body>Poor People Saved</body>
+                    <Doughnut data={dataRace} options={options}/> 
+                    <h3>Race</h3>
                 </Col>
             </Row>
       </div>
