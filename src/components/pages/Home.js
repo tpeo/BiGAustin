@@ -20,8 +20,6 @@ export default function Home(props) {
   const cardStyle = {
         borderRadius: "16px", 
         padding:"10%",
-        // marginRight: "24px", 
-        // marginLeft: "24px", 
         boxShadow: "5px 8px 24px 5px rgb(220,220,220)", 
         width: "102%",
         height: "95%"
@@ -232,7 +230,7 @@ export default function Home(props) {
                   setLogoIndex(logoIndex + 4)
                 }
                 }}/>
-            </Col>s
+            </Col>
           </Row>
         <Row style = {{textAlign:"center"}}>
           <Col span={4} offset={10}>
@@ -242,10 +240,6 @@ export default function Home(props) {
           </Col>
         </Row>
       </div>
-{/* 
-      <div className="partners" style = {{backgroundColor:"#D9D9D9", height: 600 , textAlign:"center", color:"black", marginTop:100, marginBottom: 100}}>
-        <p> Partners</p>
-      </div> */}
       
 
       
