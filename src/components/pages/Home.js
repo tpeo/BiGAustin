@@ -7,18 +7,19 @@ import "./Pages.css"
 import "./Home.css"
 import headerBackgroundImage from "../images/backgroundheader.png"
 import { Link } from "react-router-dom";
+import {logos} from "../images/Partners/logos.js";
+import { useState } from "react";
 
 import { ArrowLeftOutlined, ArrowRightOutlined, TrendingUpRounded } from "@material-ui/icons";
 const {Meta}= Card;
 const { Title} = Typography;
 
 export default function Home(props) {
+  const [logoIndex, setLogoIndex] = useState(0);
   console.log('in home screen');
   const cardStyle = {
         borderRadius: "16px", 
         padding:"10%",
-        // marginRight: "24px", 
-        // marginLeft: "24px", 
         boxShadow: "5px 8px 24px 5px rgb(220,220,220)", 
         width: "102%",
         height: "95%"
@@ -101,6 +102,7 @@ export default function Home(props) {
           <Card style = {cardStyle} 
             cover = {
               <Image 
+              preview={false}
               src={require('../images/funding_cropped.jpg')}
             />}>
               <Meta
@@ -113,6 +115,7 @@ export default function Home(props) {
           <Card style = {cardStyle} 
             cover = {
               <Image 
+              preview={false}
               src={require('../images/consulting_cropped.jpg')}
             />}>
               <Meta
@@ -125,6 +128,7 @@ export default function Home(props) {
           <Card style = {cardStyle} 
             cover = {
               <Image 
+              preview={false}
               src={require('../images/education_cropped.jpg')}
             />}>
               <Meta
@@ -151,6 +155,7 @@ export default function Home(props) {
                 <div class = "content">
                 <div class = "image">
                   <Image
+                   preview={false}
                     width={150}
                     src= {require('../images/mario_carin.png')}
                     style = {{borderRadius:"50%"}}
@@ -182,32 +187,51 @@ export default function Home(props) {
                 </p>
           </Col>
         </Row>
-        <Row style = {{textAlign:"center", marginTop:50}} align = "middle" gutter = {[20,70]}>
-          <Col span={3} offset={6}>
-            <img 
-              width={100}
-              src={require('../images/Partners/cdfi_fund.png')}
-            />
-          </Col>
-          <Col span={3}>
-            <img 
-              width={100}
-              src={require('../images/Partners/capital_one_logo.png')}
+       
+          <Row style = {{textAlign:"center", marginTop:50}} align = "middle" gutter = {[20,70]}>
+            <Col span={3} offset={3}>
+              <ArrowLeftOutlined onClick={() => {
+                if (logoIndex - 4 < 0) {
+                  setLogoIndex(0)
+                } else {
+                  setLogoIndex(logoIndex - 4)
+                }
+              }}/>
+            </Col>
+            <Col span={3}>
+              <img 
+                width={100}
+                src={require(`../images/Partners/${logos[logoIndex]}`)}
               />
-          </Col>
-          <Col span={3}>
-            <img 
-              width={100}
-              src={require('../images/Partners/economic_development_logo.png')}
-            />
-          </Col>
-          <Col span={3}>
-            <img 
-              width={100}
-              src={require('../images/Partners/frost_logo.png')}
-            />
-          </Col>
-        </Row>
+            </Col>
+            <Col span={3}>
+              <img 
+                width={100}
+                src={require(`../images/Partners/${logos[logoIndex + 1]}`)}
+                />
+            </Col>
+            <Col span={3}>
+              <img 
+                width={100}
+                src={require(`../images/Partners/${logos[logoIndex + 2]}`)}
+              />
+            </Col>
+            <Col span={3}>
+              <img 
+                width={100}
+                src={require(`../images/Partners/${logos[logoIndex + 3]}`)}
+              />
+            </Col>
+            <Col span={3}>
+              <ArrowRightOutlined onClick={() => {
+                if (logoIndex + 4 > logos.length - 1) {
+                  setLogoIndex(0)
+                } else {
+                  setLogoIndex(logoIndex + 4)
+                }
+                }}/>
+            </Col>
+          </Row>
         <Row style = {{textAlign:"center"}}>
           <Col span={4} offset={10}>
             <Link to="/partners">
@@ -216,10 +240,6 @@ export default function Home(props) {
           </Col>
         </Row>
       </div>
-{/* 
-      <div className="partners" style = {{backgroundColor:"#D9D9D9", height: 600 , textAlign:"center", color:"black", marginTop:100, marginBottom: 100}}>
-        <p> Partners</p>
-      </div> */}
       
 
       
