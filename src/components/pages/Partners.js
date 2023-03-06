@@ -23,7 +23,11 @@ export default function Partners(props) {
                 
               </Row>
 
-              <Button type = "primary" style = {{marginTop: 100}}>Partner With Us</Button> 
+            <Row style = {{textAlign:"center"}}>
+            <Col span={12} offset={6}>
+              <Button type = "primary" style = {{marginTop: 40}}>Partner With Us</Button> 
+            </Col>
+            </Row>
             
             <Row style = {{textAlign:"center", marginTop:50}} align = "middle" gutter = {[20,70]}>
                 <Col span={2} offset={6}>
