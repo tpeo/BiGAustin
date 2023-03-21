@@ -170,9 +170,44 @@ export default function Home(props) {
                 </div>
                 </div>
               </div>
-              <div><h3>2</h3></div>
-              <div><h3>3</h3></div>
-              <div><h3>4</h3></div>
+              <div class = "carousel">
+                <div class = "content">
+                <div class = "image">
+                  <Image
+                   preview={false}
+                    width={150}
+                    src= {require('../images/mario_carin.png')}
+                    style = {{borderRadius:"50%"}}
+                  />
+                  <h4 style = {{fontSize: 18, color:"white", margin: "5px"}}>Robin Robinson</h4>
+                  <p style = {{fontSize: 12, color:"white"}}> Blenders and Bowls</p>
+                </div>
+                <div class = "carousel_text">
+                  <body style = {{fontSize: 15, color:"white"}}>
+                  BiGAUSTIN has been great! Blenders and Bowls is my first business and BiGAUSTIN provided me with the tools and tips that have been more than useful. I would definitely recommend BiGAUSTIN to any local start-up.
+                </body>
+                </div>
+                </div>
+              </div>
+              <div class = "carousel">
+                <div class = "content">
+                <div class = "image">
+                  <Image
+                   preview={false}
+                    width={150}
+                    src= {require('../images/mario_carin.png')}
+                    style = {{borderRadius:"50%"}}
+                  />
+                  <h4 style = {{fontSize: 18, color:"white", margin: "5px"}}>Earl Watson</h4>
+                  <p style = {{fontSize: 12, color:"white"}}> Vapor Studio</p>
+                </div>
+                <div class = "carousel_text">
+                  <body style = {{fontSize: 15, color:"white"}}>
+                  Having just completed our second year in business we have quadrupled our sales over the first year. None of this would have been possible without B.I.G Austin. They have provided me the tools necessary to become a successful business owner... BiGAUSTIN provides invaluable services people need to bring their dreams to reality.
+                </body>
+                </div>
+                </div>
+              </div>
             </Carousel>
           </Col>
         </Row>

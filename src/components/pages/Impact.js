@@ -214,11 +214,12 @@ export default function Impact(props) {
         </Row> */}
       </div>
 
-      <div>
-        <Row>
+      {/* <div> */}
+      <div style = {{backgroundColor:"#3D4451", textAlign:"center", marginTop:100, color:"white"}}>
+        <Row style = {{textAlign:"center", marginBottom:50}}>
             <Col span={6} offset={6}>
-                <h2> Chelle Neffe - Urban Betty</h2>
-                <body>
+                <h2 style = {{textAlign:"center", marginTop:50, color: '#D9D9D9'}}> Chelle Neffe - Urban Betty</h2>
+                <body style = {{ color: '#D9D9D9'}}>
                 Chelle Neff has been a leader in the U.S. salon industry since founding Urban Betty in 2005 and 
                 has more than 20 years of experience creating innovative practices in the salon and beauty worlds. 
                 Neff has successfully grown Urban Betty’s revenue year after year and today has two salon companies 
@@ -231,7 +232,7 @@ export default function Impact(props) {
                 READ ARTICLE HERE:  https://bit.ly/2ZvSyFa
                 </body>
             </Col>
-            <Col span={5} offset={1}>
+            <Col span={5} offset={1} style = {{marginTop:50}}>
                 <img  
                     width={450}
                     src={require('../images/chelleneffe.png')} 
@@ -239,6 +240,10 @@ export default function Impact(props) {
                 />
             </Col>
         </Row>
+
+        <div class="embed-responsive embed-responsive-1by1">
+          <iframe width= {1000} height= {460} class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
+        </div>
       </div>
 
       <div className="testimonials" style = {{backgroundColor:"#3D4451", textAlign:"center", color:"white", marginTop:100}}>
