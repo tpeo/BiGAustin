@@ -26,10 +26,11 @@ export default function NavBar() {
             </Link>
           </div>
           <SiteNav color="white" background="transparent" align = "right" fontFamily="Montserrat, sans-serif" rowHeight="100">
+            <ContentGroup title="Home" rootUrl="/"/>
             <ContentGroup title="About" width="200" height="200">
               <ul>
                 <li>
-                  <Link to="/about"> About BiGAUSTIN</Link>
+                  <Link to="/about">About BiGAUSTIN</Link>
                 </li>
                 <li>
                   <Link to="/ourimpact">Our Impact</Link>
@@ -42,51 +43,19 @@ export default function NavBar() {
                 </li>
               </ul>
             </ContentGroup>
-            <ContentGroup title="Services" width="200" height="200">
+            <ContentGroup title="How We Help" width="200" height="150">
               <ul>
                 <li>
-                  <Link to="/lending">Lending</Link>
+                  <Link to="/services">Services</Link>
                 </li>
                 <li>
-                  <Link to="/consulting">Consulting</Link>
+                  <Link to="/programs">Programs</Link>
                 </li>
                 <li>
-                  <Link to="/education">Education</Link>
-                </li>
-                <li>
-                  <Link to="/bizinc">Women's Biz Inc</Link>
+                  <Link to="/workshops">Workshops</Link>
                 </li>
               </ul>
             </ContentGroup>
-            <ContentGroup title="Programs" width="200" height="370">
-              <ul>
-                <li>
-                  <Link to="/colobizcenter">Colo Biz Center</Link>
-                </li>
-                <li>
-                  <Link to="/jobsskillsprogram">Jobs Skills Program</Link>
-                </li>
-                <li>
-                  <Link to="/envisioncenter">Envision Center</Link>
-                </li>
-                <li>
-                  <Link to="/wbicoffeetalks">WBI Coffee Talks</Link>
-                </li>
-                <li>
-                  <Link to="/austincreatives">City of Austin Creatives</Link>
-                </li>
-                <li>
-                  <Link to="/startsmart">Start Smart</Link>
-                </li>
-                <li>
-                  <Link to="/empower">Empower</Link>
-                </li>
-                <li>
-                  <Link to="/aspire">Aspire</Link>
-                </li>
-              </ul>
-            </ContentGroup>
-            <ContentGroup title="Workshops" rootURL="/workshops"/>
             <ContentGroup title="Get Involved" width="200" height="150">
               <ul>
                 <li>
@@ -100,8 +69,7 @@ export default function NavBar() {
                 </li>
               </ul>
             </ContentGroup>
-            <ContentGroup title="Donate" rootURL="/"/>
-            <ContentGroup title="News" rootURL="/"/>
+            <ContentGroup title="Donate" rootUrl="/donate"/>
           </SiteNav>
         </header>
       </div>
