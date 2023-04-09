@@ -53,6 +53,12 @@ export default function NavBar() {
                 <li>
                   <Link to="/workshops">Workshops</Link>
                 </li>
+                <li>
+                  <Link to="/BizInc">BizInc</Link>
+                </li>
+                <li>
+                  <Link to="/consulting">Consulting</Link>
+                </li>
               </ul>
             </ContentGroup>
             <ContentGroup title="Get Involved" width="200" height="150">

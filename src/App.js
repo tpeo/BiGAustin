@@ -11,6 +11,7 @@ import {
 
 
 import Home from './components/pages/Home.js';
+import Consulting from './components/pages/Consulting.js';
 import About from './components/pages/About.js';
 import Impact from './components/pages/Impact.js';
 import Services from './components/pages/Services.js';
@@ -36,6 +37,7 @@ function App() {
                   <Route path={"/dreamteam"} element={<DreamTeam />} />
                   <Route path={"/bizinc"} element={<BizInc />} />
                   <Route path={"/education"} element={<Education />} />
+                  <Route path={"/consulting"} element={<Consulting />} />
                   <Route path={"/startSmart"} element={<StartSmart />} />
               </Routes>
           </div>
