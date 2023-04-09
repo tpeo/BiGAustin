@@ -19,9 +19,8 @@ export default function NavBar() {
             <Link to="/">
               <img
                 alt={"logo"}
-                src={
-                  "https://media-exp1.licdn.com/dms/image/C560BAQHY-_S23_wiwg/company-logo_200_200/0/1648837820307?e=2147483647&v=beta&t=ZQwZA1ol_VgVqccfeG-sWLa-I8SQqS_s8HfKN9AmHes"
-                }
+                src={require('../images/BIGAustinClearBackground.png')}
+                style={{margin:30}}
               />
             </Link>
           </div>
