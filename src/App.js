@@ -21,6 +21,7 @@ import DreamTeam from './components/pages/DreamTeam.js';
 import BizInc from './components/pages/BizInc.js';
 import Education from './components/pages/Education.js';
 import StartSmart from './components/pages/Programs/startSmart.js'
+import CityOfAustinCreatives from './components/pages/Programs/cityOfAustinCreatives.js';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
                   <Route path={"/education"} element={<Education />} />
                   <Route path={"/consulting"} element={<Consulting />} />
                   <Route path={"/startSmart"} element={<StartSmart />} />
+                  <Route path={"/cityOfAustinCreatives"} element={<CityOfAustinCreatives />} />
               </Routes>
           </div>
       </BrowserRouter>
