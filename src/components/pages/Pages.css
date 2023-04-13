@@ -24,7 +24,16 @@ h3 {
 
 
 h4 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+p5 {
     font-family: 'Montserrat', sans-serif;
+    background-color: transparent;
+    font-size: 13px;
+    color: gray;
 }
 
 body {

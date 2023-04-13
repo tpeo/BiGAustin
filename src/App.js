@@ -22,6 +22,7 @@ import BizInc from './components/pages/BizInc.js';
 import Education from './components/pages/Education.js';
 import StartSmart from './components/pages/Programs/startSmart.js'
 import CityOfAustinCreatives from './components/pages/Programs/cityOfAustinCreatives.js';
+import JobSkills from './components/pages/Programs/jobSkills.js';
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
                   <Route path={"/consulting"} element={<Consulting />} />
                   <Route path={"/startSmart"} element={<StartSmart />} />
                   <Route path={"/cityOfAustinCreatives"} element={<CityOfAustinCreatives />} />
+                  <Route path={"/jobSkills"} element={<JobSkills />} />
               </Routes>
           </div>
       </BrowserRouter>
