@@ -21,6 +21,7 @@ import DreamTeam from './components/pages/DreamTeam.js';
 import BizInc from './components/pages/BizInc.js';
 import Education from './components/pages/Education.js';
 import StartSmart from './components/pages/Programs/startSmart.js'
+import Programs from './components/pages/Programs/Programs.js'
 import CityOfAustinCreatives from './components/pages/Programs/cityOfAustinCreatives.js';
 import JobSkills from './components/pages/Programs/jobSkills.js';
 import WBI from './components/pages/Programs/wbi';
@@ -45,6 +46,7 @@ function App() {
                   <Route path={"/cityOfAustinCreatives"} element={<CityOfAustinCreatives />} />
                   <Route path={"/jobSkills"} element={<JobSkills />} />
                   <Route path={"/wbi"} element={<WBI />} />
+                  <Route path={"/programs"} element={<Programs />} />
               </Routes>
           </div>
       </BrowserRouter>
