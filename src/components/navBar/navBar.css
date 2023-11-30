@@ -1,9 +1,6 @@
 
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
-@import url("https://kit-free.fontawesome.com/releases/latest/css/free.min.css");
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap');
 
 section,
 h1 {
@@ -14,24 +11,68 @@ nav {
 }
 ul {
   list-style-type: none;
-  font-family: 'Montserrat' sans-serif;
+  font-family: 'League Spartan', sans-serif;
 }
+
+/* fix min media width here */
+
+
+@media (max-width: 900px) {
+  .ldSkFT {
+    display: none;
+  }
+}
+
+.ldSkFT {
+  font-weight: 600;
+  letter-spacing: 2;
+  font-size: 27;
+}
+
+.ldSkFT > div {
+  letter-spacing: 1px;
+}
+
+.IteXs {
+  background-color: #219D80;
+  border-radius: 8px;
+  margin-top: 32px;
+  margin-bottom: 32px;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.nMgSB {
+  background-color: white;
+}
+
+.fPEwlg {
+
+}
+
 
 ul li {
   position: relative;
   margin-top: 20px;
-  font-family: 'Montserrat' sans-serif;
+  font-weight: 800;
+  font-family: 'League Spartan', sans-serif;
+  padding-top: 5px;
 }
 
 a {
   text-decoration: none;
-  color: #1a1b1b;
+  letter-spacing: 0;
+  margin-left: 12px;
+  font-weight: 500;
+  font-size: 19px;
+  padding-bottom: 5px;
+  color: rgb(39, 39, 39);
 }
 
 
 header {
   display: grid;
-  grid-template-columns: 100px auto 100px;
+  grid-template-columns: 100px auto 20px;
   grid-template-rows: 60px;
   background: transparent;
 }
@@ -40,7 +81,32 @@ header {
   background: "white";
 }
 .logo img {
-  height: 60px;
-  max-width: 100%;
+  /* height: 60px; */
+  margin: 20px;
+  max-width: 200px;
   max-height: 100%;
+}
+
+#menu-appbar{
+  box-shadow: "none";
+}
+
+.src__GridItem-sc-178mgjs-2:hover {
+  cursor: pointer;
+}
+
+.menubutton{
+  text-align: right;
+  justify-content: right;
+  padding-left: 90%;
+  padding-top: 25px;
+}
+
+.icon{
+  transform: scale(1.4);
+}
+
+.css-zqqkfz-MuiPaper-root-MuiPopover-paper-MuiMenu-paper li{
+  /* background-color: blue !important; */
+  font-family: 'League Spartan', sans-serif;
 }

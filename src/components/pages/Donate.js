@@ -30,10 +30,9 @@ import { ThemeProvider } from "@mui/material/styles";
 import { appTheme } from "../Theme.js";
 import createClient from "/Users/aarushichitagi/Desktop/BiGAustin/src/client.js";
 
-
 const { Title } = Typography;
 
-export default function About(props) {
+export default function Donate(props) {
 
   const [aboutData, setAbout] = useState(null);
 
@@ -62,6 +61,7 @@ export default function About(props) {
   return (
     <ThemeProvider theme={appTheme}>
       {aboutData && (
+
 
         <div justifyContent="center" alignItems="center" style={{ position: "relative", height: "100vh", justifyContent: 'center', alignItems: 'center' }}>
           <Grid component="main" sx={{ height: "60vh", backgroundImage: `url(${headerBackgroundImage})`, backgroundSize: 'cover' }}>
@@ -118,11 +118,11 @@ export default function About(props) {
 
 
 
-          <Grid container justifyContent="center" alignItems="center" style={{  paddingTop: 30, paddingBottom:100 }}>
+          <Grid container justifyContent="center" alignItems="center" style={{ paddingTop: 30, paddingBottom: 100 }}>
             <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ width: "100%" }}>
-             
 
-              <Grid item md={4} xs={12} sx={{ display: 'flex', justifyContent: 'left', alignItems: 'left',  padding: 5}}>
+
+              <Grid item md={4} xs={12} sx={{ display: 'flex', justifyContent: 'left', alignItems: 'left', padding: 5 }}>
                 <img
                   className="squareImage"
                   src={"https://cdn.sanity.io/images/39eecjq4/production/54bfa5a4214c355ec6a31c57407e505126fad7b9-1288x1564.jpg"}
@@ -136,14 +136,14 @@ export default function About(props) {
                 />
               </Grid>
 
-              <Grid item md={4} xs={12} sx={{ paddingLeft: 5, paddingRight: 5}} >
-                <Grid container justifyContent="flex-start" alignItems="center" direction="row" sx={{ textAlign: "left",}}>
+              <Grid item md={4} xs={12} sx={{ paddingLeft: 5, paddingRight: 5 }} >
+                <Grid container justifyContent="flex-start" alignItems="center" direction="row" sx={{ textAlign: "left", }}>
                   <Typography variant="h1" sx={{
                     display: 'flex',
                     alignItems: 'center',
                     flexWrap: 'wrap',
                     fontSize: 30,
-                    
+
                     fontWeight: 500,
                     padding: 0,
                     mb: 4
@@ -162,6 +162,27 @@ export default function About(props) {
 
 
 
+
+
+
+
+          <Grid container justifyContent="center" alignItems="center" sx={{ mb: 8 }}>
+            <Button
+              width="200"
+              height="40"
+              variant="contained"
+              disableElevation
+              sx={{
+                color: appTheme.palette.primary.white, fontSize: 25, fontWeight: 500, mt: 2,
+                backgroundColor: appTheme.palette.primary.green2, borderRadius: 1, height: 50, width: 200,
+                '&:hover': {
+                  fontWeight: 700
+                },
+              }}>
+              Donate Now
+            </Button>
+
+          </Grid>
 
 
 

@@ -11,7 +11,7 @@ const { Title} = Typography;
 export default function About(props) {
   return (
     <div style= {{position: "relative", height: "100vh"}}>
-      <div class="new_event_container" style = {{backgroundImage: `url(${headerBackgroundImage})`, textAlign:"center", justifyContent:"center", height: "500px"}}>
+      <div className="new_event_container" style = {{backgroundImage: `url(${headerBackgroundImage})`, textAlign:"center", justifyContent:"center", height: "500px"}}>
            <NavBar/>
             <Row style = {{marginBottom: 100}}>
               <Col span={14} offset={5}>
