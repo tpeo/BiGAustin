@@ -1,56 +1,45 @@
 import React, { useState, useEffect } from "react";
 import {
-  AppBar,
-  Select,
   Typography,
   CssBaseline,
-  Card,
-  CardContent,
-  Container,
-  InputLabel,
-  IconButton,
-  MenuItem,
-  FormControl,
-  Paper,
-  TextField,
-  Toolbar,
-  Avatar,
   Button,
-  Box,
   Grid,
-  InputAdornment,
 } from "@mui/material";
 import BottomBar from "../bottomBar/bottomBar.js";
 import NavBar from "../navBar/navBar.js";
-import { Col, Row } from 'antd';
 import "./Pages.css"
 import "../styles.css";
-import headerBackgroundImage from "../images/backgroundheader2.png"
+import { Link } from 'react-router-dom';
 import { ThemeProvider } from "@mui/material/styles";
 import { appTheme } from "../Theme.js";
 import createClient from "/Users/aarushichitagi/Desktop/BiGAustin/src/client.js";
+import imageUrlBuilder from '@sanity/image-url'
 
-const { Title } = Typography;
+const builder = imageUrlBuilder(createClient)
+
+function urlFor(source) {
+  return builder.image(source)
+}
 
 export default function Donate(props) {
 
-  const [aboutData, setAbout] = useState(null);
+  const [donateData, setDonate] = useState(null);
 
   useEffect(() => {
     createClient.fetch(
-      `*[_type == "about"]{
+      `*[_type == "donate"]{
+        backgroundImahe,
         mainHeading,
         mainBlurb,
-        mission1,
-        mission2,
-        missionImage,
-        history1,
-        history2,
-        historyImage
+        donate1,
+        donateImage1,
+        donate2,
+        donateImage2,
+        donateButton
     }`
     )
       .then(
-        (data) => setAbout(data)
+        (data) => setDonate(data)
       )
       .catch(console.error);
   }, []//dependency array 
@@ -60,11 +49,11 @@ export default function Donate(props) {
 
   return (
     <ThemeProvider theme={appTheme}>
-      {aboutData && (
+      {donateData && (
 
 
         <div justifyContent="center" alignItems="center" style={{ position: "relative", height: "100vh", justifyContent: 'center', alignItems: 'center' }}>
-          <Grid component="main" sx={{ height: "60vh", backgroundImage: `url(${headerBackgroundImage})`, backgroundSize: 'cover' }}>
+          <Grid component="main" sx={{ height: "60vh", backgroundImage: `url(${urlFor(donateData[0].backgroundImahe).url()})`, backgroundSize: 'cover' }}>
             <NavBar />
           </Grid>
 
@@ -72,8 +61,8 @@ export default function Donate(props) {
             <Grid container justifyContent="center" alignItems="center">
               <CssBaseline />
               <Grid container direction="row" md={6.5} xs={9} sx={{ justifyContent: "center" }}>
-                <Typography variant="h1" sx={{ fontSize: 40 }}>{aboutData[0].mainHeading}</Typography>
-                <Typography variant="h2" sx={{ fontSize: 20, fontWeight: 350 }}>{aboutData[0].mainBlurb}</Typography>
+                <Typography variant="h1" sx={{ fontSize: 40 }}>{donateData[0].mainHeading}</Typography>
+                <Typography variant="h2" sx={{ fontSize: 20, fontWeight: 350 }}>{donateData[0].mainBlurb}</Typography>
               </Grid>
             </Grid>
           </Grid>
@@ -95,15 +84,22 @@ export default function Donate(props) {
                     <span style={{ paddingRight: 17 }}>Our Mission</span>
                     <img width={45} src={require('../images/decor.png')} />
                   </Typography>
-                  <Typography variant="h2" sx={{ fontSize: 20, fontWeight: 200, mb: 3 }}>{aboutData[0].mission1}</Typography>
-                  <Typography variant="h2" sx={{ fontSize: 20, fontWeight: 200 }}>{aboutData[0].mission2}</Typography>
+                  <Typography variant="h2" sx={{
+                    fontSize: 20, fontWeight: 200, mb: 3, whiteSpace: 'pre-line',
+                    wordWrap: 'break-word',
+                  }}>{donateData[0].donate1
+                    .split('<br>')
+                    .map((line, index) => (
+                      <span key={index} style={{ display: 'block' }}>{line}</span>
+                    ))}
+                    </Typography>
                 </Grid>
               </Grid>
 
               <Grid item md={4} xs={12} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
                 <img
                   className="squareImage"
-                  src={"https://cdn.sanity.io/images/39eecjq4/production/54bfa5a4214c355ec6a31c57407e505126fad7b9-1288x1564.jpg"}
+                  src={urlFor(donateData[0].donateImage1).url()}
                   alt="Logo"
                   style={{
                     width: 350,
@@ -118,14 +114,14 @@ export default function Donate(props) {
 
 
 
-          <Grid container justifyContent="center" alignItems="center" style={{ paddingTop: 30, paddingBottom: 100 }}>
+          <Grid container justifyContent="center" alignItems="center" style={{ paddingBottom: 100 }}>
             <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ width: "100%" }}>
 
 
               <Grid item md={4} xs={12} sx={{ display: 'flex', justifyContent: 'left', alignItems: 'left', padding: 5 }}>
                 <img
                   className="squareImage"
-                  src={"https://cdn.sanity.io/images/39eecjq4/production/54bfa5a4214c355ec6a31c57407e505126fad7b9-1288x1564.jpg"}
+                  src={urlFor(donateData[0].donateImage2).url()}
                   alt="Logo"
                   style={{
                     width: 350,
@@ -151,8 +147,15 @@ export default function Donate(props) {
                     <span style={{ paddingRight: 17 }}>Our History</span>
                     <img width={45} src={require('../images/decor.png')} />
                   </Typography>
-                  <Typography variant="h2" sx={{ fontSize: 20, fontWeight: 200, mb: 3 }}>{aboutData[0].mission1}</Typography>
-                  <Typography variant="h2" sx={{ fontSize: 20, fontWeight: 200 }}>{aboutData[0].mission2}</Typography>
+                  <Typography variant="h2" sx={{
+                    fontSize: 20, fontWeight: 200, mb: 3, whiteSpace: 'pre-line',
+                    wordWrap: 'break-word',
+                  }}>{donateData[0].donate2
+                    .split('<br>')
+                    .map((line, index) => (
+                      <span key={index} style={{ display: 'block' }}>{line}</span>
+                    ))}
+                    </Typography>
                 </Grid>
               </Grid>
             </Grid>
@@ -167,21 +170,23 @@ export default function Donate(props) {
 
 
           <Grid container justifyContent="center" alignItems="center" sx={{ mb: 8 }}>
-            <Button
-              width="200"
-              height="40"
-              variant="contained"
-              disableElevation
-              sx={{
-                color: appTheme.palette.primary.white, fontSize: 25, fontWeight: 500, mt: 2,
-                backgroundColor: appTheme.palette.primary.green2, borderRadius: 1, height: 50, width: 200,
-                '&:hover': {
-                  fontWeight: 700
-                },
-              }}>
-              Donate Now
-            </Button>
+            <Link to={donateData[0].donateButton} style={{ textDecoration: 'none' }}>
 
+              <Button
+                width="200"
+                height="40"
+                variant="contained"
+                disableElevation
+                sx={{
+                  color: appTheme.palette.primary.white, fontSize: 25, fontWeight: 500, mt: 2,
+                  backgroundColor: appTheme.palette.primary.green2, borderRadius: 1, height: 50, width: 200,
+                  '&:hover': {
+                    fontWeight: 700
+                  },
+                }}>
+                Donate Now
+              </Button>
+            </Link>
           </Grid>
 
 

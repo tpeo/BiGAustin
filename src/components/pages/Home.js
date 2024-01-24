@@ -1,50 +1,28 @@
 import React, { useState, useEffect } from "react";
 import {
-  AppBar,
-  Select,
   Typography,
   CssBaseline,
   Card,
-  CardContent,
-  Container,
-  InputLabel,
-  IconButton,
-  MenuItem,
-  FormControl,
-  Paper,
-  Link,
-  TextField,
-  Toolbar,
-  Avatar,
   Button,
-  Box,
   Grid,
-  InputAdornment,
 } from "@mui/material";
-import { Col, Row, Image, Carousel } from 'antd';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import PinterestIcon from '@mui/icons-material/Pinterest';
-import YouTubeIcon from '@mui/icons-material/YouTube';
 import BottomBar from "../bottomBar/bottomBar.js";
 // import NavBar from "../navBar/navBar.js";
 import NavBar from "../navBar/navBar.js";
 
 import "./Pages.css"
-import headerBackgroundImage from "../images/backgroundheader.png"
 import { ThemeProvider } from "@mui/material/styles";
 // import Carousel from "react-material-ui-carousel";
 import "../styles.css";
 import { appTheme } from "../Theme.js";
 import createClient from "/Users/aarushichitagi/Desktop/BiGAustin/src/client.js";
+import imageUrlBuilder from '@sanity/image-url'
+
 import ArrowLeftImage from '../images/arrow-left.png'; // Import the left arrow image
 import ArrowRightImage from '../images/arrow-right.png'; // Import the right arrow image
 
 import { useKeenSlider } from "keen-slider/react"
 import "keen-slider/keen-slider.min.css"
-
-import { ArrowLeftOutlined, ArrowRightOutlined } from "@material-ui/icons";
-const { Title } = Typography;
 
 
 // Custom arrow components
@@ -59,8 +37,6 @@ const CustomNextArrow = ({ onClick }) => (
     <img src={ArrowRightImage} alt="Next" />
   </div>
 );
-
-
 
 function Arrow(props) {
   const disabeld = props.disabled ? " arrow--disabled" : ""
@@ -103,11 +79,22 @@ function Arrow1(props) {
 }
 
 
+const builder = imageUrlBuilder(createClient)
+
+function urlFor(source) {
+  return builder.image(source)
+}
+
+
 
 export default function Home(props) {
   console.log('in home screen');
 
   const [homeData, setHome] = useState(null);
+
+  // console.log(homeData[0].testimonials);
+
+
 
   const items = [1, 2, 3, 4, 5, 6]
   const images = [1, 2, 3, 4]
@@ -126,16 +113,19 @@ export default function Home(props) {
     },
   })
 
+
+  const [currentSlide1, setCurrentSlide1] = useState(0)
+  const [loaded1, setLoaded1] = useState(false)
   const [sliderRef1, instanceRef1] = useKeenSlider({
     initial: 0,
     // slides: {
     //   perView: 4,
     // },
     slideChanged(slider) {
-      setCurrentSlide(slider.track.details.rel)
+      setCurrentSlide1(slider.track.details.rel)
     },
     created() {
-      setLoaded(true)
+      setLoaded1(true)
     },
   })
 
@@ -146,15 +136,37 @@ export default function Home(props) {
       `*[_type == "home"]{
       mainHeading,
       mainBlurb,
+      mainButton,
+      mainButtonLink,
+      backgroundImage,
       about,
-      peopleRised,
-      volunteers,
-      poorPeopleSaved,
-      countryMembers,
-      funding,
-      consulting,
-      education,        
-      testimonials
+      stat1title,
+      stat1number,
+      stat2title,
+      stat2number,
+      stat3title,
+      stat3number,
+      stat4title,
+      stat4number,
+      waysWeHelp,
+      column1image,
+      column1title,
+      column1blurb,
+      column2image,
+      column2title,
+      column2blurb,
+      column3image,
+      column3title,
+      column3blurb,
+      testimonials[]{
+        testimonial-> {
+          name,
+          description,
+          image,
+          blurb
+        }
+      },
+      partners
     }`
     )
       .then(
@@ -165,20 +177,18 @@ export default function Home(props) {
   )
 
 
-  // When using a responsive columns prop, each grid item needs its corresponding breakpoint. For instance, this is not working. The grid item misses the value for md:
-  // In order for the item to stay within the container you need to set min-width: 0. In practice, you can set the zeroMinWidth prop:
-
 
   return (
     <ThemeProvider theme={appTheme}>
       {homeData && (
-        <div style={{ position: "relative", height: "100vh" }}>
 
-          <Grid component="main" sx={{ paddingBottom: 10, backgroundImage: `url(${headerBackgroundImage})`, backgroundSize: 'cover' }}>
 
-            <NavBar />
 
-            <Grid container justifyContent="center">
+        <div style={{ height: "100vh" }}>
+          <NavBar />
+
+          <Grid component="main" sx={{ paddingBottom: 10, backgroundImage: `url(${urlFor(homeData[0].backgroundImage).url()})`, backgroundSize: 'cover', height: "650px" }}>
+            <Grid container justifyContent="center" sx={{ paddingTop: "60px" }}>
               <CssBaseline />
               <Grid container direction="row" sx={{ mt: 15, textAlign: "center", width: 800 }}>
                 <Typography variant="h1" sx={{ fontSize: 50, fontWeight: 500, lineHeight: 1, color: appTheme.palette.primary.white }}>{homeData[0].mainHeading}</Typography>
@@ -189,40 +199,26 @@ export default function Home(props) {
                 <Button
                   width="200"
                   variant="contained"
-                  href="https://www.paypal.com/donate/?cmd=_s-xclick&hosted_button_id=DWC8VDWDJJXX8&source=url&ssrt=1700339794757"
+                  href={homeData[0].mainButtonLink}
                   target="_blank"
                   disableElevation
                   sx={{
-                    mt: 1.5, color: appTheme.palette.primary.white, backgroundColor: appTheme.palette.primary.green2, fontSize: 20, mb: 2, fontWeight: 500,
+                    mt: 6, color: appTheme.palette.primary.white, backgroundColor: appTheme.palette.primary.green2, fontSize: 20, mb: 2, fontWeight: 500,
                     '&:hover': {
                       fontWeight: 700
                     },
                   }}>
-                  Donate Now
-                </Button>
-                <Button
-                  width="200"
-                  variant="contained"
-                  disableElevation
-                  sx={{
-                    color: appTheme.palette.primary.white, fontSize: 20, mb: 2, fontWeight: 500,
-                    backgroundColor: appTheme.palette.primary.green2,
-                    '&:hover': {
-                      fontWeight: 700
-                    },
-                  }}>
-                  Schedule an Appointment
+                  {homeData[0].mainButton}
                 </Button>
               </Grid>
-
             </Grid>
           </Grid>
 
 
 
-          <Grid container direction="column" justifyContent="center" alignItems="center" sx={{ mt: 13, mb: 10 }}>
+          <Grid container direction="column" justifyContent="center" alignItems="center" sx={{ mt: 13, mb: 18 }}>
             <Grid container justifyContent="center" sx={{ width: "65%" }}>
-            <Grid container direction="row" sx={{ mb: 5 }}>
+              <Grid container direction="row" sx={{ mb: 5 }}>
                 <Typography variant="h1" sx={{
                   display: 'flex',
                   alignItems: 'center',
@@ -235,9 +231,10 @@ export default function Home(props) {
                   <span style={{ paddingRight: 17 }}>About Us</span>
                   <img width={45} src={require('../images/decor.png')} />
                 </Typography>
+                <Typography variant="h2" sx={{ fontSize: 25, fontWeight: 200 }}>{homeData[0].about}</Typography>
               </Grid>
 
-              <Grid container spacing={2} sx={{ }}>
+              <Grid container spacing={2} sx={{}}>
                 <Grid item xs>
                   <Card
                     sx={{
@@ -252,9 +249,8 @@ export default function Home(props) {
                       justifyContent: "center",
                     }}
                   >
-
                     <div className="image-container1" style={{ "margin-bottom": "10px" }}>
-                      <img width={90} src={require('../images/helpicon.png')} />
+                      <img width={90} src={require('../images/decor.png')} />
                     </div>
 
                     <div >
@@ -262,7 +258,7 @@ export default function Home(props) {
                         variant="h1"
                         sx={{ fontWeight: 550, fontSize: 28, mb: 1, letterSpacing: 2, padding: 0, color: appTheme.palette.primary.white }}
                       >
-                        {homeData[0].peopleRised}+
+                        {homeData[0].stat1number}+
                       </Typography>
                     </div>
 
@@ -271,7 +267,7 @@ export default function Home(props) {
                         variant="h2"
                         sx={{ fontWeight: 500, fontSize: 18, mt: 0, mb: 1, padding: 0, color: appTheme.palette.primary.white }}
                       >
-                        People Rised
+                        {homeData[0].stat1title}
                       </Typography>
                     </div>
                   </Card>
@@ -300,7 +296,7 @@ export default function Home(props) {
                         variant="h1"
                         sx={{ fontWeight: 550, padding: 0, fontSize: 28, mb: 1, letterSpacing: 2, color: appTheme.palette.primary.white }}
                       >
-                        {homeData[0].volunteers}+
+                        {homeData[0].stat2number}+
                       </Typography>
                     </div>
 
@@ -309,7 +305,7 @@ export default function Home(props) {
                         variant="h2"
                         sx={{ fontWeight: 500, fontSize: 18, mb: 1, color: appTheme.palette.primary.white }}
                       >
-                        Volunteers
+                        {homeData[0].stat2title}
                       </Typography>
                     </div>
                   </Card>
@@ -338,7 +334,7 @@ export default function Home(props) {
                         variant="h1"
                         sx={{ fontWeight: 550, padding: 0, fontSize: 28, mb: 1, letterSpacing: 2, color: appTheme.palette.primary.white }}
                       >
-                        {homeData[0].poorPeopleSaved}+
+                        {homeData[0].stat3number}+
                       </Typography>
                     </div>
 
@@ -347,7 +343,7 @@ export default function Home(props) {
                         variant="h2"
                         sx={{ fontWeight: 500, fontSize: 18, mb: 1, color: appTheme.palette.primary.white }}
                       >
-                        Poor People Saved
+                        {homeData[0].stat3title}
                       </Typography>
                     </div>
                   </Card>
@@ -376,7 +372,7 @@ export default function Home(props) {
                         variant="h1"
                         sx={{ fontWeight: 550, padding: 0, fontSize: 28, mb: 1, letterSpacing: 2, color: appTheme.palette.primary.white }}
                       >
-                        {homeData[0].countryMembers}+
+                        {homeData[0].stat4number}+
                       </Typography>
                     </div>
 
@@ -385,7 +381,7 @@ export default function Home(props) {
                         variant="h2"
                         sx={{ fontWeight: 500, fontSize: 18, mb: 1, color: appTheme.palette.primary.white }}
                       >
-                        Country Members
+                        {homeData[0].stat4title}
                       </Typography>
                     </div>
                   </Card>
@@ -406,12 +402,11 @@ export default function Home(props) {
                   fontSize: 40,
                   fontWeight: 500,
                   padding: 0,
-                  mb: 4
+                  mb: 1
                 }}>
                   <span style={{ paddingRight: 17 }}>Ways We Help</span>
                   <img width={45} src={require('../images/decor.png')} />
                 </Typography>
-                <Typography variant="h2" sx={{ fontSize: 25, fontWeight: 200 }}>{homeData[0].about}</Typography>
               </Grid>
 
               <Grid container spacing={2} sx={{ mt: 5 }}>
@@ -422,8 +417,8 @@ export default function Home(props) {
                     alignItems: "center",
                     justifyContent: "center"
                   }}>
-                  <div style={{ "textAlign": "center" }}>
-                    <img width={200} src='https://cdn.sanity.io/images/39eecjq4/production/0eb2b7460963715242d27a616177f5102d446b9e-429x429.png' />
+                  <div className="circular-image2" style={{ "textAlign": "center" }}>
+                    <img width={200} src={urlFor(homeData[0].column1image).url()} />
                   </div>
 
                   <div >
@@ -431,7 +426,7 @@ export default function Home(props) {
                       variant="h1"
                       sx={{ fontWeight: 300, fontSize: 28, letterSpacing: 2, textAlign: "center" }}
                     >
-                      Funding
+                      {homeData[0].column1title}
                     </Typography>
                   </div>
 
@@ -440,9 +435,28 @@ export default function Home(props) {
                       variant="h2"
                       sx={{ fontWeight: 300, fontSize: 19, mb: 1, letterSpacing: 2, textAlign: "center" }}
                     >
-                      Micro-loans of up to $50,000 to help grow your business
+                      {homeData[0].column1blurb}
                     </Typography>
                   </div>
+                    {/* Adjust the button width */}
+                    <Button
+                      width="100%"
+                      variant="contained"
+                      disableElevation
+                      sx={{
+                        color: appTheme.palette.primary.white,
+                        fontSize: 18,
+                        fontWeight: 500,
+                        height: 40,
+                        mt: 3,
+                        backgroundColor: appTheme.palette.primary.green2,
+                        '&:hover': {
+                          fontWeight: 700
+                        },
+                      }}
+                    >
+                      Learn More
+                    </Button>
                 </Grid>
                 <Grid item xs
                   sx={{
@@ -451,8 +465,8 @@ export default function Home(props) {
                     alignItems: "center",
                     justifyContent: "center"
                   }}>
-                  <div style={{ "textAlign": "center" }}>
-                    <img width={200} src='https://cdn.sanity.io/images/39eecjq4/production/61afd543d19860f9a9066dea7a006a8713ce09f1-428x428.png' />
+                  <div className="circular-image2" style={{ "textAlign": "center" }}>
+                    <img width={200} src={urlFor(homeData[0].column2image).url()} />
                   </div>
 
                   <div >
@@ -460,7 +474,7 @@ export default function Home(props) {
                       variant="h1"
                       sx={{ fontWeight: 300, fontSize: 28, letterSpacing: 2, textAlign: "center" }}
                     >
-                      Consulting
+                      {homeData[0].column2title}
                     </Typography>
                   </div>
 
@@ -469,9 +483,28 @@ export default function Home(props) {
                       variant="h2"
                       sx={{ fontWeight: 300, fontSize: 19, mb: 1, letterSpacing: 2, textAlign: "center" }}
                     >
-                      One-on-one consultations with experienced professionals to help address your business needs
+                      {homeData[0].column2blurb}
                     </Typography>
                   </div>
+                    {/* Adjust the button width */}
+                    <Button
+                      width="100%"
+                      variant="contained"
+                      disableElevation
+                      sx={{
+                        color: appTheme.palette.primary.white,
+                        fontSize: 18,
+                        fontWeight: 500,
+                        height: 40,
+                        mt: 3,
+                        backgroundColor: appTheme.palette.primary.green2,
+                        '&:hover': {
+                          fontWeight: 700
+                        },
+                      }}
+                    >
+                      Learn More
+                    </Button>
                 </Grid>
                 <Grid item xs
                   sx={{
@@ -480,8 +513,8 @@ export default function Home(props) {
                     alignItems: "center",
                     justifyContent: "center"
                   }}>
-                  <div style={{ "textAlign": "center" }}>
-                    <img width={200} src='https://cdn.sanity.io/images/39eecjq4/production/220968489c85d6cb12619d0c07d5f6e245869d9b-428x429.png' />
+                  <div className="circular-image2" style={{ "textAlign": "center" }}>
+                    <img width={200} src={urlFor(homeData[0].column3image).url()} />
                   </div>
 
                   <div >
@@ -489,7 +522,7 @@ export default function Home(props) {
                       variant="h1"
                       sx={{ fontWeight: 300, fontSize: 28, letterSpacing: 2, textAlign: "center" }}
                     >
-                      Education
+                      {homeData[0].column3title}
                     </Typography>
                   </div>
 
@@ -498,10 +531,33 @@ export default function Home(props) {
                       variant="h2"
                       sx={{ fontWeight: 300, fontSize: 19, mb: 1, letterSpacing: 2, textAlign: "center" }}
                     >
-                      Classes instructed by industry experts catered to specific business needs
+                      {homeData[0].column3blurb}
                     </Typography>
                   </div>
+                    {/* Adjust the button width */}
+                    <Button
+                      width="100%"
+                      variant="contained"
+                      disableElevation
+                      sx={{
+                        color: appTheme.palette.primary.white,
+                        fontSize: 18,
+                        fontWeight: 500,
+                        height: 40,
+                        mt: 3,
+                        backgroundColor: appTheme.palette.primary.green2,
+                        '&:hover': {
+                          fontWeight: 700
+                        },
+                      }}
+                    >
+                      Learn More
+                    </Button>
                 </Grid>
+               
+
+
+
               </Grid>
             </Grid>
           </Grid>
@@ -530,29 +586,29 @@ export default function Home(props) {
             <h2 style={{ color: "white", paddingTop: 50, paddingBottom: 20 }}>Testimonials</h2>
             <div className="navigation-wrapper">
               <div ref={sliderRef} className="keen-slider">
-                {items.map((items) => (
+                {homeData[0].testimonials.map((item) => (
                   <div className="keen-slider__slide number-slide1">
+                    {console.log("home", item)}
                     <Grid container justifyContent="center" alignItems="center" sx={{ mb: 10, backgroundColor: appTheme.palette.primary.blue1 }}>
                       <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ width: "95%" }}>
                         <Grid item md={4} xs={12} sx={{ justifyContent: 'center', alignItems: 'center' }}>
                           <Grid sx={{ textAlign: "center" }}>
                             <div className="circular-image" >
                               <img
-                                src={"https://cdn.sanity.io/images/39eecjq4/production/54bfa5a4214c355ec6a31c57407e505126fad7b9-1288x1564.jpg"}
+                              // {urlFor(testimonial.image).url()}
+                                src={urlFor(item.testimonial.image).url()}
                                 alt="Logo"
                               ></img>
                             </div>
                           </Grid>
                           <Grid>
-                            <Typography variant="h1" sx={{ textAlign: "center", fontSize: 21, fontWeight: 500, color: appTheme.palette.primary.white, mb: -1 }}>Daniel Frunza</Typography>
-                            <Typography variant="h2" sx={{ textAlign: "center", fontSize: 18, fontWeight: 400, color: appTheme.palette.primary.white }}>Business Plan Maestro</Typography>
+                            <Typography variant="h1" sx={{ textAlign: "center", fontSize: 21, fontWeight: 500, color: appTheme.palette.primary.white, mb: -1 }}>{item.testimonial.name}</Typography>
+                            <Typography variant="h2" sx={{ textAlign: "center", fontSize: 18, fontWeight: 400, color: appTheme.palette.primary.white }}>{item.testimonial.description}</Typography>
                           </Grid>
                         </Grid>
-
-
                         <Grid item md={5} xs={12} >
                           <Grid container justifyContent="flex-start" alignItems="center" direction="row" sx={{ textAlign: "left" }}>
-                            <Typography variant="h2" sx={{ fontSize: 21, fontWeight: 200, color: appTheme.palette.primary.white, width: "90%" }}>BiGAUSTIN was a huge help to Medici when we first started.  The Start Smart course helped us put a feasibility plan together for our business as well as understand the hardships of small business.  The $15k loan was also a huge help.  When you are starting a new business it is very difficult to find financing and BIG was a very helpful resource.</Typography>
+                            <Typography variant="h2" sx={{ fontSize: 21, fontWeight: 200, color: appTheme.palette.primary.white, width: "90%" }}>{item.testimonial.blurb}</Typography>
                           </Grid>
                         </Grid>
                       </Grid>
@@ -633,53 +689,53 @@ export default function Home(props) {
           <div className="testimonials" style={{ textAlign: "center", color: "white", width: "100%" }}>
             <div className="navigation-wrapper">
               <div ref={sliderRef1} className="keen-slider">
-                {items.map((items) => (
+                {homeData[0].partners.map((items) => (
                   <div className="keen-slider__slide number-slide1">
                     <Grid container justifyContent="center" alignItems="center" sx={{ mb: 6 }}>
-                      <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ width: "70%"}}>
+                      <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ width: "70%" }}>
                         {/* Image 1 */}
-                        {images.map((items) => (
+                        {homeData[0].partners.map((items) => (
                           <Grid item md={3} sm={6} xs={12} sx={{ justifyContent: 'center', alignItems: 'center' }}>
-                          <Grid sx={{ textAlign: "center" }}>
-                            <div className="circular-image2">
-                              <img width={40}
-                                src={"https://cdn.sanity.io/images/39eecjq4/production/54bfa5a4214c355ec6a31c57407e505126fad7b9-1288x1564.jpg"}
-                                alt="Image 1"
-                              />
-                            </div>
+                            <Grid sx={{ textAlign: "center" }}>
+                              <div className="circular-image2">
+                                <img width={40}
+                                  src={urlFor(items).url()}
+                                  alt="Image 1"
+                                />
+                              </div>
+                            </Grid>
                           </Grid>
-                        </Grid>
                         ))}
-                    
+
                       </Grid>
                     </Grid>
 
                   </div>
                 ))}
               </div>
-              {loaded && instanceRef.current && (
+              {loaded1 && instanceRef1.current && (
                 <>
                   <Arrow1
                     left
                     onClick={(e) =>
-                      e.stopPropagation() || instanceRef.current?.prev()
+                      e.stopPropagation() || instanceRef1.current?.prev()
                     }
-                    disabled={currentSlide === 0}
+                    disabled={currentSlide1 === 0}
                   />
 
                   <Arrow1
                     onClick={(e) =>
-                      e.stopPropagation() || instanceRef.current?.next()
+                      e.stopPropagation() || instanceRef1.current?.next()
                     }
                     disabled={
-                      currentSlide ===
-                      instanceRef.current.track.details.slides.length - 1
+                      currentSlide1 ===
+                      instanceRef1.current.track.details.slides.length - 1
                     }
                   />
                 </>
               )}
             </div>
-          
+
           </div>
 
 
@@ -699,19 +755,7 @@ export default function Home(props) {
               Partner With Us
             </Button>
           </Grid>
-
-
-
-
-
-
-
-
           <BottomBar />
-
-
-
-
         </div>
       )}
     </ThemeProvider>

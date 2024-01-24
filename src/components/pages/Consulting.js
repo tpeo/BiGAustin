@@ -1,81 +1,53 @@
 import React, { useState, useEffect } from "react";
 import {
-  AppBar,
-  Select,
   Typography,
   CssBaseline,
   Card,
-  CardContent,
-  Container,
-  InputLabel,
-  IconButton,
-  MenuItem,
-  FormControl,
-  Paper,
-  TextField,
-  Toolbar,
-  Avatar,
   Button,
-  Box,
   Grid,
-  InputAdornment,
 } from "@mui/material";
 import BottomBar from "../bottomBar/bottomBar.js";
 import NavBar from "../navBar/navBar.js";
-import { Col, Row } from 'antd';
 import "../styles.css";
-import { Image, Carousel, Progress } from 'antd';
-import headerBackgroundImage from "../images/backgroundheader2.png"
+import { Link } from 'react-router-dom';
 import { ThemeProvider } from "@mui/material/styles";
 import { appTheme } from "../Theme.js";
 import createClient from "/Users/aarushichitagi/Desktop/BiGAustin/src/client.js";
-import ArrowLeftImage from '../images/arrow-left.png'; // Import the left arrow image
-import ArrowRightImage from '../images/arrow-right.png'; // Import the right arrow image
+import imageUrlBuilder from '@sanity/image-url'
 
+const builder = imageUrlBuilder(createClient)
 
-
-const { Title } = Typography;
-
-
-// Custom arrow components
-const CustomPrevArrow = ({ onClick }) => (
-  <div className="prev-arrow" onClick={onClick}>
-    <img src={ArrowLeftImage} alt="Previous" />
-  </div>
-);
-
-const CustomNextArrow = ({ onClick }) => (
-  <div className="next-arrow" onClick={onClick}>
-    <img src={ArrowRightImage} alt="Next" />
-  </div>
-);
-
+function urlFor(source) {
+    return builder.image(source)
+}
 
 
 export default function Consulting(props) {
 
-  const [homeData, setHome] = useState(null);
-
-
+  const [consultingData, setConsulting] = useState(null);
 
   useEffect(() => {
     createClient.fetch(
-      `*[_type == "home"]{
-      mainHeading,
-      mainBlurb,
-      about,
-      peopleRised,
-      volunteers,
-      poorPeopleSaved,
-      countryMembers,
-      funding,
-      consulting,
-      education,        
-      testimonials
+      `*[_type == "consulting"]{
+        backgroundImage,
+        mainHeading,
+        mainBlurb,
+        headingImage,
+        headingBlurb,
+        buttonLink,
+        card1title,
+        card1image,
+        card1text,
+        card2title,
+        card2image,
+        card2text,
+        card3title,
+        card3image,
+        card3text
     }`
     )
       .then(
-        (data) => setHome(data)
+        (data) => setConsulting(data)
       )
       .catch(console.error);
   }, []//dependency array 
@@ -86,10 +58,10 @@ export default function Consulting(props) {
 
   return (
     <ThemeProvider theme={appTheme}>
-      {homeData && (
+      {consultingData && (
 
         <div justifyContent="center" alignItems="center" style={{ position: "relative", height: "100vh", justifyContent: 'center', alignItems: 'center' }}>
-          <Grid component="main" sx={{ height: "60vh", backgroundImage: `url(${headerBackgroundImage})`, backgroundSize: 'cover' }}>
+          <Grid component="main" sx={{ height: "60vh", backgroundImage: `url(${urlFor(consultingData[0].backgroundImage).url()})`, backgroundSize: 'cover' }}>
             <NavBar />
           </Grid>
 
@@ -103,14 +75,14 @@ export default function Consulting(props) {
               <Grid container justifyContent="center" alignItems="center">
                 <CssBaseline />
                 <Grid container direction="row" md={6.5} xs={9} sx={{ justifyContent: "center" }}>
-                  <Typography variant="h1" sx={{ fontSize: 40, mb: 3, color: appTheme.palette.primary.green1 }}>Consulting</Typography>
+                  <Typography variant="h1" sx={{ fontSize: 40, color: appTheme.palette.primary.green1 }}>{consultingData[0].mainHeading}</Typography>
                 </Grid>
               </Grid>
-              <Typography variant="h2" sx={{ fontSize: 20, textAlign: "center", mb: 3 }}>BiGAUSTIN offers confidential business consulting services tailored to meet your needs. We’ve got you covered whether you are just getting started or if you are already in business.</Typography>
+              <Typography variant="h2" sx={{ fontSize: 20, textAlign: "center", mb: 3 }}>{consultingData[0].mainBlurb}</Typography>
 
 
               <div className="programs-image-container" style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-                <img src={require('../images/services.png')} />
+                <img src={urlFor(consultingData[0].headingImage).url()} />
               </div>
 
             </Grid>
@@ -128,30 +100,29 @@ export default function Consulting(props) {
               <Grid container justifyContent="center" alignItems="center">
                 <CssBaseline />
                 <Grid container direction="row" md={6.5} xs={9} sx={{ justifyContent: "center" }}>
-                  <Typography variant="h1" sx={{ fontSize: 25, color: appTheme.palette.primary.green1 }}>From a quick visit to thoughtful advice, we’re here for you!</Typography>
+                  <Typography variant="h1" sx={{ fontSize: 25, color: appTheme.palette.primary.green1 }}>{consultingData[0].headingBlurb}</Typography>
                 </Grid>
               </Grid>
 
 
               <Grid container justifyContent="center" alignItems="center">
-                <Button
-                  width="150"
-                  height="20"
-                  variant="contained"
-                  disableElevation
-                  sx={{
-                    color: appTheme.palette.primary.white, fontSize: 15, fontWeight: 500,
-                    backgroundColor: appTheme.palette.primary.green2, borderRadius: .7, height: 35, mt:2,
-                    '&:hover': {
-                      fontWeight: 700
-                    },
-                  }}>
-                  Schedule an Appointment
-                </Button>
-
+                <Link to={consultingData[0].buttonLink} style={{ textDecoration: 'none' }}>
+                  <Button
+                    width="150"
+                    height="20"
+                    variant="contained"
+                    disableElevation
+                    sx={{
+                      color: appTheme.palette.primary.white, fontSize: 15, fontWeight: 500,
+                      backgroundColor: appTheme.palette.primary.green2, borderRadius: .7, height: 35, mt:2,
+                      '&:hover': {
+                        fontWeight: 700
+                      },
+                    }}>
+                    Schedule an Appointment
+                  </Button>
+                </Link>
               </Grid>
-
-
             </Grid>
           </Grid>
 
@@ -167,12 +138,9 @@ export default function Consulting(props) {
             direction="column"
             justifyContent="center"
             alignItems="center"
-
             sx={{ mt: 18, paddingBottom: 10, margin: "auto" }}
           >
             <Grid container justifyContent="center" sx={{ width: "65%" }}>
-
-
               <Grid container direction="row" sx={{ mb: 5 }}>
                 <Typography variant="h1" sx={{
                   display: 'flex',
@@ -204,12 +172,11 @@ export default function Consulting(props) {
                       display: "flex",
                       flexDirection: "column",
                       alignItems: "center",
-                      justifyContent: "center",
                     }}
                   >
 
                     <div className="circular-image" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                      <img src={require('../images/money.jpeg')} />
+                      <img src={urlFor(consultingData[0].card1image).url()} />
                     </div>
 
                     <div style={{ "padding-top": "8px" }}>
@@ -217,7 +184,7 @@ export default function Consulting(props) {
                         variant="h1"
                         sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1 }}
                       >
-                        Lending
+                        {consultingData[0].card1title}
                       </Typography>
                     </div>
 
@@ -226,7 +193,7 @@ export default function Consulting(props) {
                         variant="h2"
                         sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
                       >
-                        We tailor our free consultations to meet your specific needs related to business startup, business plan development, expansion, marketing, and management assistance. We are here to help you figure it out.
+                         {consultingData[0].card1text}
                       </Typography>
                     </div>
 
@@ -245,16 +212,15 @@ export default function Consulting(props) {
                       width: 250,
                       boxShadow: "none",
                       borderRadius: 1,
-                      display: "flex",
                       margin: "auto",
+                      display: "flex",
                       flexDirection: "column",
                       alignItems: "center",
-                      justifyContent: "center",
                     }}
                   >
 
                     <div className="circular-image" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                      <img src={require('../images/money.jpeg')} />
+                      <img src={urlFor(consultingData[0].card2image).url()} />
                     </div>
 
                     <div style={{ "padding-top": "8px" }}>
@@ -262,7 +228,7 @@ export default function Consulting(props) {
                         variant="h1"
                         sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1 }}
                       >
-                        Lending
+                        {consultingData[0].card2title}
                       </Typography>
                     </div>
 
@@ -271,7 +237,7 @@ export default function Consulting(props) {
                         variant="h2"
                         sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
                       >
-                        We tailor our free consultations to meet your specific needs related to business startup, business plan development, expansion, marketing, and management assistance. We are here to help you figure it out.
+                         {consultingData[0].card2text}
                       </Typography>
                     </div>
 
@@ -290,16 +256,15 @@ export default function Consulting(props) {
                       width: 250,
                       boxShadow: "none",
                       borderRadius: 1,
-                      display: "flex",
                       margin: "auto",
+                      display: "flex",
                       flexDirection: "column",
                       alignItems: "center",
-                      justifyContent: "center",
                     }}
                   >
 
                     <div className="circular-image" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                      <img src={require('../images/money.jpeg')} />
+                      <img src={urlFor(consultingData[0].card3image).url()} />
                     </div>
 
                     <div style={{ "padding-top": "8px" }}>
@@ -307,7 +272,7 @@ export default function Consulting(props) {
                         variant="h1"
                         sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1 }}
                       >
-                        Lending
+                        {consultingData[0].card3title}
                       </Typography>
                     </div>
 
@@ -316,7 +281,7 @@ export default function Consulting(props) {
                         variant="h2"
                         sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
                       >
-                        We tailor our free consultations to meet your specific needs related to business startup, business plan development, expansion, marketing, and management assistance. We are here to help you figure it out.
+                         {consultingData[0].card3text}
                       </Typography>
                     </div>
 

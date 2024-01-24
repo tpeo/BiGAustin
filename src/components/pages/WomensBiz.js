@@ -1,81 +1,70 @@
 import React, { useState, useEffect } from "react";
 import {
-    AppBar,
-    Select,
     Typography,
     CssBaseline,
     Card,
-    CardContent,
-    Container,
-    InputLabel,
-    IconButton,
-    MenuItem,
-    FormControl,
-    Paper,
-    TextField,
-    Toolbar,
-    Avatar,
     Button,
-    Box,
     Grid,
-    InputAdornment,
 } from "@mui/material";
 import BottomBar from "../bottomBar/bottomBar.js";
 import NavBar from "../navBar/navBar.js";
-import { Col, Row } from 'antd';
 import "../styles.css";
-import { Image, Carousel, Progress } from 'antd';
-import headerBackgroundImage from "../images/backgroundheader2.png"
+import { Link } from 'react-router-dom';
 import { ThemeProvider } from "@mui/material/styles";
 import { appTheme } from "../Theme.js";
 import createClient from "/Users/aarushichitagi/Desktop/BiGAustin/src/client.js";
-import ArrowLeftImage from '../images/arrow-left.png'; // Import the left arrow image
-import ArrowRightImage from '../images/arrow-right.png'; // Import the right arrow image
+import imageUrlBuilder from '@sanity/image-url'
 
+const builder = imageUrlBuilder(createClient)
 
-
-const { Title } = Typography;
-
-
-// Custom arrow components
-const CustomPrevArrow = ({ onClick }) => (
-    <div className="prev-arrow" onClick={onClick}>
-        <img src={ArrowLeftImage} alt="Previous" />
-    </div>
-);
-
-const CustomNextArrow = ({ onClick }) => (
-    <div className="next-arrow" onClick={onClick}>
-        <img src={ArrowRightImage} alt="Next" />
-    </div>
-);
-
+function urlFor(source) {
+    return builder.image(source)
+}
 
 
 export default function WomensBiz(props) {
 
-    const [homeData, setHome] = useState(null);
-
-
+    const [womenData, setWomen] = useState(null);
 
     useEffect(() => {
         createClient.fetch(
-            `*[_type == "home"]{
-      mainHeading,
-      mainBlurb,
-      about,
-      peopleRised,
-      volunteers,
-      poorPeopleSaved,
-      countryMembers,
-      funding,
-      consulting,
-      education,        
-      testimonials
-    }`
+            `*[_type == "womensBiz"]{
+            backgroundImage,
+            mainHeading,
+            mainBlurb,
+            headingImage,
+            imageCaption,
+            headingBlurb,
+            card1title,
+            card1image,
+            card1text,
+            card2title,
+            card2image,
+            card2text,
+            card3title,
+            card3image,
+            card3text,
+            blurb,
+            buttonLink,
+            firstOffertitle,
+            firstOfferimage,
+            firstOfferblurb,
+            secondOffertitle,
+            secondOfferimage,
+            secondOfferblurb,
+            thirdOffertitle,
+            thirdOfferimage,
+            thirdOfferblurb,
+            fourthOffertitle,
+            fourthOfferimage,
+            fourthOfferblurb,
+            FifthOffertitle,
+            FifthOfferimage,
+            FifthOfferblurb,
+        }`
         )
             .then(
-                (data) => setHome(data)
+                (data) => setWomen(data)
             )
             .catch(console.error);
     }, []//dependency array 
@@ -86,10 +75,9 @@ export default function WomensBiz(props) {
 
     return (
         <ThemeProvider theme={appTheme}>
-            {homeData && (
-
+            {womenData && (
                 <div justifyContent="center" alignItems="center" style={{ position: "relative", height: "100vh", justifyContent: 'center', alignItems: 'center' }}>
-                    <Grid component="main" sx={{ height: "60vh", backgroundImage: `url(${headerBackgroundImage})`, backgroundSize: 'cover' }}>
+                    <Grid component="main" sx={{ height: "60vh", backgroundImage: `url(${urlFor(womenData[0].backgroundImage).url()})`, backgroundSize: 'cover' }}>
                         <NavBar />
                     </Grid>
 
@@ -103,26 +91,19 @@ export default function WomensBiz(props) {
                             <Grid container justifyContent="center" alignItems="center">
                                 <CssBaseline />
                                 <Grid container direction="row" md={6.5} xs={9} sx={{ justifyContent: "center" }}>
-                                    <Typography variant="h1" sx={{ fontSize: 40, mb: 3, color: appTheme.palette.primary.blue1 }}>Women's Biz Inc</Typography>
+                                    <Typography variant="h1" sx={{ fontSize: 40, color: appTheme.palette.primary.blue1 }}>{womenData[0].mainHeading}</Typography>
                                 </Grid>
                             </Grid>
-                            <Typography variant="h2" sx={{ fontSize: 20, textAlign: "center", mb: 3 }}>BiGAUSTIN offers confidential business consulting services tailored to meet your needs. We’ve got you covered whether you are just getting started or if you are already in business.</Typography>
+                            <Typography variant="h2" sx={{ fontSize: 20, textAlign: "center", mb: 3 }}>{womenData[0].mainBlurb}</Typography>
 
 
                             <div className="programs-image-container" style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-                                <img src={require('../images/services.png')} />
+                                <img src={urlFor(womenData[0].headingImage).url()} />
                             </div>
-                            <Typography variant="h1" sx={{ fontSize: 22, textAlign: "center", color: appTheme.palette.primary.blue1 }}>De J. Lozada - Founder Of Soul Popped Gourmet Popcorn
-                                “One Day I Just Decided To Do It…”
-                            </Typography>
-                            <Typography variant="h2" sx={{ fontSize: 18, textAlign: "center", color: appTheme.palette.primary.green1 }}>De J. Lozada - Founder Of Soul Popped Gourmet Popcorn
-                                Whether you are just beginning to explore the idea of starting a business, or you already have sales under your belt, BiGAUSTIN has a solution designed to provide the tools to Start Smart and grow strong.
-                            </Typography>
-
+                            <Typography variant="h1" sx={{ fontSize: 22, textAlign: "center", color: appTheme.palette.primary.blue1 }}>{womenData[0].imageCaption}</Typography>
+                            <Typography variant="h2" sx={{ fontSize: 18, textAlign: "center", color: appTheme.palette.primary.green1 }}>{womenData[0].headingBlurb}</Typography>
                         </Grid>
                     </Grid>
-
-
 
 
 
@@ -133,7 +114,7 @@ export default function WomensBiz(props) {
                         justifyContent="center"
                         alignItems="center"
 
-                        sx={{ mt: 25, paddingBottom: 10, margin: "auto" }}
+                        sx={{ mt: 25, paddingBottom: 3, margin: "auto" }}
                     >
                         <Grid container justifyContent="center" sx={{ width: "65%" }}>
 
@@ -168,12 +149,10 @@ export default function WomensBiz(props) {
                                             display: "flex",
                                             flexDirection: "column",
                                             alignItems: "center",
-                                            justifyContent: "center",
                                         }}
                                     >
-
                                         <div className="circular-image" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                                            <img src={require('../images/money.jpeg')} />
+                                            <img src={urlFor(womenData[0].card1image).url()} />
                                         </div>
 
                                         <div style={{ "padding-top": "8px" }}>
@@ -181,7 +160,7 @@ export default function WomensBiz(props) {
                                                 variant="h1"
                                                 sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1 }}
                                             >
-                                                Lending
+                                                {womenData[0].card1title}
                                             </Typography>
                                         </div>
 
@@ -190,7 +169,7 @@ export default function WomensBiz(props) {
                                                 variant="h2"
                                                 sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
                                             >
-                                                We tailor our free consultations to meet your specific needs related to business startup, business plan development, expansion, marketing, and management assistance. We are here to help you figure it out.
+                                                {womenData[0].card1text}
                                             </Typography>
                                         </div>
 
@@ -210,12 +189,11 @@ export default function WomensBiz(props) {
                                             display: "flex",
                                             flexDirection: "column",
                                             alignItems: "center",
-                                            justifyContent: "center",
                                         }}
                                     >
 
                                         <div className="circular-image" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                                            <img src={require('../images/money.jpeg')} />
+                                            <img src={urlFor(womenData[0].card2image).url()} />
                                         </div>
 
                                         <div style={{ "padding-top": "8px" }}>
@@ -223,7 +201,7 @@ export default function WomensBiz(props) {
                                                 variant="h1"
                                                 sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1 }}
                                             >
-                                                Lending
+                                                {womenData[0].card2title}
                                             </Typography>
                                         </div>
 
@@ -232,7 +210,7 @@ export default function WomensBiz(props) {
                                                 variant="h2"
                                                 sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
                                             >
-                                                We tailor our free consultations to meet your specific needs related to business startup, business plan development, expansion, marketing, and management assistance. We are here to help you figure it out.
+                                                {womenData[0].card2text}
                                             </Typography>
                                         </div>
 
@@ -252,12 +230,11 @@ export default function WomensBiz(props) {
                                             margin: "auto",
                                             flexDirection: "column",
                                             alignItems: "center",
-                                            justifyContent: "center",
                                         }}
                                     >
 
                                         <div className="circular-image" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                                            <img src={require('../images/money.jpeg')} />
+                                            <img src={urlFor(womenData[0].card3image).url()} />
                                         </div>
 
                                         <div style={{ "padding-top": "8px" }}>
@@ -265,7 +242,7 @@ export default function WomensBiz(props) {
                                                 variant="h1"
                                                 sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1 }}
                                             >
-                                                Lending
+                                                {womenData[0].card3title}
                                             </Typography>
                                         </div>
 
@@ -274,14 +251,11 @@ export default function WomensBiz(props) {
                                                 variant="h2"
                                                 sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
                                             >
-                                                We tailor our free consultations to meet your specific needs related to business startup, business plan development, expansion, marketing, and management assistance. We are here to help you figure it out.
+                                                {womenData[0].card3text}
                                             </Typography>
                                         </div>
-
-
                                     </Card>
                                 </Grid>
-
                             </Grid>
                         </Grid>
                     </Grid>
@@ -297,30 +271,29 @@ export default function WomensBiz(props) {
                             <Grid container justifyContent="center" alignItems="center">
                                 <CssBaseline />
                                 <Grid container direction="row" md={6.5} xs={9} sx={{ justifyContent: "center" }}>
-                                    <Typography variant="h1" sx={{ fontSize: 25, textAlign: "center", color: appTheme.palette.primary.green1 }}>No matter where you are in your entrepreneurial journey, we provide Individual Business Consulting services!</Typography>
+                                    <Typography variant="h1" sx={{ fontSize: 25, textAlign: "center", color: appTheme.palette.primary.green1 }}>{womenData[0].blurb}</Typography>
                                 </Grid>
                             </Grid>
 
 
                             <Grid container justifyContent="center" alignItems="center">
-                                <Button
-                                    width="150"
-                                    height="20"
-                                    variant="contained"
-                                    disableElevation
-                                    sx={{
-                                        color: appTheme.palette.primary.white, fontSize: 17, fontWeight: 500, mt: 2,
-                                        backgroundColor: appTheme.palette.primary.green2, borderRadius: .7, height: 35,
-                                        '&:hover': {
-                                            fontWeight: 700
-                                        },
-                                    }}>
-                                    Schedule an Appointment
-                                </Button>
-
+                                <Link to={womenData[0].buttonLink} style={{ textDecoration: 'none' }}>
+                                    <Button
+                                        width="150"
+                                        height="20"
+                                        variant="contained"
+                                        disableElevation
+                                        sx={{
+                                            color: appTheme.palette.primary.white, fontSize: 17, fontWeight: 500, mt: 2,
+                                            backgroundColor: appTheme.palette.primary.green2, borderRadius: .7, height: 35,
+                                            '&:hover': {
+                                                fontWeight: 700
+                                            },
+                                        }}>
+                                        Schedule an Appointment
+                                    </Button>
+                                </Link>
                             </Grid>
-
-
                         </Grid>
                     </Grid>
 
@@ -349,11 +322,7 @@ export default function WomensBiz(props) {
                         alignItems="center"
                     >
                         <Grid sx={{ mb: 10 }}>
-
-
-
                             <Grid container sx={{ justifyContent: "center", width: "100%", mb: -4 }}>
-
                                 <CssBaseline />
                                 <Grid container spacing={2}>
                                     <Grid item xs>
@@ -373,7 +342,7 @@ export default function WomensBiz(props) {
                                         >
 
                                             <div className="circular-image2" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                                                <img src={require('../images/money.jpeg')} />
+                                                <img src={urlFor(womenData[0].firstOfferimage).url()} />
                                             </div>
 
                                             <div >
@@ -381,7 +350,7 @@ export default function WomensBiz(props) {
                                                     variant="h1"
                                                     sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1, mt: 1 }}
                                                 >
-                                                    Capital
+                                                    {womenData[0].firstOffertitle}
                                                 </Typography>
                                             </div>
 
@@ -390,7 +359,7 @@ export default function WomensBiz(props) {
                                                     variant="h2"
                                                     sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
                                                 >
-                                                    The borrower's equity interest in the business and business loan.
+                                                    {womenData[0].firstOfferblurb}
                                                 </Typography>
                                             </div>
                                         </Card>
@@ -413,15 +382,15 @@ export default function WomensBiz(props) {
                                         >
 
                                             <div className="circular-image2" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                                                <img src={require('../images/money.jpeg')} />
+                                                <img src={urlFor(womenData[0].secondOfferimage).url()} />
                                             </div>
 
                                             <div >
                                                 <Typography
                                                     variant="h1"
-                                                    sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1, mt: 1 }}
+                                                    sx={{ fontWeight: 550, padding: 0, textAlign: "center", fontSize: 22, mb: 1, mt: 1 }}
                                                 >
-                                                    Capital
+                                                    {womenData[0].secondOffertitle}
                                                 </Typography>
                                             </div>
 
@@ -430,7 +399,7 @@ export default function WomensBiz(props) {
                                                     variant="h2"
                                                     sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
                                                 >
-                                                    The borrower's equity interest in the business and business loan.
+                                                    {womenData[0].secondOfferblurb}
                                                 </Typography>
                                             </div>
                                         </Card>
@@ -454,15 +423,15 @@ export default function WomensBiz(props) {
                                         >
 
                                             <div className="circular-image2" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                                                <img src={require('../images/money.jpeg')} />
+                                                <img src={urlFor(womenData[0].thirdOfferimage).url()} />
                                             </div>
 
                                             <div >
                                                 <Typography
                                                     variant="h1"
-                                                    sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1, mt: 1 }}
+                                                    sx={{ fontWeight: 550, padding: 0, textAlign: "center", fontSize: 22, mb: 1, mt: 1 }}
                                                 >
-                                                    Capital
+                                                    {womenData[0].thirdOffertitle}
                                                 </Typography>
                                             </div>
 
@@ -471,14 +440,11 @@ export default function WomensBiz(props) {
                                                     variant="h2"
                                                     sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
                                                 >
-                                                    The borrower's equity interest in the business and business loan.
+                                                    {womenData[0].thirdOfferblurb}
                                                 </Typography>
                                             </div>
                                         </Card>
                                     </Grid>
-
-
-
                                 </Grid>
                             </Grid>
 
@@ -492,7 +458,7 @@ export default function WomensBiz(props) {
                                 container
                                 justifyContent="center"
                                 alignItems="center"
-
+                                sx={{ mt: 5 }}
                             >
                                 <Grid container sx={{ width: "70%" }}>
                                     <Grid container spacing={2}>
@@ -513,15 +479,15 @@ export default function WomensBiz(props) {
                                             >
 
                                                 <div className="circular-image2" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                                                    <img src={require('../images/money.jpeg')} />
+                                                    <img src={urlFor(womenData[0].fourthOfferimage).url()} />
                                                 </div>
 
                                                 <div >
                                                     <Typography
                                                         variant="h1"
-                                                        sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1, mt: 1 }}
+                                                        sx={{ fontWeight: 550, padding: 0, textAlign: "center", fontSize: 22, mb: 1, mt: 1 }}
                                                     >
-                                                        Capital
+                                                        {womenData[0].fourthOffertitle}
                                                     </Typography>
                                                 </div>
 
@@ -530,7 +496,7 @@ export default function WomensBiz(props) {
                                                         variant="h2"
                                                         sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
                                                     >
-                                                        The borrower's equity interest in the business and business loan.
+                                                        {womenData[0].fourthOfferblurb}
                                                     </Typography>
                                                 </div>
                                             </Card>
@@ -553,15 +519,15 @@ export default function WomensBiz(props) {
                                             >
 
                                                 <div className="circular-image2" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                                                    <img src={require('../images/money.jpeg')} />
+                                                    <img src={urlFor(womenData[0].FifthOfferimage).url()} />
                                                 </div>
 
                                                 <div >
                                                     <Typography
                                                         variant="h1"
-                                                        sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1, mt: 1 }}
+                                                        sx={{ fontWeight: 550, padding: 0, textAlign: "center", fontSize: 22, mb: 1, mt: 1 }}
                                                     >
-                                                        Capital
+                                                        {womenData[0].FifthOffertitle}
                                                     </Typography>
                                                 </div>
 
@@ -570,7 +536,7 @@ export default function WomensBiz(props) {
                                                         variant="h2"
                                                         sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
                                                     >
-                                                        The borrower's equity interest in the business and business loan.
+                                                        {womenData[0].FifthOfferblurb}
                                                     </Typography>
                                                 </div>
                                             </Card>

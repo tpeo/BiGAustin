@@ -1,80 +1,65 @@
 import React, { useState, useEffect } from "react";
 import {
-  AppBar,
-  Select,
   Typography,
   CssBaseline,
   Card,
-  CardContent,
-  Container,
-  InputLabel,
-  IconButton,
-  MenuItem,
-  FormControl,
-  Paper,
-  TextField,
-  Toolbar,
-  Avatar,
   Button,
-  Box,
   Grid,
-  InputAdornment,
 } from "@mui/material";
 import BottomBar from "../bottomBar/bottomBar.js";
 import NavBar from "../navBar/navBar.js";
-import { Col, Row } from 'antd';
 import "../styles.css";
-import { Image, Carousel, Progress } from 'antd';
-import headerBackgroundImage from "../images/backgroundheader2.png"
 import { ThemeProvider } from "@mui/material/styles";
 import { appTheme } from "../Theme.js";
 import createClient from "/Users/aarushichitagi/Desktop/BiGAustin/src/client.js";
-import ArrowLeftImage from '../images/arrow-left.png'; // Import the left arrow image
-import ArrowRightImage from '../images/arrow-right.png'; // Import the right arrow image
+import imageUrlBuilder from '@sanity/image-url'
+import { Link } from 'react-router-dom';
 
+const builder = imageUrlBuilder(createClient)
 
-const { Title } = Typography;
-
-
-// Custom arrow components
-const CustomPrevArrow = ({ onClick }) => (
-  <div className="prev-arrow" onClick={onClick}>
-    <img src={ArrowLeftImage} alt="Previous" />
-  </div>
-);
-
-const CustomNextArrow = ({ onClick }) => (
-  <div className="next-arrow" onClick={onClick}>
-    <img src={ArrowRightImage} alt="Next" />
-  </div>
-);
-
+function urlFor(source) {
+  return builder.image(source)
+}
 
 
 export default function RiseThrive(props) {
 
-  const [homeData, setHome] = useState(null);
+  const [riseData, setRise] = useState(null);
 
 
 
   useEffect(() => {
     createClient.fetch(
-      `*[_type == "home"]{
-      mainHeading,
-      mainBlurb,
-      about,
-      peopleRised,
-      volunteers,
-      poorPeopleSaved,
-      countryMembers,
-      funding,
-      consulting,
-      education,        
-      testimonials
+      `*[_type == "risenthrive"]{
+        backgroundImage,
+        mainHeading,
+        headingImage,
+        paragraphTitle,
+        paragraph1,
+        firstTitle,
+        firstImage,
+        firstBlurb,
+        secondTitle,
+        secondImage,        
+        secondBlurb,
+        thirdTitle,
+        thirdImage,
+        thirdBlurb,
+        fourthTitle,
+        fourthImage,
+        fourthBlurb,
+        fifthTitle,
+        fifthImage,
+        fifthBlurb,
+        title,
+        subtext,
+        paragraph2,
+        surveyButton,
+        additionalInfo
     }`
     )
       .then(
-        (data) => setHome(data)
+        (data) => setRise(data)
       )
       .catch(console.error);
   }, []//dependency array 
@@ -85,10 +70,10 @@ export default function RiseThrive(props) {
 
   return (
     <ThemeProvider theme={appTheme}>
-      {homeData && (
+      {riseData && (
 
         <div justifyContent="center" alignItems="center" style={{ position: "relative", height: "100vh", justifyContent: 'center', alignItems: 'center' }}>
-          <Grid component="main" sx={{ height: "60vh", backgroundImage: `url(${headerBackgroundImage})`, backgroundSize: 'cover' }}>
+          <Grid component="main" sx={{ height: "60vh", backgroundImage: `url(${urlFor(riseData[0].backgroundImage).url()})`, backgroundSize: 'cover' }}>
             <NavBar />
           </Grid>
 
@@ -108,7 +93,7 @@ export default function RiseThrive(props) {
 
 
               <div className="programs-image-container" style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-                <img src={require('../images/services.png')} />
+                <img src={urlFor(riseData[0].headingImage).url()} />
               </div>
 
             </Grid>
@@ -116,7 +101,7 @@ export default function RiseThrive(props) {
 
 
 
-          <Grid container direction="column" justifyContent="center" alignItems="center" sx={{mt: 4, mb: 8 }}>
+          <Grid container direction="column" justifyContent="center" alignItems="center" sx={{ mt: 4 }}>
             <Grid container justifyContent="left" sx={{ width: "65%" }}>
               <CssBaseline />
               <Grid container direction="row" sx={{ textAlign: "left" }}>
@@ -129,11 +114,16 @@ export default function RiseThrive(props) {
                   padding: 0,
                   mb: 4
                 }}>
-                  <span style={{ paddingRight: 17, color: appTheme.palette.primary.space }}>The Entrepreneurial Leap </span>
+                  <span style={{ paddingRight: 17, color: appTheme.palette.primary.blue1 }}>{riseData[0].paragraphTitle}</span>
                   <img width={45} src={require('../images/decor.png')} />
                 </Typography>
-                <Typography variant="h2" sx={{ fontSize: 24, fontWeight: 200, mb: 5, color: appTheme.palette.primary.space }}>{homeData[0].about}</Typography>
-                <Typography variant="h2" sx={{ fontSize: 24, fontWeight: 200, color: appTheme.palette.primary.space }}>{homeData[0].about}</Typography>
+                <Typography variant="h2" sx={{
+                  fontSize: 24, fontWeight: 200, mb: 5, color: appTheme.palette.primary.space, whiteSpace: 'pre-line',
+                  wordWrap: 'break-word',
+                }}>{riseData[0].paragraph1.split('<br>')
+                  .map((line, index) => (
+                    <span key={index} style={{ display: 'block' }}>{line}</span>
+                  ))}</Typography>
               </Grid>
             </Grid>
           </Grid>
@@ -141,7 +131,7 @@ export default function RiseThrive(props) {
 
 
 
-          <Grid container direction="column" justifyContent="center" alignItems="center" sx={{ }}>
+          <Grid container direction="column" justifyContent="center" alignItems="center" sx={{}}>
             <Grid container justifyContent="left" sx={{ width: "65%" }}>
               <Typography variant="h1" sx={{
                 display: 'flex',
@@ -153,7 +143,7 @@ export default function RiseThrive(props) {
                 mt: 10,
                 mb: 4
               }}>
-                <span style={{ paddingRight: 17, color: appTheme.palette.primary.space }}>What does the Program include?</span>
+                <span style={{ paddingRight: 17, color: appTheme.palette.primary.blue1 }}>What does the Program include?</span>
                 <img width={45} src={require('../images/decor.png')} />
               </Typography>
             </Grid>
@@ -165,7 +155,7 @@ export default function RiseThrive(props) {
             justifyContent="center"
             alignItems="center"
           >
-            <Grid sx={{ mb: 5 }}>
+            <Grid sx={{ mt: 5 }}>
 
 
 
@@ -177,20 +167,18 @@ export default function RiseThrive(props) {
                     <Card
                       sx={{
                         backgroundColor: appTheme.palette.primary.white,
-                        height: 300,
-                        width: 250,
+                        height: 400,
+                        width: 350,
                         margin: "auto",
                         boxShadow: "none",
                         borderRadius: 1,
                         display: "flex",
                         flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
                       }}
                     >
 
                       <div className="circular-image2" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                        <img src={require('../images/money.jpeg')} />
+                        <img src={urlFor(riseData[0].firstImage).url()} />
                       </div>
 
                       <div >
@@ -198,16 +186,16 @@ export default function RiseThrive(props) {
                           variant="h1"
                           sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1, mt: 1 }}
                         >
-                          Capital
+                          {riseData[0].firstTitle}
                         </Typography>
                       </div>
 
                       <div>
                         <Typography
                           variant="h2"
-                          sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
+                          sx={{ textAlign: "left", fontSize: 17, mb: 1, width: "90%", color: appTheme.palette.primary.space }}
                         >
-                          The borrower's equity interest in the business and business loan.
+                          {riseData[0].firstBlurb}
                         </Typography>
                       </div>
                     </Card>
@@ -217,20 +205,18 @@ export default function RiseThrive(props) {
                     <Card
                       sx={{
                         backgroundColor: appTheme.palette.primary.white,
-                        height: 300,
-                        width: 250,
-                        boxShadow: "none",
+                        height: 400,
+                        width: 350,
                         margin: "auto",
+                        boxShadow: "none",
                         borderRadius: 1,
                         display: "flex",
                         flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
                       }}
                     >
 
                       <div className="circular-image2" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                        <img src={require('../images/money.jpeg')} />
+                        <img src={urlFor(riseData[0].secondImage).url()} />
                       </div>
 
                       <div >
@@ -238,40 +224,40 @@ export default function RiseThrive(props) {
                           variant="h1"
                           sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1, mt: 1 }}
                         >
-                          Capital
+                          {riseData[0].secondTitle}
                         </Typography>
                       </div>
 
                       <div>
                         <Typography
                           variant="h2"
-                          sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
+                          sx={{ textAlign: "left", fontSize: 17, mb: 1, width: "90%", color: appTheme.palette.primary.space }}
                         >
-                          The borrower's equity interest in the business and business loan.
+                          {riseData[0].secondBlurb}
                         </Typography>
                       </div>
                     </Card>
                   </Grid>
 
 
+
+
                   <Grid item xs>
                     <Card
                       sx={{
                         backgroundColor: appTheme.palette.primary.white,
-                        height: 300,
-                        width: 250,
-                        boxShadow: "none",
+                        height: 400,
+                        width: 350,
                         margin: "auto",
+                        boxShadow: "none",
                         borderRadius: 1,
                         display: "flex",
                         flexDirection: "column",
-                        alignItems: "center",
-                        justifyContent: "center",
                       }}
                     >
 
                       <div className="circular-image2" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                        <img src={require('../images/money.jpeg')} />
+                        <img src={urlFor(riseData[0].thirdImage).url()} />
                       </div>
 
                       <div >
@@ -279,16 +265,16 @@ export default function RiseThrive(props) {
                           variant="h1"
                           sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1, mt: 1 }}
                         >
-                          Capital
+                          {riseData[0].thirdTitle}
                         </Typography>
                       </div>
 
                       <div>
                         <Typography
                           variant="h2"
-                          sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
+                          sx={{ textAlign: "left", fontSize: 17, mb: 1, width: "90%", color: appTheme.palette.primary.space }}
                         >
-                          The borrower's equity interest in the business and business loan.
+                          {riseData[0].thirdBlurb}
                         </Typography>
                       </div>
                     </Card>
@@ -322,20 +308,18 @@ export default function RiseThrive(props) {
                       <Card
                         sx={{
                           backgroundColor: appTheme.palette.primary.white,
-                          height: 300,
-                          width: 250,
+                          height: 400,
+                          width: 350,
+                          margin: "auto",
                           boxShadow: "none",
                           borderRadius: 1,
                           display: "flex",
-                          margin: "auto",
                           flexDirection: "column",
-                          alignItems: "center",
-                          justifyContent: "center",
                         }}
                       >
 
                         <div className="circular-image2" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                          <img src={require('../images/money.jpeg')} />
+                          <img src={urlFor(riseData[0].fourthImage).url()} />
                         </div>
 
                         <div >
@@ -343,16 +327,16 @@ export default function RiseThrive(props) {
                             variant="h1"
                             sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1, mt: 1 }}
                           >
-                            Capital
+                            {riseData[0].fourthTitle}
                           </Typography>
                         </div>
 
                         <div>
                           <Typography
                             variant="h2"
-                            sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
+                            sx={{ textAlign: "left", fontSize: 17, mb: 1, width: "90%", color: appTheme.palette.primary.space }}
                           >
-                            The borrower's equity interest in the business and business loan.
+                            {riseData[0].fourthBlurb}
                           </Typography>
                         </div>
                       </Card>
@@ -362,20 +346,18 @@ export default function RiseThrive(props) {
                       <Card
                         sx={{
                           backgroundColor: appTheme.palette.primary.white,
-                          height: 300,
-                          width: 250,
+                          height: 400,
+                          width: 350,
+                          margin: "auto",
                           boxShadow: "none",
                           borderRadius: 1,
-                          margin: "auto",
                           display: "flex",
                           flexDirection: "column",
-                          alignItems: "center",
-                          justifyContent: "center",
                         }}
                       >
 
                         <div className="circular-image2" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                          <img src={require('../images/money.jpeg')} />
+                          <img src={urlFor(riseData[0].fifthImage).url()} />
                         </div>
 
                         <div >
@@ -383,16 +365,16 @@ export default function RiseThrive(props) {
                             variant="h1"
                             sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1, mt: 1 }}
                           >
-                            Capital
+                            {riseData[0].fifthTitle}
                           </Typography>
                         </div>
 
                         <div>
                           <Typography
                             variant="h2"
-                            sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
+                            sx={{ textAlign: "left", fontSize: 17, mb: 1, width: "90%", color: appTheme.palette.primary.space }}
                           >
-                            The borrower's equity interest in the business and business loan.
+                            {riseData[0].fifthBlurb}
                           </Typography>
                         </div>
                       </Card>
@@ -423,28 +405,35 @@ export default function RiseThrive(props) {
             backgroundColor: "#899B98",
             mt: 5,
           }}>
-            <Typography variant="h1" sx={{ mt: 7, fontSize: 40, textAlign: "center", color: appTheme.palette.primary.white, mb: -2 }}>Your Voice Matters to us!</Typography>
-            <Typography variant="h1" sx={{ fontSize: 23, textAlign: "center", color: appTheme.palette.primary.white }}>We could use your help in a BiG way!</Typography>
-            <Typography variant="h2" sx={{ width: "60%", fontSize: 23, mt: 4, textAlign: "left", color: appTheme.palette.primary.white }}>This is your opportunity to express your needs and suggest any additional services or resources that would benefit you. Together, we can shape a program that truly meets your expectations.</Typography>
-            <Typography variant="h2" sx={{ width: "60%", fontSize: 23, mt: 4, textAlign: "left", color: appTheme.palette.primary.white }}>We invite you to take a few moments to complete the Needs Assessment Survey and make your voice heard. Your feedback is invaluable to us, and we deeply appreciate your participation in this important endeavor.</Typography>
+            <Typography variant="h1" sx={{ mt: 7, fontSize: 40, textAlign: "center", color: appTheme.palette.primary.white, mb: -2 }}>{riseData[0].title}</Typography>
+            <Typography variant="h1" sx={{ fontSize: 23, textAlign: "center", color: appTheme.palette.primary.white }}>{riseData[0].subtext}</Typography>
+            <Typography variant="h2" sx={{
+              width: "60%", fontSize: 23, mt: 4, textAlign: "left", color: appTheme.palette.primary.white, whiteSpace: 'pre-line',
+              wordWrap: 'break-word',
+            }}>{riseData[0].paragraph2.split('<br>')
+              .map((line, index) => (
+                <span key={index} style={{ display: 'block' }}>{line}</span>
+              ))}</Typography>
 
-            <Button
-              width="150"
-              variant="contained"
-              disableElevation
-              sx={{
-                color: appTheme.palette.primary.white, fontSize: 18, fontWeight: 500,
-                backgroundColor: appTheme.palette.primary.green2, borderRadius: .9, height: 45, mr: 3,
-                '&:hover': {
-                  fontWeight: 700
-                },
-                mt: 5,
-                mb: 3
-              }}>
-              Take Survey Now
-            </Button>
+            <Link to={riseData[0].surveyButton} style={{ textDecoration: 'none' }}>
 
-            <Typography variant="h2" sx={{ width: "50%", mb: 9, fontWeight: 400, fontSize: 20, mt: 4, textAlign: "center", color: appTheme.palette.primary.white }}>For any additional information, you can contact Chessie Floyd, BiGAUSTIN Self Sufficiency Coordinator/Case Manager</Typography>
+              <Button
+                width="150"
+                variant="contained"
+                disableElevation
+                sx={{
+                  color: appTheme.palette.primary.white, fontSize: 18, fontWeight: 500,
+                  backgroundColor: appTheme.palette.primary.green2, borderRadius: .9, height: 45, mr: 3,
+                  '&:hover': {
+                    fontWeight: 700
+                  },
+                  mt: 5,
+                  mb: 3
+                }}>
+                Take Survey Now
+              </Button>
+            </Link>
+            <Typography variant="h2" sx={{ width: "50%", mb: 9, fontWeight: 400, fontSize: 20, mt: 4, textAlign: "center", color: appTheme.palette.primary.white }}>{riseData[0].additionalInfo}</Typography>
 
           </Grid>
 

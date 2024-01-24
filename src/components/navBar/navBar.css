@@ -4,7 +4,7 @@
 
 section,
 h1 {
-  padding: 20px;
+  padding: 30px;
 }
 nav {
   z-index: 999;
@@ -25,31 +25,98 @@ ul {
 
 .ldSkFT {
   font-weight: 600;
-  letter-spacing: 2;
-  font-size: 27;
+  font-size: 15px !important;
 }
+
+ul li a {
+  text-decoration: none;
+  letter-spacing: 0;
+  margin-left: 12px;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  color: white;
+}
+
 
 .ldSkFT > div {
   letter-spacing: 1px;
 }
 
-.IteXs {
+.logo{
+  margin-bottom: 15px;
+}
+
+.kCkDRK {
   background-color: #219D80;
   border-radius: 8px;
-  margin-top: 32px;
-  margin-bottom: 32px;
-  margin-left: 30px;
-  margin-right: 30px;
+  margin-top: 23px;
+  margin-bottom: 24px;
+  margin-left: 25px;
+  margin-right: 25px;
 }
 
 .nMgSB {
   background-color: white;
 }
 
-.fPEwlg {
+.fPEwlg, .huCLDU, .fQIbMS, .bbxKq, .fmCuyq, .enfcqG, .jCPphk, .hEuqQc, .lmhWFz, .edbPcI, .fuUyic, .kPbvbk, .jwfaIs, .jkwSaZ, .fHasYp, .zAcFr {
+  display: none !important;
+}
+
+.gPySTH, .cmInhN, .bEYqJm, .cmInhN, .gYajhe, .uKehN, .iPRHCQ, .kgEGoE, .cNtEWp, .hjVKzM {
+  position: absolute;
+  box-shadow: none !important;
+  background-color: #435058 !important;
+  margin-top: -8px !important;
+  height: 165px;
+  border-radius: 0px 0px 10px 10px !important;
+}
+
+.gBKqtg, .kVaAhB, .cKbxOx, .fvYTdk, .lduMHx, .cCHmcc, .bUvwGA, .cKbxOx, .kVaAhB, .bdljoe{
+  position: absolute;
+  box-shadow: none !important;
+  background-color: #435058 !important;
+  margin-top: -8px !important;
+  height: 130px !important;
+  border-radius: 0px 0px 10px 10px !important;
+}
+
+.kpmIjg, .jdupXq, .kFkejl, .deZKTE, .hVzJxO{
+  position: absolute !important;
+  box-shadow: none !important;
+  background-color: #435058 !important;
+  margin-top: -8px !important;
+  height: 130px !important;
+  border-radius: 0px 0px 10px 10px !important;
 
 }
 
+
+
+.jEchia a {
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 200;
+  color: blue;
+
+}
+/* .src__ContentGroupContainer-sc-178mgjs-6 {
+  -webkit-animation: none;
+  animation: none;
+}
+
+.cALUAZ{
+  
+  -webkit-animation: none;
+  animation: none;
+} */
+
+/* .src__MovingDiv-sc-178mgjs-4 {
+  display: none !important;
+} */
+.ldSkFT{
+  grid-template-rows: 85px !important;
+}
 
 ul li {
   position: relative;
@@ -57,17 +124,9 @@ ul li {
   font-weight: 800;
   font-family: 'League Spartan', sans-serif;
   padding-top: 5px;
+  margin-left: 3px;
 }
 
-a {
-  text-decoration: none;
-  letter-spacing: 0;
-  margin-left: 12px;
-  font-weight: 500;
-  font-size: 19px;
-  padding-bottom: 5px;
-  color: rgb(39, 39, 39);
-}
 
 
 header {
@@ -109,4 +168,26 @@ header {
 .css-zqqkfz-MuiPaper-root-MuiPopover-paper-MuiMenu-paper li{
   /* background-color: blue !important; */
   font-family: 'League Spartan', sans-serif;
+}
+
+
+/* .link {
+  color: green !important;
+  font-family: "DM Serif Display", serif;
+  font-weight: 400;
+} */
+
+.css-10hburv-MuiTypography-root{
+  font-family: "League Spartan" !important;
+  color: white;
+  font-weight: 500 !important;
+  font-size: 18px !important;
+}
+
+.css-zqqkfz-MuiPaper-root-MuiPopover-paper-MuiMenu-paper{
+  background-color: #435058 !important;
+}
+
+.css-145thn8-MuiButtonBase-root-MuiListItemButton-root{
+  color: white !important;
 }

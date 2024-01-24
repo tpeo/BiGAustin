@@ -1,82 +1,74 @@
 import React, { useState, useEffect } from "react";
 import {
-    AppBar,
-    Select,
     Typography,
     CssBaseline,
     Card,
-    CardContent,
-    Container,
-    InputLabel,
-    IconButton,
-    MenuItem,
-    FormControl,
-    Paper,
-    TextField,
-    Toolbar,
-    Avatar,
     Button,
-    List,
-    ListItem,
-    Box,
     Grid,
-    InputAdornment,
 } from "@mui/material";
 import BottomBar from "../bottomBar/bottomBar.js";
+import { Link } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from "rehype-raw";
+
 import NavBar from "../navBar/navBar.js";
-import { Col, Row } from 'antd';
 import "../styles.css";
-import { Image, Carousel, Progress } from 'antd';
-import headerBackgroundImage from "../images/backgroundheader2.png"
 import { ThemeProvider } from "@mui/material/styles";
 import { appTheme } from "../Theme.js";
 import createClient from "/Users/aarushichitagi/Desktop/BiGAustin/src/client.js";
-import ArrowLeftImage from '../images/arrow-left.png'; // Import the left arrow image
-import ArrowRightImage from '../images/arrow-right.png'; // Import the right arrow image
+import imageUrlBuilder from '@sanity/image-url'
 
+const builder = imageUrlBuilder(createClient)
 
-
-const { Title } = Typography;
-
-
-// Custom arrow components
-const CustomPrevArrow = ({ onClick }) => (
-    <div className="prev-arrow" onClick={onClick}>
-        <img src={ArrowLeftImage} alt="Previous" />
-    </div>
-);
-
-const CustomNextArrow = ({ onClick }) => (
-    <div className="next-arrow" onClick={onClick}>
-        <img src={ArrowRightImage} alt="Next" />
-    </div>
-);
-
-
+function urlFor(source) {
+    return builder.image(source)
+}
 
 export default function Lending(props) {
 
-    const [homeData, setHome] = useState(null);
-
+    const [lendingData, setLending] = useState(null);
 
     useEffect(() => {
         createClient.fetch(
-            `*[_type == "home"]{
-      mainHeading,
-      mainBlurb,
-      about,
-      peopleRised,
-      volunteers,
-      poorPeopleSaved,
-      countryMembers,
-      funding,
-      consulting,
-      education,        
-      testimonials
-    }`
+            `*[_type == "lending"]{
+                backgroundImage,
+                mainHeading,
+                mainBlurb,
+                headingImage,
+                headingBlurb,
+                leftButton,
+                rightButton,
+                topTitle,
+                topText,
+                topImage,
+                bottomTitle,
+                bottomText,
+                bottomImage,
+                firstCtitle,
+                firstCimage,
+                firstCblurb,
+                secondCtitle,
+                secondCimage,
+                secondCblurb,
+                thirdCtitle,
+                thirdCimage,
+                thirdCblurb,
+                fourthCtitle,
+                fourthCimage,
+                fourthCblurb,
+                FifthCtitle,
+                FifthCimage,
+                FifthCblurb,
+                card1title,
+                card1text,
+                card2title,
+                card2text,
+                card3title,
+                card3text
+            }`
         )
             .then(
-                (data) => setHome(data)
+                (data) => setLending(data)
             )
             .catch(console.error);
     }, []//dependency array 
@@ -87,10 +79,10 @@ export default function Lending(props) {
 
     return (
         <ThemeProvider theme={appTheme}>
-            {homeData && (
+            {lendingData && (
 
                 <div justifyContent="center" alignItems="center" style={{ position: "relative", height: "100vh", justifyContent: 'center', alignItems: 'center' }}>
-                    <Grid component="main" sx={{ height: "60vh", backgroundImage: `url(${headerBackgroundImage})`, backgroundSize: 'cover' }}>
+                    <Grid component="main" sx={{ height: "60vh", backgroundImage: `url(${urlFor(lendingData[0].backgroundImage).url()})`, backgroundSize: 'cover' }}>
                         <NavBar />
                     </Grid>
 
@@ -104,16 +96,14 @@ export default function Lending(props) {
                             <Grid container justifyContent="center" alignItems="center">
                                 <CssBaseline />
                                 <Grid container direction="row" md={6.5} xs={9} sx={{ justifyContent: "center" }}>
-                                    <Typography variant="h1" sx={{ fontSize: 40, mb: 3, color: appTheme.palette.primary.green1 }}>Lending</Typography>
+                                    <Typography variant="h1" sx={{ fontSize: 40, color: appTheme.palette.primary.green1 }}>{lendingData[0].mainHeading}</Typography>
                                 </Grid>
                             </Grid>
-                            <Typography variant="h2" sx={{ fontSize: 20, textAlign: "center", mb: 3 }}>BiGAUSTIN has been committed to meeting the unique financial needs of new and existing entrepreneurs since its inception in 1995. As a local non-profit and micro-lender, BiGAUSTIN provides a streamlined loan process that allows for rapid loan decisions.</Typography>
-
+                            <Typography variant="h2" sx={{ fontSize: 20, textAlign: "center", mb: 4 }}>{lendingData[0].mainBlurb}</Typography>
 
                             <div className="programs-image-container" style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-                                <img src={require('../images/services.png')} />
+                                <img src={urlFor(lendingData[0].headingImage).url()} />
                             </div>
-
                         </Grid>
                     </Grid>
 
@@ -129,45 +119,46 @@ export default function Lending(props) {
                             <Grid container justifyContent="center" alignItems="center" sx={{ mb: 2 }}>
                                 <CssBaseline />
                                 <Grid container direction="row" md={6.5} xs={9} sx={{ justifyContent: "center" }}>
-                                    <Typography variant="h2" sx={{ fontSize: 22, color: appTheme.palette.primary.green1, textAlign: "center" }}>BiGAUSTIN is a Community Development Financial Institution (CDFI) certified by the U.S. Department of Treasury.</Typography>
+                                    <Typography variant="h2" sx={{ fontSize: 22, color: appTheme.palette.primary.green1, textAlign: "center" }}>{lendingData[0].headingBlurb}</Typography>
                                 </Grid>
                             </Grid>
 
 
                             <Grid container justifyContent="center" alignItems="center">
-                                <Button
-                                    width="150"
-                                    height="20"
-                                    variant="contained"
-                                    disableElevation
-                                    sx={{
-                                        color: appTheme.palette.primary.white, fontSize: 15, fontWeight: 500,
-                                        backgroundColor: appTheme.palette.primary.green2, borderRadius: .7, height: 35, mr: 2,
-                                        '&:hover': {
-                                            fontWeight: 700
-                                        },
-                                    }}>
-                                    Schedule an Appointment
-                                </Button>
+                                <Link to={lendingData[0].leftButton} style={{ textDecoration: 'none' }}>
+                                    <Button
+                                        width="150"
+                                        height="20"
+                                        variant="contained"
+                                        disableElevation
+                                        sx={{
+                                            color: appTheme.palette.primary.white, fontSize: 15, fontWeight: 500,
+                                            backgroundColor: appTheme.palette.primary.green2, borderRadius: .7, height: 35, mr: 2,
+                                            '&:hover': {
+                                                fontWeight: 700
+                                            },
+                                        }}>
+                                        Schedule an Appointment
+                                    </Button>
+                                </Link>
 
-                                <Button
-                                    width="150"
-                                    height="20"
-                                    variant="contained"
-                                    disableElevation
-                                    sx={{
-                                        color: appTheme.palette.primary.white, fontSize: 15, fontWeight: 500,
-                                        backgroundColor: appTheme.palette.primary.green2, borderRadius: .7, height: 35,
-                                        '&:hover': {
-                                            fontWeight: 700
-                                        },
-                                    }}>
-                                    Start your Application
-                                </Button>
-
+                                <Link to={lendingData[0].rightButton} style={{ textDecoration: 'none' }}>
+                                    <Button
+                                        width="150"
+                                        height="20"
+                                        variant="contained"
+                                        disableElevation
+                                        sx={{
+                                            color: appTheme.palette.primary.white, fontSize: 15, fontWeight: 500,
+                                            backgroundColor: appTheme.palette.primary.green2, borderRadius: .7, height: 35,
+                                            '&:hover': {
+                                                fontWeight: 700
+                                            },
+                                        }}>
+                                        Start your Application
+                                    </Button>
+                                </Link>
                             </Grid>
-
-
                         </Grid>
                     </Grid>
 
@@ -187,17 +178,17 @@ export default function Lending(props) {
                                         padding: 0,
                                         mb: 4
                                     }}>
-                                        <span style={{ paddingRight: 17 }}>Our Mission</span>
+                                        <span style={{ paddingRight: 17 }}>{lendingData[0].topTitle}</span>
                                         <img width={45} src={require('../images/decor.png')} />
                                     </Typography>
-                                    <Typography variant="h2" sx={{ fontSize: 20, fontWeight: 200, mb: 3, color: appTheme.palette.primary.white, }}>Business Investment Growth (BIG AUSTIN) is a technical assistance provider and impact lender that supports small business owners and their communities in the fight for economic, racial, and social justice. We work side-by-side with growing small business leaders and solopreneurs through our integrated model: combining impact-first Restorative Capital and Pro Bono Business Advising with our Good Jobs Innovation Lab that propels thriving communities with equitable jobs.</Typography>
+                                    <Typography variant="h2" sx={{ fontSize: 20, fontWeight: 200, mb: 3, color: appTheme.palette.primary.white, }}>{lendingData[0].topText}</Typography>
                                 </Grid>
                             </Grid>
 
                             <Grid item md={4} xs={12} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 5 }}>
                                 <img
                                     className="squareImage"
-                                    src={"https://cdn.sanity.io/images/39eecjq4/production/54bfa5a4214c355ec6a31c57407e505126fad7b9-1288x1564.jpg"}
+                                    src={urlFor(lendingData[0].topImage).url()}
                                     alt="Logo"
                                     style={{
                                         width: 350,
@@ -214,12 +205,10 @@ export default function Lending(props) {
 
                     <Grid container justifyContent="center" alignItems="center" style={{ paddingTop: 30, paddingBottom: 100, backgroundColor: appTheme.palette.primary.blue1 }}>
                         <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ width: "100%" }}>
-
-
                             <Grid item md={4} xs={12} sx={{ display: 'flex', justifyContent: 'left', alignItems: 'left', padding: 5 }}>
                                 <img
                                     className="squareImage"
-                                    src={"https://cdn.sanity.io/images/39eecjq4/production/54bfa5a4214c355ec6a31c57407e505126fad7b9-1288x1564.jpg"}
+                                    src={urlFor(lendingData[0].bottomImage).url()}
                                     alt="Logo"
                                     style={{
                                         width: 400,
@@ -242,26 +231,16 @@ export default function Lending(props) {
                                         padding: 0,
                                         mb: 4
                                     }}>
-                                        <span style={{ paddingRight: 17 }}>Our History</span>
+                                        <span style={{ paddingRight: 17 }}>{lendingData[0].bottomTitle}</span>
                                         <img width={45} src={require('../images/decor.png')} />
                                     </Typography>
-                                    <Typography variant="h2" sx={{ fontSize: 20, fontWeight: 200, mb: 3, color: appTheme.palette.primary.white }}>
-                                        • Be at least 21 years of age,<br />
-                                        • Have more than 51% interest in your business,<br />
-                                        • Be a for-profit business,<br />
-                                        • Be unable to qualify for / afford a conventional bank loan,<br />
-                                        • Have a written business plan,<br />
-                                        • Be a U.S. citizen / legal resident / "Stateside" foreign-owned business,<br />
-                                        • Be in good standing on federal, state, county, and municipal taxes,<br />
-                                        • Carry full auto and liability insurance,<br />
-                                        • Have no active bankruptcy.<br />
-                                        • Location in one of the following counties: Bastrop, Bell, Blanco, Burnet, Gillespie, Hays, Lampasas, Lee, Llano, Mason, McCulloch, Milam, San Saba, Travis, Williamson
+                                    <Typography variant="h2" className="markDown" sx={{ fontSize: 20, fontWeight: 200, mb: 3, color: appTheme.palette.primary.white }}>
+                                        <ReactMarkdown rehypePlugins={[rehypeRaw]} children={lendingData[0].bottomText} />
                                     </Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
                     </Grid>
-
 
 
 
@@ -287,11 +266,7 @@ export default function Lending(props) {
                         alignItems="center"
                     >
                         <Grid sx={{ mb: 10 }}>
-
-
-
                             <Grid container sx={{ justifyContent: "center", width: "100%", mb: -4 }}>
-
                                 <CssBaseline />
                                 <Grid container spacing={2}>
                                     <Grid item xs>
@@ -311,7 +286,7 @@ export default function Lending(props) {
                                         >
 
                                             <div className="circular-image2" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                                                <img src={require('../images/money.jpeg')} />
+                                                <img src={urlFor(lendingData[0].firstCimage).url()} />
                                             </div>
 
                                             <div >
@@ -319,7 +294,7 @@ export default function Lending(props) {
                                                     variant="h1"
                                                     sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1, mt: 2 }}
                                                 >
-                                                    Capital
+                                                    {lendingData[0].firstCtitle}
                                                 </Typography>
                                             </div>
 
@@ -328,12 +303,11 @@ export default function Lending(props) {
                                                     variant="h2"
                                                     sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
                                                 >
-                                                    The borrower's equity interest in the business and business loan.
+                                                    {lendingData[0].firstCblurb}
                                                 </Typography>
                                             </div>
                                         </Card>
                                     </Grid>
-
 
                                     <Grid item xs>
                                         <Card
@@ -352,7 +326,7 @@ export default function Lending(props) {
                                         >
 
                                             <div className="circular-image2" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                                                <img src={require('../images/money.jpeg')} />
+                                                <img src={urlFor(lendingData[0].secondCimage).url()} />
                                             </div>
 
                                             <div >
@@ -360,7 +334,7 @@ export default function Lending(props) {
                                                     variant="h1"
                                                     sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1, mt: 2 }}
                                                 >
-                                                    Capital
+                                                    {lendingData[0].secondCtitle}
                                                 </Typography>
                                             </div>
 
@@ -369,13 +343,11 @@ export default function Lending(props) {
                                                     variant="h2"
                                                     sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
                                                 >
-                                                    The borrower's equity interest in the business and business loan.
+                                                    {lendingData[0].secondCblurb}
                                                 </Typography>
                                             </div>
                                         </Card>
                                     </Grid>
-
-
 
                                     <Grid item xs>
                                         <Card
@@ -394,7 +366,7 @@ export default function Lending(props) {
                                         >
 
                                             <div className="circular-image2" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                                                <img src={require('../images/money.jpeg')} />
+                                                <img src={urlFor(lendingData[0].thirdCimage).url()} />
                                             </div>
 
                                             <div >
@@ -402,7 +374,7 @@ export default function Lending(props) {
                                                     variant="h1"
                                                     sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1, mt: 2 }}
                                                 >
-                                                    Capital
+                                                    {lendingData[0].thirdCtitle}
                                                 </Typography>
                                             </div>
 
@@ -411,26 +383,19 @@ export default function Lending(props) {
                                                     variant="h2"
                                                     sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
                                                 >
-                                                    The borrower's equity interest in the business and business loan.
+                                                    {lendingData[0].thirdCblurb}
                                                 </Typography>
                                             </div>
                                         </Card>
                                     </Grid>
-
                                 </Grid>
                             </Grid>
-
-
-
-
-
 
 
                             <Grid
                                 container
                                 justifyContent="center"
                                 alignItems="center"
-
                             >
                                 <Grid container sx={{ width: "70%" }}>
                                     <Grid container spacing={2}>
@@ -451,7 +416,7 @@ export default function Lending(props) {
                                             >
 
                                                 <div className="circular-image2" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                                                    <img src={require('../images/money.jpeg')} />
+                                                    <img src={urlFor(lendingData[0].fourthCimage).url()} />
                                                 </div>
 
                                                 <div >
@@ -459,7 +424,7 @@ export default function Lending(props) {
                                                         variant="h1"
                                                         sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1, mt: 2 }}
                                                     >
-                                                        Capital
+                                                        {lendingData[0].fourthCtitle}
                                                     </Typography>
                                                 </div>
 
@@ -468,7 +433,7 @@ export default function Lending(props) {
                                                         variant="h2"
                                                         sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
                                                     >
-                                                        The borrower's equity interest in the business and business loan.
+                                                        {lendingData[0].fourthCblurb}
                                                     </Typography>
                                                 </div>
                                             </Card>
@@ -493,7 +458,7 @@ export default function Lending(props) {
                                             >
 
                                                 <div className="circular-image2" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                                                    <img src={require('../images/money.jpeg')} />
+                                                    <img src={urlFor(lendingData[0].FifthCimage).url()} />
                                                 </div>
 
                                                 <div >
@@ -501,7 +466,7 @@ export default function Lending(props) {
                                                         variant="h1"
                                                         sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1, mt: 2 }}
                                                     >
-                                                        Capital
+                                                        {lendingData[0].FifthCtitle}
                                                     </Typography>
                                                 </div>
 
@@ -510,7 +475,7 @@ export default function Lending(props) {
                                                         variant="h2"
                                                         sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
                                                     >
-                                                        The borrower's equity interest in the business and business loan.
+                                                        {lendingData[0].FifthCblurb}
                                                     </Typography>
                                                 </div>
                                             </Card>
@@ -566,36 +531,34 @@ export default function Lending(props) {
                                         <Card
                                             sx={{
                                                 backgroundColor: appTheme.palette.primary.green5,
-                                                height: 300,
-                                                width: 250,
+                                                height: 400,
+                                                width: 280,
                                                 boxShadow: "none",
                                                 borderRadius: 1,
                                                 margin: "auto",
                                                 display: "flex",
                                                 flexDirection: "column",
                                                 alignItems: "center",
-                                                justifyContent: "center",
                                             }}
                                         >
                                             <div >
                                                 <Typography
                                                     variant="h1"
-                                                    sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1 }}
+                                                    sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1, mt: 3}}
                                                 >
-                                                    Lending
+                                                    {lendingData[0].card1title}
                                                 </Typography>
                                             </div>
 
                                             <div>
                                                 <Typography
+                                                    className="markDown"
                                                     variant="h2"
-                                                    sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
+                                                    sx={{ textAlign: "left", fontSize: 17, mb: 1, width: 220 }}
                                                 >
-                                                    We tailor our free consultations to meet your specific needs related to business startup, business plan development, expansion, marketing, and management assistance. We are here to help you figure it out.
+                                                    <ReactMarkdown rehypePlugins={[rehypeRaw]} children={lendingData[0].card1text} />                                                
                                                 </Typography>
                                             </div>
-
-
                                         </Card>
                                     </Grid>
 
@@ -605,76 +568,69 @@ export default function Lending(props) {
                                         <Card
                                             sx={{
                                                 backgroundColor: appTheme.palette.primary.green5,
-                                                height: 300,
-                                                width: 250,
+                                                height: 400,
+                                                width: 280,
                                                 boxShadow: "none",
                                                 borderRadius: 1,
-                                                display: "flex",
                                                 margin: "auto",
+                                                display: "flex",
                                                 flexDirection: "column",
                                                 alignItems: "center",
-                                                justifyContent: "center",
                                             }}
                                         >
                                             <div >
                                                 <Typography
                                                     variant="h1"
-                                                    sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1 }}
+                                                    sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1, mt: 3 }}
                                                 >
-                                                    Lending
+                                                    {lendingData[0].card2title}
                                                 </Typography>
                                             </div>
 
                                             <div>
                                                 <Typography
+                                                    className="markDown"
                                                     variant="h2"
-                                                    sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
+                                                    sx={{ textAlign: "left", fontSize: 17, mb: 1, width: 220 }}
                                                 >
-                                                    We tailor our free consultations to meet your specific needs related to business startup, business plan development, expansion, marketing, and management assistance. We are here to help you figure it out.
+                                                    <ReactMarkdown rehypePlugins={[rehypeRaw]} children={lendingData[0].card2text} />                                                
                                                 </Typography>
                                             </div>
-
-
                                         </Card>
                                     </Grid>
-
-
-
 
                                     <Grid item xs>
                                         <Card
                                             sx={{
                                                 backgroundColor: appTheme.palette.primary.green5,
-                                                height: 300,
-                                                width: 250,
+                                                height: 400,
+                                                width: 280,
                                                 boxShadow: "none",
                                                 borderRadius: 1,
                                                 margin: "auto",
                                                 display: "flex",
                                                 flexDirection: "column",
                                                 alignItems: "center",
-                                                justifyContent: "center",
                                             }}
                                         >
                                             <div >
                                                 <Typography
                                                     variant="h1"
-                                                    sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1 }}
+                                                    sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1, mt: 3 }}
                                                 >
-                                                    Lending
+                                                    {lendingData[0].card3title}
                                                 </Typography>
                                             </div>
 
                                             <div>
                                                 <Typography
+                                                    className="markDown"
                                                     variant="h2"
-                                                    sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
+                                                    sx={{ textAlign: "left", fontSize: 17, mb: 1, width: 220 }}
                                                 >
-                                                    We tailor our free consultations to meet your specific needs related to business startup, business plan development, expansion, marketing, and management assistance. We are here to help you figure it out.
+                                                    <ReactMarkdown rehypePlugins={[rehypeRaw]} children={lendingData[0].card3text} />                                                
                                                 </Typography>
                                             </div>
-
-
                                         </Card>
                                     </Grid>
 

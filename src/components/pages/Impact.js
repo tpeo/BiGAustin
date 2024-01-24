@@ -25,16 +25,22 @@ import NavBar from "../navBar/navBar.js";
 import { Col, Row } from 'antd';
 import "../styles.css";
 import { Image, Carousel, Progress } from 'antd';
-import headerBackgroundImage from "../images/backgroundheader2.png"
 import { ThemeProvider } from "@mui/material/styles";
 import { appTheme } from "../Theme.js";
 import createClient from "/Users/aarushichitagi/Desktop/BiGAustin/src/client.js";
+import imageUrlBuilder from '@sanity/image-url'
+
 import ArrowLeftImage from '../images/arrow-left.png'; // Import the left arrow image
 import ArrowRightImage from '../images/arrow-right.png'; // Import the right arrow image
+import { useKeenSlider } from "keen-slider/react"
+import "keen-slider/keen-slider.min.css"
 
 
+const builder = imageUrlBuilder(createClient)
 
-const { Title } = Typography;
+function urlFor(source) {
+  return builder.image(source)
+}
 
 
 // Custom arrow components
@@ -50,32 +56,74 @@ const CustomNextArrow = ({ onClick }) => (
   </div>
 );
 
+function Arrow(props) {
+  const disabeld = props.disabled ? " arrow--disabled" : ""
+  return (
+    <svg
+      onClick={props.onClick}
+      className={`arrow2 ${props.left ? "arrow2--left" : "arrow2--right"
+        } ${disabeld}`}
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+    >
+      {props.left && (
+        <path d="M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z" />
+      )}
+      {!props.left && (
+        <path d="M5 3l3.057-3 11.943 12-11.943 12-3.057-3 9-9z" />
+      )}
+    </svg>
+  )
+}
+
+
 
 
 export default function About(props) {
 
-  const [homeData, setHome] = useState(null);
+  const [impactData, setImpact] = useState(null);
+
+  const [currentSlide, setCurrentSlide] = useState(0)
+  const [loaded, setLoaded] = useState(false)
+  const [sliderRef, instanceRef] = useKeenSlider({
+    initial: 0,
+    slideChanged(slider) {
+      setCurrentSlide(slider.track.details.rel)
+    },
+    created() {
+      setLoaded(true)
+    },
+  })
 
 
 
   useEffect(() => {
     createClient.fetch(
-      `*[_type == "home"]{
+      `*[_type == "impact"]{
       mainHeading,
+      backgroundImage,
       mainBlurb,
-      about,
-      peopleRised,
-      volunteers,
-      poorPeopleSaved,
-      countryMembers,
-      funding,
-      consulting,
-      education,        
-      testimonials
+      stat1title,
+      stat1subheading,
+      stat1number,
+      stat2title,
+      stat2subheading,
+      stat2number,
+      stat3title,
+      stat3subheading,
+      stat3number,
+      clientstories[]{
+        clientstories-> {
+          name,
+          blurb,
+          image,
+          videoURL
+        }
+      },
     }`
     )
       .then(
-        (data) => setHome(data)
+        (data) => setImpact(data)
       )
       .catch(console.error);
   }, []//dependency array 
@@ -86,10 +134,10 @@ export default function About(props) {
 
   return (
     <ThemeProvider theme={appTheme}>
-      {homeData && (
+      {impactData && (
 
         <div justifyContent="center" alignItems="center" style={{ position: "relative", height: "100vh", justifyContent: 'center', alignItems: 'center' }}>
-          <Grid component="main" sx={{ height: "60vh", backgroundImage: `url(${headerBackgroundImage})`, backgroundSize: 'cover' }}>
+          <Grid component="main" sx={{ height: "60vh", backgroundImage: `url(${urlFor(impactData[0].backgroundImage).url()})`, backgroundSize: 'cover' }}>
             <NavBar />
           </Grid>
 
@@ -274,68 +322,104 @@ export default function About(props) {
 
 
 
-          <div className="testimonials" style={{ backgroundColor: appTheme.palette.primary.blue1, textAlign: "center", color: "white", marginTop: 100, marginBottom: 90 }}>
-            <Col span={12} offset={6}>
-              {/* <h4 style = {{marginTop: 50, color:"white"}}>Our Testimonials</h4> */}
-              <h2 style={{ color: "white", paddingTop: 50, paddingBottom: 20 }}>Testimonials</h2>
+          <div className="testimonials" style={{ backgroundColor: appTheme.palette.primary.platinum, textAlign: "center", color: "white", marginTop: 100}}>
 
-              <Carousel style={{ height: 480 }} arrows prevArrow={<CustomPrevArrow />} nextArrow={<CustomNextArrow />}>
-                {
-                  homeData[0].testimonials.map((item, i) => (
-                    // <Row justify="space-evenly">
-                    //   <Col span={12} >
-                    //     <img width={200} src='https://cdn.sanity.io/images/39eecjq4/production/220968489c85d6cb12619d0c07d5f6e245869d9b-428x429.png' />
+            <div style={{ paddingTop: "40px" }}>
+              <div className="arrow-wrapper">
+                {loaded && instanceRef.current && (
+                  <>
+                    <Arrow
+                      left
+                      onClick={(e) =>
+                        e.stopPropagation() || instanceRef.current?.prev()
+                      }
+                      disabled={currentSlide === 0}
+                    />
 
-                    //     <Typography variant="h1" sx={{fontSize: 15, color: appTheme.palette.primary.white}}>Mario Carlin</Typography>
-                    //     <Typography variant="h2" sx={{fontSize: 15, color: appTheme.palette.primary.white}}>CEO, Mario Carlin Management, LLC</Typography>
-                    //   </Col>
+                    <Arrow
+                      onClick={(e) =>
+                        e.stopPropagation() || instanceRef.current?.next()
+                      }
+                      disabled={
+                        currentSlide ===
+                        instanceRef.current.track.details.slides.length - 1
+                      }
+                    />
+                  </>
+                )}
+              </div>
 
-                    //   <Col span={12}>
-                    //     <Typography variant="h2" sx={{fontSize: 15, color: appTheme.palette.primary.white}}>I heard about BiGAUSTIN in 2008 from the Texas Business Opportunity and Development program. They walked me through the whole process. They assisted me with consulting, education, networking and funding. BiGAUSTIN provides experts that really understand small business and they enabled me to reach my highest potential.</Typography>
-                    //   </Col>
-                    // </Row>
-                    // <Grid container>
+              {loaded && instanceRef.current && (
+                <div className="dots1">
+                  {[
+                    ...Array(instanceRef.current.track.details.slides.length).keys(),
+                  ].map((idx) => {
+                    return (
+                      <button
+                        key={idx}
+                        onClick={() => {
+                          instanceRef.current?.moveToIdx(idx)
+                        }}
+                        className={"dot1" + (currentSlide === idx ? " active" : "")}
+                      ></button>
+                    )
+                  })}
+                </div>
+              )}
+            </div>
 
-                    <Grid>
-                      <Grid item sx={{ textAlign: "center", mb: 3 }} xs={6}>
-                        <div style={{ textAlign: "center" }}>
-                          <img width={150} style={{ margin: "auto" }} src='https://cdn.sanity.io/images/39eecjq4/production/220968489c85d6cb12619d0c07d5f6e245869d9b-428x429.png' />
-                        </div>
-                        <Typography variant="h1" sx={{ mb: -1, fontSize: 20, color: appTheme.palette.primary.white }}>Mario Carlin</Typography>
-                        <Typography variant="h2" sx={{ fontSize: 17, color: appTheme.palette.primary.white, }}>CEO, Mario Carlin Management, LLC</Typography>
-                      </Grid>
 
-                      <Grid xs={6} width="80%" style={{ margin: "auto" }}>
-                        <Typography variant="h2" sx={{ fontSize: 19, color: appTheme.palette.primary.white }}>I heard about BiGAUSTIN in 2008 from the Texas Business Opportunity and Development program. They walked me through the whole process. They assisted me with consulting, education, networking and funding. BiGAUSTIN provides experts that really understand small business and they enabled me to reach my highest potential.</Typography>
+            <Typography variant="h2" style={{ color: appTheme.palette.primary.green1, paddingTop: 50, fontSize: "30px", textAlign: "left", width: "60%", margin: "0 auto", paddingBottom: 20, fontWeight: 500 }}>CLIENT SUCCESS STORIES</Typography>
+            <div className="navigation-wrapper">
+
+
+
+
+              <div ref={sliderRef} className="keen-slider">
+                {impactData[0].clientstories.map((item) => (
+                  <div className="keen-slider__slide number-slide1">
+                    {console.log("impact", item.clientstories)}
+                    <Grid container justifyContent="center" alignItems="center" sx={{ width: "72%", paddingTop: "40px", margin: "0 auto", mb: 10, backgroundColor: appTheme.palette.primary.platinum }}>
+                      <Grid container direction="row" justifyContent="center" alignItems="flex-start" sx={{ width: "100%" }}>
+                        <Grid item md={5} xs={12} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'flex-start' }}>
+                          <Grid sx={{ textAlign: 'center' }}>
+                            <Typography variant="h1" sx={{ textAlign: "left", padding: "0px", paddingBottom: "20px", fontSize: 30, fontWeight: 500, color: appTheme.palette.primary.blue1 }}>{item.clientstories.name}</Typography>
+                            <Typography variant="h2" sx={{ textAlign: "left", fontSize: 20, fontWeight: 200, color: appTheme.palette.primary.space, whiteSpace: 'pre-line', wordWrap: 'break-word' }}>
+                              {item.clientstories.blurb.replace(/<\s*\/?br\s*\/?>/g, '\n').replace(/\n{2,}/g, '\n')}
+                            </Typography>
+                          </Grid>
+                        </Grid>
+                        <Grid item md={5} xs={12} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                          <Grid container justifyContent="center" alignItems="center" direction="row" sx={{ textAlign: "center" }}>
+                            <div className="square-image" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                              <img
+                                src={urlFor(item.clientstories.image).url()}
+                                alt="Logo"
+                                style={{ maxWidth: '100%', height: 'auto' }}
+                              />
+                            </div>
+                          </Grid>
+                        </Grid>
+
+                        {/* YouTube Video */}
+                        <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center', paddingTop: "50px" }}>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/N_prLS-aTqU?si=cjiCqqsFF9fPy8S_" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        </Grid>
                       </Grid>
                     </Grid>
-                  ))
-                }
-              </Carousel>
-
-              {/* <Carousel style = {{height:"400px"}} arrows nextArrow={<ArrowRightOutlined />} prevArrow={<ArrowLeftOutlined/>}>
-                    <div>
-                      <Image
-                        width={100}
-                        src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                        style = {{borderRadius:"50%"}}
-                      />
-                      <h1 style = {{fontSize: 18, color:"white"}}>Cameron Williamson</h1>
-                      <h4 style = {{color:"white"}}>Founder</h4>
-                      <body style = {{color:"white"}}>
-                      Sea chub demoiselle whalefish zebra lionfish mud cat pelican eel. Minnow snoek icefish velvet-belly shark, California <br/>
-                      halibut round stingray northern sea robin. Southern grayling trout-perchSharksucker sea toad candiru rocket <br/>
-                      danio tilefish stingray deepwater stingray Sacramento splittail, Canthigaster rostrata. <br/>
-                      </body>
-                    </div>
-                    <div><h3>2</h3></div>
-                    <div><h3>3</h3></div>
-                    <div><h3>4</h3></div>
-                  </Carousel> */}
 
 
-            </Col>
+
+
+                  </div>
+
+                ))}
+              </div>
+
+            </div>
+
           </div>
+
 
 
 

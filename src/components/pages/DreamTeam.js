@@ -1,81 +1,82 @@
 import React, { useState, useEffect } from "react";
 import {
-  AppBar,
-  Select,
   Typography,
   CssBaseline,
-  Card,
-  CardContent,
-  Container,
-  InputLabel,
-  IconButton,
-  MenuItem,
-  FormControl,
-  Paper,
-  TextField,
-  Toolbar,
-  Avatar,
-  Button,
-  Box,
   Grid,
-  InputAdornment,
 } from "@mui/material";
 import BottomBar from "../bottomBar/bottomBar.js";
 import NavBar from "../navBar/navBar.js";
-import { Col, Row } from 'antd';
+import Modal from '@mui/material/Modal';
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import EmailIcon from '@mui/icons-material/Email';
 import "../styles.css";
-import { Image, Carousel, Progress } from 'antd';
-import headerBackgroundImage from "../images/backgroundheader2.png"
 import { ThemeProvider } from "@mui/material/styles";
 import { appTheme } from "../Theme.js";
 import createClient from "/Users/aarushichitagi/Desktop/BiGAustin/src/client.js";
-import ArrowLeftImage from '../images/arrow-left.png'; // Import the left arrow image
-import ArrowRightImage from '../images/arrow-right.png'; // Import the right arrow image
+import imageUrlBuilder from '@sanity/image-url'
+import "keen-slider/keen-slider.min.css"
 
 
+const builder = imageUrlBuilder(createClient)
 
-const { Title } = Typography;
+function urlFor(source) {
+  return builder.image(source)
+}
 
 
-// Custom arrow components
-const CustomPrevArrow = ({ onClick }) => (
-  <div className="prev-arrow" onClick={onClick}>
-    <img src={ArrowLeftImage} alt="Previous" />
-  </div>
-);
-
-const CustomNextArrow = ({ onClick }) => (
-  <div className="next-arrow" onClick={onClick}>
-    <img src={ArrowRightImage} alt="Next" />
-  </div>
-);
 
 
 
 export default function DreamTeam(props) {
 
-  const [homeData, setHome] = useState(null);
+  const [teamData, setTeam] = useState(null);
 
+  const [selectedTeamMember, setSelectedTeamMember] = useState(null);
+
+
+  const [open, setOpen] = useState(false);
+  // const handleOpen = () => setOpen(true);
+
+  const handleOpen = (item) => {
+    setSelectedTeamMember(item.people);
+    setOpen(true);
+    // other logic for opening the modal
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
 
   useEffect(() => {
     createClient.fetch(
-      `*[_type == "home"]{
-      mainHeading,
-      mainBlurb,
-      about,
-      peopleRised,
-      volunteers,
-      poorPeopleSaved,
-      countryMembers,
-      funding,
-      consulting,
-      education,        
-      testimonials
-    }`
+      `*[_type == "dreamteam"] {
+        backgroundImage,
+        mainHeading,
+        mainQuote,
+        mainBlurb,
+        directorsBlurb,
+        people[]{
+          people-> {
+            name,
+            description,
+            image,
+            number,
+            email,
+            blurb
+          }
+        },
+        directors[]{
+          directors-> {
+            name,
+            description,
+            image
+          }
+        },
+      }`
     )
       .then(
-        (data) => setHome(data)
+        (data) => setTeam(data)
       )
       .catch(console.error);
   }, []//dependency array 
@@ -86,266 +87,132 @@ export default function DreamTeam(props) {
 
   return (
     <ThemeProvider theme={appTheme}>
-      {homeData && (
+      {teamData && (
 
         <div justifyContent="center" alignItems="center" style={{ position: "relative", height: "100vh", justifyContent: 'center', alignItems: 'center' }}>
-          <Grid component="main" sx={{ height: "60vh", backgroundImage: `url(${headerBackgroundImage})`, backgroundSize: 'cover' }}>
+          <Grid component="main" sx={{ height: "60vh", backgroundImage: `url(${urlFor(teamData[0].backgroundImage).url()})`, backgroundSize: 'cover' }}>
             <NavBar />
           </Grid>
-        
-          <Grid item xs sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center"
-              }}>
-          <Grid sx={{ height: "auto", width: "55%", mt: 10, mb: 7 }}>
+
+          <Grid sx={{ height: "auto", mt: 5, mb: 7 }}>
             <Grid container justifyContent="center" alignItems="center">
               <CssBaseline />
               <Grid container direction="row" md={6.5} xs={9} sx={{ justifyContent: "center" }}>
-                <Typography variant="h1" sx={{ fontSize: 40, mb: 3 }}>Dream Team</Typography>
+                <Typography variant="h1" sx={{ fontSize: 40 }}>{teamData[0].mainHeading}</Typography>
               </Grid>
             </Grid>
-            <Typography variant="h2" sx={{ fontSize: 20, textAlign: "left", mb: 3 }}>"Individual commitment to a group effort--that is what makes a team work, a company work, a society work, a civilization work." --Vince Lombardi </Typography>
-            <Typography variant="h2" sx={{ fontSize: 20, textAlign: "left", mb: 3 }}>Empowering small business through education and investment, igniting community growth.  </Typography>
-            <Typography variant="h2" sx={{ fontSize: 20, textAlign: "left", mb: 3 }}>Our continued success could not be possible without the support of our staff, on-site contractors, as well as our volunteer teachers, mentors, interns and volunteers, who, by their commitment to our mission, help Central Texas businesses thrive every day.  </Typography>
-          </Grid>
+            <Typography variant="h2" sx={{ fontSize: 22, fontWeight: 400, width: "60%", margin: "0 auto", textAlign: "center" }}>{teamData[0].mainQuote}</Typography>
+            <Typography variant="h2" sx={{ fontSize: 20, textAlign: "center", width: "70%", margin: "0 auto", mt: 3 }}>{teamData[0].mainBlurb}</Typography>
           </Grid>
 
 
-          <div style={{ marginBottom: 50 }}>
-            <Row gutter={[0, 25]}>
-              <Col span={3} offset={5}>
-                <Typography variant="h2" sx={{ fontSize: 18, fontWeight: 400 }}> Annual Education <br></br> Hours </Typography>
-              </Col>
-              <Col span={11}>
-                <Progress percent={97} format={() => '5343'} style={{ fontFamily: "League Spartan" }} strokeColor={{ '0%': appTheme.palette.primary.green1, '100%': appTheme.palette.primary.green1 }} trailColor="transparent" />
-              </Col>
+          <Grid container spacing={3} sx={{ width: "70%", margin: "0 auto" }}>
+            {teamData[0].people.map((item, index) => (
+              <Grid item key={index} xs={12} sm={6} md={4} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
+                <div className="imagecard" onClick={() => handleOpen(item)} style={{ textAlign: 'center' }}>
+                  <div className="circular-image2">
+                    <img width={200} src={urlFor(item.people.image).url()} alt={item.people.name} style={{ display: 'block' }} />
+                  </div>
+                  <Typography variant="h1" sx={{ fontSize: 19, padding: 1, fontWeight: 400 }}>{item.people.name}</Typography>
+                  <Typography variant="h2" sx={{ fontSize: 17, fontWeight: 400 }}>{item.people.description}</Typography>
+                </div>
+              </Grid>
+            ))}
 
-
-              <Col span={3} offset={5}>
-                <Typography variant="h2" sx={{ fontSize: 18, fontWeight: 400 }}> Annual Clients <br></br> Served </Typography>
-              </Col>
-              <Col span={10}>
-                <Progress percent={65} format={() => '4212'} style={{ fontFamily: "League Spartan" }} strokeColor={{ '0%': appTheme.palette.primary.green1, '100%': appTheme.palette.primary.green1 }} trailColor="transparent" />
-              </Col>
-
-              <Col span={3} offset={5}>
-                <Typography variant="h2" sx={{ fontSize: 18, fontWeight: 400 }}> Total Consulting <br></br> Hours </Typography>
-              </Col>
-              <Col span={10}>
-                <Progress percent={92} format={() => '5092'} style={{ fontFamily: "League Spartan" }} strokeColor={{ '0%': appTheme.palette.primary.green1, '100%': appTheme.palette.primary.green1 }} trailColor="transparent" />
-              </Col>
-            </Row>
-          </div>
-
-          <Grid sx={{
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center"
-          }}>
-            <Grid container spacing={2} sx={{ mt: 5, width: "80%", justifyContent: "center", alignItems: "center" }}>
-              <Grid item xs sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center"
-              }}>
-                <Card
+            {selectedTeamMember && (
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+                disableAutoFocus={true}
+                sx={{ borderRadius: '10px', border: 'none', outline: '0' }}
+              >
+                <Grid
                   sx={{
-                    height: 230,
-                    width: 180,
-                    borderRadius: 3,
-                    display: "flex",
-                    boxShadow: "none",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: '50%',
+                    height: '70%',
+                    bgcolor: 'background.paper',
+                    borderRadius: '10px'
                   }}
                 >
-
-                  <div style={{ "margin-bottom": "10px" }}>
-                    <img width={200} src={require('../images/piechart.png')} />
-                  </div>
-
-                  <div >
-                    <Typography
-                      variant="h1"
-                      sx={{ fontWeight: 550, padding: 0, fontSize: 28, mb: 1, letterSpacing: 2 }}
-                    >
-                      Ethnicity
-                    </Typography>
-                  </div>
-
-                  <div>
-                    <Typography
-                      variant="h2"
-                      sx={{ fontWeight: 500, fontSize: 18, mb: 1 }}
-                    >
-                      volunteer
-                    </Typography>
-                  </div>
-                </Card>
-              </Grid>
-
-              <Grid item xs sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center"
-              }}>
-                <Card
-                  sx={{
-                    height: 230,
-                    width: 180,
-                    borderRadius: 3,
-                    display: "flex",
-                    boxShadow: "none",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-
-                  <div style={{ "margin-bottom": "10px" }}>
-                    <img width={200} src={require('../images/piechart.png')} />
-                  </div>
-
-                  <div >
-                    <Typography
-                      variant="h1"
-                      sx={{ fontWeight: 550, padding: 0, fontSize: 28, mb: 1, letterSpacing: 2 }}
-                    >
-                      Ethnicity
-                    </Typography>
-                  </div>
-
-                  <div>
-                    <Typography
-                      variant="h2"
-                      sx={{ fontWeight: 500, fontSize: 18, mb: 1 }}
-                    >
-                      volunteer
-                    </Typography>
-                  </div>
-                </Card>
-              </Grid>
+                  <Grid container>
+                    {/* Left side  */}
+                    <Grid item xs={5} style={{ backgroundColor: appTheme.palette.primary.blue1, borderRadius: '10px 0 0 10px' }}>
+                      <div className="programs-image-container" style={{ width: "70%", margin: "0 auto", marginTop: "60px", marginBottom: "45px", display: "flex", justifyContent: "center" }}>
+                        <img src={urlFor(selectedTeamMember.image).url()} />
+                      </div>
 
 
-              <Grid item xs sx={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center"
-              }}>
-                <Card
-                  sx={{
-                    height: 230,
-                    width: 180,
-                    borderRadius: 3,
-                    display: "flex",
-                    boxShadow: "none",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-
-                  <div style={{ "margin-bottom": "10px" }}>
-                    <img width={200} src={require('../images/piechart.png')} />
-                  </div>
-
-                  <div >
-                    <Typography
-                      variant="h1"
-                      sx={{ fontWeight: 550, padding: 0, fontSize: 28, mb: 1, letterSpacing: 2 }}
-                    >
-                      Ethnicity
-                    </Typography>
-                  </div>
-
-                  <div>
-                    <Typography
-                      variant="h2"
-                      sx={{ fontWeight: 500, fontSize: 18, mb: 1 }}
-                    >
-                      volunteer
-                    </Typography>
-                  </div>
-                </Card>
-              </Grid>
-            </Grid>
-          </Grid>
-
-
-
-
-          <div className="testimonials" style={{ backgroundColor: appTheme.palette.primary.blue1, textAlign: "center", color: "white", marginTop: 100, marginBottom: 90 }}>
-            <Col span={12} offset={6}>
-              {/* <h4 style = {{marginTop: 50, color:"white"}}>Our Testimonials</h4> */}
-              <h2 style={{ color: "white", paddingTop: 50, paddingBottom: 20 }}>Testimonials</h2>
-
-              <Carousel style={{ height: 480 }} arrows prevArrow={<CustomPrevArrow />} nextArrow={<CustomNextArrow />}>
-                {
-                  homeData[0].testimonials.map((item, i) => (
-                    // <Row justify="space-evenly">
-                    //   <Col span={12} >
-                    //     <img width={200} src='https://cdn.sanity.io/images/39eecjq4/production/220968489c85d6cb12619d0c07d5f6e245869d9b-428x429.png' />
-
-                    //     <Typography variant="h1" sx={{fontSize: 15, color: appTheme.palette.primary.white}}>Mario Carlin</Typography>
-                    //     <Typography variant="h2" sx={{fontSize: 15, color: appTheme.palette.primary.white}}>CEO, Mario Carlin Management, LLC</Typography>
-                    //   </Col>
-
-                    //   <Col span={12}>
-                    //     <Typography variant="h2" sx={{fontSize: 15, color: appTheme.palette.primary.white}}>I heard about BiGAUSTIN in 2008 from the Texas Business Opportunity and Development program. They walked me through the whole process. They assisted me with consulting, education, networking and funding. BiGAUSTIN provides experts that really understand small business and they enabled me to reach my highest potential.</Typography>
-                    //   </Col>
-                    // </Row>
-                    // <Grid container>
-
-                    <Grid>
-                      <Grid item sx={{ textAlign: "center", mb: 3 }} xs={6}>
-                        <div style={{ textAlign: "center" }}>
-                          <img width={150} style={{ margin: "auto" }} src='https://cdn.sanity.io/images/39eecjq4/production/220968489c85d6cb12619d0c07d5f6e245869d9b-428x429.png' />
+                      <div style={{ width: "50%", margin: "0 auto", justifyContent: "center", marginBottom: "75px" }}>
+                        <div style={{ display: 'flex', alignItems: 'center', paddingBottom: 20, width: "100%", margin: "0 auto" }}>
+                          <LocalPhoneIcon style={{ border: '4px solid #B6F599', width: 30, height: 30, marginRight: 10 }} sx={{ borderRadius: 5, backgroundColor: appTheme.palette.primary.green3, color: appTheme.palette.primary.footer }}></LocalPhoneIcon>
+                          <span><Typography variant="h2" sx={{ fontSize: 18, fontWeight: 300, color: appTheme.palette.primary.platinum, }}>{selectedTeamMember.number}</Typography></span>
                         </div>
-                        <Typography variant="h1" sx={{ mb: -1, fontSize: 20, color: appTheme.palette.primary.white }}>Mario Carlin</Typography>
-                        <Typography variant="h2" sx={{ fontSize: 17, color: appTheme.palette.primary.white, }}>CEO, Mario Carlin Management, LLC</Typography>
-                      </Grid>
+                        <div style={{ display: 'flex', alignItems: 'center', width: "100%", margin: "0 auto" }}>
+                          <EmailIcon style={{ border: '4px solid #B6F599', width: 30, height: 30, marginRight: 10 }} sx={{ borderRadius: 5, backgroundColor: appTheme.palette.primary.green3, color: appTheme.palette.primary.footer }}></EmailIcon>
+                          <span><Typography variant="h2" sx={{ fontSize: 18, fontWeight: 300, color: appTheme.palette.primary.platinum, }}>{selectedTeamMember.email}</Typography></span>
+                        </div>
+                      </div>
 
-                      <Grid xs={6} width="80%" style={{ margin: "auto" }}>
-                        <Typography variant="h2" sx={{ fontSize: 19, color: appTheme.palette.primary.white }}>I heard about BiGAUSTIN in 2008 from the Texas Business Opportunity and Development program. They walked me through the whole process. They assisted me with consulting, education, networking and funding. BiGAUSTIN provides experts that really understand small business and they enabled me to reach my highest potential.</Typography>
-                      </Grid>
+
+
                     </Grid>
-                  ))
-                }
-              </Carousel>
 
-              {/* <Carousel style = {{height:"400px"}} arrows nextArrow={<ArrowRightOutlined />} prevArrow={<ArrowLeftOutlined/>}>
-                    <div>
-                      <Image
-                        width={100}
-                        src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                        style = {{borderRadius:"50%"}}
-                      />
-                      <h1 style = {{fontSize: 18, color:"white"}}>Cameron Williamson</h1>
-                      <h4 style = {{color:"white"}}>Founder</h4>
-                      <body style = {{color:"white"}}>
-                      Sea chub demoiselle whalefish zebra lionfish mud cat pelican eel. Minnow snoek icefish velvet-belly shark, California <br/>
-                      halibut round stingray northern sea robin. Southern grayling trout-perchSharksucker sea toad candiru rocket <br/>
-                      danio tilefish stingray deepwater stingray Sacramento splittail, Canthigaster rostrata. <br/>
-                      </body>
-                    </div>
-                    <div><h3>2</h3></div>
-                    <div><h3>3</h3></div>
-                    <div><h3>4</h3></div>
-                  </Carousel> */}
+                    {/* Right side  */}
+                    <Grid item xs={7} style={{ backgroundColor: appTheme.palette.primary.platinum, paddingTop: "60px", paddingLeft: "30px", borderRadius: '0 10px 10px 0', paddingBottom: "75px" }}>
+
+                      <Typography variant="h1" sx={{ fontSize: 25, padding: 0, paddingBottom: 1, fontWeight: 400 }}>{selectedTeamMember.name}</Typography>
+                      <Typography variant="h2" sx={{ fontSize: 17, fontWeight: 400 }}>{selectedTeamMember.description}</Typography>
+                      <Typography variant="h2" sx={{ fontSize: 17, mt: 2, fontWeight: 300, width: "92%", }}>{selectedTeamMember.blurb.replace(/<\s*\/?br\s*\/?>/g, '\n').replace(/\n{2,}/g, '\n')}</Typography>
+
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Modal>
+            )}
+
+          </Grid>
 
 
-            </Col>
-          </div>
 
 
+
+          <Grid sx={{ backgroundColor: appTheme.palette.primary.platinum, borderRadius: "20px 20px 0 0", paddingBottom: "60px" }}>
+            <Grid sx={{ height: "auto", mt: 5, mb: 7, paddingTop: "30px" }}>
+              <Grid container justifyContent="center" alignItems="center">
+                <CssBaseline />
+                <Grid container direction="row" md={6.5} xs={9} sx={{ justifyContent: "center" }}>
+                  <Typography variant="h1" sx={{ fontSize: 36, color: "#2C3343" }}>Board of Directors</Typography>
+                </Grid>
+              </Grid>
+              <Typography variant="h2" sx={{ fontSize: 20, textAlign: "center", color: "#2C3343", width: "50%", margin: "0 auto", mt: 3 }}>{teamData[0].directorsBlurb}</Typography>
+            </Grid>
+
+            <Grid container spacing={2} sx={{ width: '60%', margin: '0 auto' }}>
+              {teamData[0].directors.map((item, index) => (
+                <Grid item key={index} xs={12} sm={6} md={6} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
+                  <Grid container>
+                    {/* Left side  */}
+                    <Grid item xs={5} style={{}}>
+                      <div className="circular-image3">
+                        <img width={200} src={urlFor(item.directors.image).url()} alt={item.directors.name} style={{ display: 'block' }} />
+                      </div>
+                    </Grid>
+                    {/* Right side  */}
+                    <Grid item xs={7} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center',}}>
+                      <Typography variant="h1" sx={{ fontSize: 19, mt: 2, color: "#2C3343", padding: 1, fontWeight: 400}}>{item.directors.name}</Typography>
+                      <Typography variant="h2" sx={{ fontSize: 17, color: "#2C3343", fontWeight: 300, width: "60%", textAlign: "center" }}>{item.directors.description}</Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
 
 
 

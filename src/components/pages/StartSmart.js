@@ -1,80 +1,76 @@
 import React, { useState, useEffect } from "react";
 import {
-  AppBar,
-  Select,
   Typography,
   CssBaseline,
   Card,
-  CardContent,
-  Container,
-  InputLabel,
-  IconButton,
-  MenuItem,
-  FormControl,
-  Paper,
-  TextField,
-  Toolbar,
-  Avatar,
-  Button,
-  Box,
   Grid,
-  InputAdornment,
 } from "@mui/material";
 import BottomBar from "../bottomBar/bottomBar.js";
 import NavBar from "../navBar/navBar.js";
-import { Col, Row } from 'antd';
 import "../styles.css";
-import { Image, Carousel, Progress } from 'antd';
-import headerBackgroundImage from "../images/backgroundheader2.png"
 import { ThemeProvider } from "@mui/material/styles";
 import { appTheme } from "../Theme.js";
 import createClient from "/Users/aarushichitagi/Desktop/BiGAustin/src/client.js";
-import ArrowLeftImage from '../images/arrow-left.png'; // Import the left arrow image
-import ArrowRightImage from '../images/arrow-right.png'; // Import the right arrow image
+import imageUrlBuilder from '@sanity/image-url'
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from "rehype-raw";
 
+const builder = imageUrlBuilder(createClient)
 
-const { Title } = Typography;
-
-
-// Custom arrow components
-const CustomPrevArrow = ({ onClick }) => (
-  <div className="prev-arrow" onClick={onClick}>
-    <img src={ArrowLeftImage} alt="Previous" />
-  </div>
-);
-
-const CustomNextArrow = ({ onClick }) => (
-  <div className="next-arrow" onClick={onClick}>
-    <img src={ArrowRightImage} alt="Next" />
-  </div>
-);
-
-
+function urlFor(source) {
+  return builder.image(source)
+}
 
 export default function StartSmart(props) {
 
-  const [homeData, setHome] = useState(null);
-
-
+  const [smartData, setSmart] = useState(null);
 
   useEffect(() => {
     createClient.fetch(
-      `*[_type == "home"]{
-      mainHeading,
-      mainBlurb,
-      about,
-      peopleRised,
-      volunteers,
-      poorPeopleSaved,
-      countryMembers,
-      funding,
-      consulting,
-      education,        
-      testimonials
+      `*[_type == "startsmart"]{
+        backgroundImage,
+        mainHeading,
+        headingImage,
+        title1,
+        paragraph1,
+        title2,
+        paragraph2,
+        card1image,
+        card1title,
+        card1paragraph,      
+        card2image,
+        card2title,
+        card2paragraph, 
+        card3image,
+        card3title,
+        card3paragraph,     
+        card4image,
+        card4title,
+        card4paragraph,   
+        card5image,
+        card5title,
+        card5paragraph,     
+        card6image,
+        card6title,
+        card6paragraph, 
+        card7image,
+        card7title,
+        card7paragraph,                 
+        instructorImage,
+        instructorName,
+        instructorTitle,
+        instructorDescp,
+        programDetails,
+        faq[]{
+          faq-> {
+            question,
+            answer
+          }
+        },
     }`
     )
       .then(
-        (data) => setHome(data)
+        (data) => setSmart(data)
       )
       .catch(console.error);
   }, []//dependency array 
@@ -85,10 +81,10 @@ export default function StartSmart(props) {
 
   return (
     <ThemeProvider theme={appTheme}>
-      {homeData && (
+      {smartData && (
 
         <div justifyContent="center" alignItems="center" style={{ position: "relative", height: "100vh", justifyContent: 'center', alignItems: 'center' }}>
-          <Grid component="main" sx={{ height: "60vh", backgroundImage: `url(${headerBackgroundImage})`, backgroundSize: 'cover' }}>
+          <Grid component="main" sx={{ height: "60vh", backgroundImage: `url(${urlFor(smartData[0].backgroundImage).url()})`, backgroundSize: 'cover' }}>
             <NavBar />
           </Grid>
 
@@ -102,13 +98,13 @@ export default function StartSmart(props) {
               <Grid container justifyContent="center" alignItems="center">
                 <CssBaseline />
                 <Grid container direction="row" md={12} xs={9} sx={{ justifyContent: "center" }}>
-                  <Typography variant="h1" sx={{ fontSize: 40, mb: 3, color: appTheme.palette.primary.blue1 }}>Start Smart: Launch your Dreams</Typography>
+                  <Typography variant="h1" sx={{ fontSize: 40, mb: 3, color: appTheme.palette.primary.blue1 }}>{smartData[0].mainHeading}</Typography>
                 </Grid>
               </Grid>
 
 
               <div className="programs-image-container" style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-                <img src={require('../images/services.png')} />
+                <img src={urlFor(smartData[0].headingImage).url()} />
               </div>
 
             </Grid>
@@ -116,7 +112,7 @@ export default function StartSmart(props) {
 
 
 
-          <Grid container direction="column" justifyContent="center" alignItems="center" sx={{ mb: 8, mt:4 }}>
+          <Grid container direction="column" justifyContent="center" alignItems="center" sx={{ mb: 8, mt: 4 }}>
             <Grid container justifyContent="left" sx={{ width: "65%" }}>
               <CssBaseline />
               <Grid container direction="row" sx={{ textAlign: "left" }}>
@@ -129,11 +125,16 @@ export default function StartSmart(props) {
                   padding: 0,
                   mb: 4
                 }}>
-                  <span style={{ paddingRight: 17, color: appTheme.palette.primary.space }}>The Entrepreneurial Leap </span>
+                  <span style={{ paddingRight: 17, color: appTheme.palette.primary.space }}>{smartData[0].title1}</span>
                   <img width={45} src={require('../images/decor.png')} />
                 </Typography>
-                <Typography variant="h2" sx={{ fontSize: 24, fontWeight: 200, mb: 5, color: appTheme.palette.primary.space }}>{homeData[0].about}</Typography>
-                <Typography variant="h2" sx={{ fontSize: 24, fontWeight: 200, color: appTheme.palette.primary.space }}>{homeData[0].about}</Typography>
+                <Typography variant="h2" sx={{
+                  fontSize: 24, fontWeight: 200, color: appTheme.palette.primary.space, whiteSpace: 'pre-line',
+                  wordWrap: 'break-word'
+                }}>{smartData[0].paragraph1.split('<br>')
+                  .map((line, index) => (
+                    <span key={index} style={{ display: 'block' }}>{line}</span>
+                  ))}</Typography>
               </Grid>
             </Grid>
           </Grid>
@@ -151,11 +152,16 @@ export default function StartSmart(props) {
                   padding: 0,
                   mb: 4
                 }}>
-                  <span style={{ paddingRight: 17, color: appTheme.palette.primary.space }}>Introducing Start Smart</span>
+                  <span style={{ paddingRight: 17, color: appTheme.palette.primary.space }}>{smartData[0].title2}</span>
                   <img width={45} src={require('../images/decor.png')} />
                 </Typography>
-                <Typography variant="h2" sx={{ fontSize: 24, fontWeight: 200, mb: 5, color: appTheme.palette.primary.space }}>{homeData[0].about}</Typography>
-                <Typography variant="h2" sx={{ fontSize: 24, fontWeight: 200, color: appTheme.palette.primary.space }}>{homeData[0].about}</Typography>
+                <Typography variant="h2" sx={{
+                  fontSize: 24, fontWeight: 200, mb: 5, color: appTheme.palette.primary.space, whiteSpace: 'pre-line',
+                  wordWrap: 'break-word'
+                }}>{smartData[0].paragraph2.split('<br>')
+                  .map((line, index) => (
+                    <span key={index} style={{ display: 'block' }}>{line}</span>
+                  ))}</Typography>
               </Grid>
             </Grid>
           </Grid>
@@ -203,7 +209,7 @@ export default function StartSmart(props) {
                         boxShadow: "none",
                         borderRadius: 1,
                         display: "flex",
-                        margin:"auto",
+                        margin: "auto",
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center",
@@ -211,15 +217,15 @@ export default function StartSmart(props) {
                     >
 
                       <div className="circular-image2" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                        <img src={require('../images/money.jpeg')} />
+                        <img src={urlFor(smartData[0].card1image).url()} />
                       </div>
 
                       <div >
                         <Typography
                           variant="h1"
-                          sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1, mt: 1 }}
+                          sx={{ fontWeight: 550, padding: 0, color: appTheme.palette.primary.space, textAlign: "center", fontSize: 22, mb: 1, mt: 1 }}
                         >
-                          Capital
+                          {smartData[0].card1title}
                         </Typography>
                       </div>
 
@@ -228,7 +234,7 @@ export default function StartSmart(props) {
                           variant="h2"
                           sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
                         >
-                          The borrower's equity interest in the business and business loan.
+                          {smartData[0].card1paragraph}
                         </Typography>
                       </div>
                     </Card>
@@ -241,8 +247,8 @@ export default function StartSmart(props) {
                         width: 250,
                         boxShadow: "none",
                         borderRadius: 1,
-                        margin:"auto",
                         display: "flex",
+                        margin: "auto",
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center",
@@ -250,15 +256,15 @@ export default function StartSmart(props) {
                     >
 
                       <div className="circular-image2" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                        <img src={require('../images/money.jpeg')} />
+                        <img src={urlFor(smartData[0].card2image).url()} />
                       </div>
 
                       <div >
                         <Typography
                           variant="h1"
-                          sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1, mt: 1 }}
+                          sx={{ fontWeight: 550, padding: 0, color: appTheme.palette.primary.space, textAlign: "center", fontSize: 22, mb: 1, mt: 1 }}
                         >
-                          Capital
+                          {smartData[0].card2title}
                         </Typography>
                       </div>
 
@@ -267,7 +273,7 @@ export default function StartSmart(props) {
                           variant="h2"
                           sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
                         >
-                          The borrower's equity interest in the business and business loan.
+                          {smartData[0].card2paragraph}
                         </Typography>
                       </div>
                     </Card>
@@ -281,8 +287,8 @@ export default function StartSmart(props) {
                         width: 250,
                         boxShadow: "none",
                         borderRadius: 1,
-                        margin:"auto",
                         display: "flex",
+                        margin: "auto",
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center",
@@ -290,15 +296,15 @@ export default function StartSmart(props) {
                     >
 
                       <div className="circular-image2" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                        <img src={require('../images/money.jpeg')} />
+                        <img src={urlFor(smartData[0].card3image).url()} />
                       </div>
 
                       <div >
                         <Typography
                           variant="h1"
-                          sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1, mt: 1 }}
+                          sx={{ fontWeight: 550, padding: 0, color: appTheme.palette.primary.space, textAlign: "center", fontSize: 22, mb: 1, mt: 1 }}
                         >
-                          Capital
+                          {smartData[0].card3title}
                         </Typography>
                       </div>
 
@@ -307,7 +313,7 @@ export default function StartSmart(props) {
                           variant="h2"
                           sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
                         >
-                          The borrower's equity interest in the business and business loan.
+                          {smartData[0].card3paragraph}
                         </Typography>
                       </div>
                     </Card>
@@ -322,8 +328,8 @@ export default function StartSmart(props) {
                         width: 250,
                         boxShadow: "none",
                         borderRadius: 1,
-                        margin:"auto",
                         display: "flex",
+                        margin: "auto",
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center",
@@ -331,15 +337,15 @@ export default function StartSmart(props) {
                     >
 
                       <div className="circular-image2" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                        <img src={require('../images/money.jpeg')} />
+                        <img src={urlFor(smartData[0].card4image).url()} />
                       </div>
 
                       <div >
                         <Typography
                           variant="h1"
-                          sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1, mt: 1 }}
+                          sx={{ fontWeight: 550, padding: 0, color: appTheme.palette.primary.space, textAlign: "center", fontSize: 22, mb: 1, mt: 1 }}
                         >
-                          Capital
+                          {smartData[0].card4title}
                         </Typography>
                       </div>
 
@@ -348,7 +354,7 @@ export default function StartSmart(props) {
                           variant="h2"
                           sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
                         >
-                          The borrower's equity interest in the business and business loan.
+                          {smartData[0].card4paragraph}
                         </Typography>
                       </div>
                     </Card>
@@ -385,8 +391,8 @@ export default function StartSmart(props) {
                           width: 250,
                           boxShadow: "none",
                           borderRadius: 1,
-                          margin:"auto",
                           display: "flex",
+                          margin: "auto",
                           flexDirection: "column",
                           alignItems: "center",
                           justifyContent: "center",
@@ -394,15 +400,15 @@ export default function StartSmart(props) {
                       >
 
                         <div className="circular-image2" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                          <img src={require('../images/money.jpeg')} />
+                          <img src={urlFor(smartData[0].card5image).url()} />
                         </div>
 
                         <div >
                           <Typography
                             variant="h1"
-                            sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1, mt: 1 }}
+                            sx={{ fontWeight: 550, padding: 0, color: appTheme.palette.primary.space, textAlign: "center", fontSize: 22, mb: 1, mt: 1 }}
                           >
-                            Capital
+                            {smartData[0].card5title}
                           </Typography>
                         </div>
 
@@ -411,47 +417,7 @@ export default function StartSmart(props) {
                             variant="h2"
                             sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
                           >
-                            The borrower's equity interest in the business and business loan.
-                          </Typography>
-                        </div>
-                      </Card>
-                    </Grid>
-
-                    <Grid item xs>
-                      <Card
-                        sx={{
-                          backgroundColor: appTheme.palette.primary.white,
-                          height: 300,
-                          width: 250,
-                          boxShadow: "none",
-                          borderRadius: 1,
-                          margin:"auto",
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "center",
-                          justifyContent: "center",
-                        }}
-                      >
-
-                        <div className="circular-image2" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                          <img src={require('../images/money.jpeg')} />
-                        </div>
-
-                        <div >
-                          <Typography
-                            variant="h1"
-                            sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1, mt: 1 }}
-                          >
-                            Capital
-                          </Typography>
-                        </div>
-
-                        <div>
-                          <Typography
-                            variant="h2"
-                            sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
-                          >
-                            The borrower's equity interest in the business and business loan.
+                            {smartData[0].card5paragraph}
                           </Typography>
                         </div>
                       </Card>
@@ -466,7 +432,7 @@ export default function StartSmart(props) {
                           boxShadow: "none",
                           borderRadius: 1,
                           display: "flex",
-                          margin:"auto",
+                          margin: "auto",
                           flexDirection: "column",
                           alignItems: "center",
                           justifyContent: "center",
@@ -474,15 +440,15 @@ export default function StartSmart(props) {
                       >
 
                         <div className="circular-image2" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
-                          <img src={require('../images/money.jpeg')} />
+                          <img src={urlFor(smartData[0].card6image).url()} />
                         </div>
 
                         <div >
                           <Typography
                             variant="h1"
-                            sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 1, mt: 1 }}
+                            sx={{ fontWeight: 550, padding: 0, color: appTheme.palette.primary.space, textAlign: "center", fontSize: 22, mb: 1, mt: 1 }}
                           >
-                            Capital
+                            {smartData[0].card6title}
                           </Typography>
                         </div>
 
@@ -491,7 +457,47 @@ export default function StartSmart(props) {
                             variant="h2"
                             sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
                           >
-                            The borrower's equity interest in the business and business loan.
+                            {smartData[0].card6paragraph}
+                          </Typography>
+                        </div>
+                      </Card>
+                    </Grid>
+
+                    <Grid item xs>
+                      <Card
+                        sx={{
+                          backgroundColor: appTheme.palette.primary.white,
+                          height: 300,
+                          width: 250,
+                          boxShadow: "none",
+                          borderRadius: 1,
+                          display: "flex",
+                          margin: "auto",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+
+                        <div className="circular-image2" style={{ "margin-bottom": "10px", "margin-top": "10px" }}>
+                          <img src={urlFor(smartData[0].card7image).url()} />
+                        </div>
+
+                        <div >
+                          <Typography
+                            variant="h1"
+                            sx={{ fontWeight: 550, padding: 0, color: appTheme.palette.primary.space, textAlign: "center", fontSize: 22, mb: 1, mt: 1 }}
+                          >
+                            {smartData[0].card7title}
+                          </Typography>
+                        </div>
+
+                        <div>
+                          <Typography
+                            variant="h2"
+                            sx={{ textAlign: "center", fontSize: 17, mb: 1, width: 220 }}
+                          >
+                            {smartData[0].card7paragraph}
                           </Typography>
                         </div>
                       </Card>
@@ -527,16 +533,20 @@ export default function StartSmart(props) {
                 <Grid sx={{ textAlign: "center" }}>
                   <div className="circular-image" >
                     <img
-                      src={"https://cdn.sanity.io/images/39eecjq4/production/54bfa5a4214c355ec6a31c57407e505126fad7b9-1288x1564.jpg"}
+                      src={urlFor(smartData[0].instructorImage).url()}
                       alt="Logo"
                     ></img>
                   </div>
                 </Grid>
                 <Grid>
-                  <Typography variant="h1" sx={{ textAlign: "center", fontSize: 21, fontWeight: 500, color: appTheme.palette.primary.white, mb: -1 }}>Daniel Frunza</Typography>
-                  <Typography variant="h2" sx={{ textAlign: "center", fontSize: 18, fontWeight: 400, color: appTheme.palette.primary.white }}>Business Plan Maestro</Typography>
-                  <Typography variant="h2" sx={{ textAlign: "center", fontSize: 18, fontWeight: 400, color: appTheme.palette.primary.white }}>Consulting Expert</Typography>
-                  <Typography variant="h2" sx={{ textAlign: "center", fontSize: 18, fontWeight: 400, color: appTheme.palette.primary.white }}>Volunteer @ BigAUSTIN</Typography>
+                  <Typography variant="h1" sx={{ textAlign: "center", fontSize: 21, fontWeight: 500, color: appTheme.palette.primary.white, mb: -1 }}>{smartData[0].instructorName}</Typography>
+                  <Typography variant="h2" sx={{
+                    textAlign: "center", fontSize: 18, fontWeight: 400, color: appTheme.palette.primary.white,
+                    wordWrap: 'break-word',
+                  }}>{smartData[0].instructorTitle.split('<br>')
+                    .map((line, index) => (
+                      <span key={index} style={{ display: 'block' }}>{line}</span>
+                    ))}</Typography>
 
                 </Grid>
               </Grid>
@@ -544,17 +554,46 @@ export default function StartSmart(props) {
 
               <Grid item md={5} xs={12} >
                 <Grid container justifyContent="flex-start" alignItems="center" direction="row" sx={{ textAlign: "left" }}>
-                  <Typography variant="h2" sx={{ fontSize: 21, fontWeight: 200, mb: 3, color: appTheme.palette.primary.white }}>“Coffee Talk” is a series of events that ignites the spirit of women over conversation and coffee. Women learn how to cultivate meaningful relationships that are vital to successful lifestyles and prosperous businesses.</Typography>
-                  <Typography variant="h2" sx={{ fontSize: 21, fontWeight: 200, mb: 3, color: appTheme.palette.primary.white }}>BiGAUSTIN is set to provide the necessary tools to initiate and grow these businesses. We accomplish this together through education, consulting, round-table discussions, innovative networking opportunities, and lending programs.</Typography>
-                  <Typography variant="h2" sx={{ fontSize: 21, fontWeight: 200, mb: 3, color: appTheme.palette.primary.white }}>BiGAUSTIN is set to provide the necessary tools to initiate and grow these businesses. We accomplish this together through education, consulting, round-table discussions, innovative networking opportunities, and lending programs.</Typography>
+                  <Typography variant="h2" sx={{
+                    fontSize: 21, fontWeight: 200, mb: 3, color: appTheme.palette.primary.white, whiteSpace: 'pre-line',
+                    wordWrap: 'break-word',
+                  }}>{smartData[0].instructorDescp.split('<br>')
+                    .map((line, index) => (
+                      <span key={index} style={{ display: 'block' }}>{line}</span>
+                    ))}</Typography>
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
 
 
+
+
+          <Grid item sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        mt: 5
+                    }}>
+
+                        <Typography variant="h1" sx={{ fontSize: 25, textAlign: "center", color: appTheme.palette.primary.blue1 }}>Ready to transform your business dreams into reality?</Typography>
+                        <Typography variant="h2" sx={{ fontSize: 22, fontWeight: 500, color: appTheme.palette.primary.space, letterSpacing: 1, mb: 4, textTransform: "uppercase" }}>Don't miss out on this incredible opportunity. Secure your spot today!</Typography>
+                        <Typography variant="h2" sx={{ fontSize: 22, textAlign: "center", color: appTheme.palette.primary.blue1, lineHeight: "17px",
+              }}>
+                 <ReactMarkdown rehypePlugins={[rehypeRaw]} children={smartData[0].programDetails} />
+                {/* {smartData[0].programDetails.split('<br>')
+              .map((line, index) => (
+                <span key={index} style={{ display: 'block' }}>{line}</span>
+              ))} */}
+              </Typography>
+
+                    </Grid>
+
+
+
           <Grid sx={{
-            mt: 10, 
+            mt: 10,
             mb: 10,
             display: "flex",
             flexDirection: "column",
@@ -579,9 +618,24 @@ export default function StartSmart(props) {
 
               </Grid>
 
-                <Typography variant="h2" sx={{ textAlign: "left", fontSize: 24, fontFamily: "DM Serif Display", fontWeight: 500, mb: 2, color: appTheme.palette.primary.space }}>How do I join the virtual workshop?</Typography>
-                <Typography variant="h2" sx={{ fontSize: 24, fontWeight: 200, color: appTheme.palette.primary.space, mb: 3 }}>Once you register for the event you will receive an email with details to access the webinar.
-                  The invitation email or message will include a link to the meeting.</Typography>
+
+              {smartData[0].faq.map((item) => (
+                <Grid>
+                  <Typography variant="h2" sx={{ textAlign: "left", fontSize: 24, fontFamily: "DM Serif Display", fontWeight: 500, mb: 2, color: appTheme.palette.primary.space }}>{item.faq.question}</Typography>
+                  <Typography variant="h2" sx={{
+                    fontSize: 24, fontWeight: 200, color: appTheme.palette.primary.space, mb: 3, whiteSpace: 'pre-line',
+                    wordWrap: 'break-word',
+                  }}>{item.faq.answer.split('<br>')
+                    .map((line, index) => (
+                      <span key={index} style={{ display: 'block' }}>{line}</span>
+                    ))}
+                  </Typography>
+                </Grid>
+
+              ))}
+
+
+
 
             </Grid>
           </Grid>

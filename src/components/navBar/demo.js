@@ -20,12 +20,13 @@ import Link from "../../components/Link";
 
 
 
-const pages = ['ABOUT', 'HOW WE HELP', 'GET INVOLVED', 'NEWS', 'DONATE'];
+const pages = ['ABOUT', 'SERVICES', 'GET INVOLVED', 'DONATE', 'CONTACT'];
 // const about = ['About BiGAUSTIN', 'Our Impact', 'Our Team'];
 const about = [
-    { label: 'About BiGAUSTIN', url: '/about' },
+    { label: 'Who we are', url: '/about' },
     { label: 'Our Impact', url: '/our-impact' },
-    { label: 'Our Team', url: '/our-team' },
+    { label: 'Dream Team', url: '/our-team' },
+    { label: 'Partnership', url: '/partnership' },
 ];
 
 const help = [
@@ -138,7 +139,7 @@ function ResponsiveAppBar() {
 
 
 
-                        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+                        {/* <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                             <IconButton
                                 size="large"
                                 aria-label="account of current user"
@@ -173,7 +174,7 @@ function ResponsiveAppBar() {
                                     </MenuItem>
                                 ))}
                             </Menu>
-                        </Box>
+                        </Box> */}
 
                         <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
                         <Typography

@@ -1,83 +1,48 @@
 import React, { useState, useEffect } from "react";
 import {
-    AppBar,
-    Select,
     Typography,
     CssBaseline,
     Card,
-    CardContent,
-    Container,
-    InputLabel,
-    IconButton,
-    MenuItem,
-    FormControl,
-    Paper,
-    TextField,
-    Toolbar,
-    Avatar,
     Button,
-    Box,
     Grid,
-    InputAdornment,
 } from "@mui/material";
 import BottomBar from "../bottomBar/bottomBar.js";
 import NavBar from "../navBar/navBar.js";
-import { Col, Row } from 'antd';
 import "../styles.css";
-import { Image, Carousel, Progress } from 'antd';
-import headerBackgroundImage from "../images/backgroundheader2.png"
+import { Link } from 'react-router-dom';
 import { ThemeProvider } from "@mui/material/styles";
 import { appTheme } from "../Theme.js";
 import createClient from "/Users/aarushichitagi/Desktop/BiGAustin/src/client.js";
-import ArrowLeftImage from '../images/arrow-left.png'; // Import the left arrow image
-import ArrowRightImage from '../images/arrow-right.png'; // Import the right arrow image
+import imageUrlBuilder from '@sanity/image-url'
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from "rehype-raw";
 
+const builder = imageUrlBuilder(createClient)
 
-
-const { Title } = Typography;
-
-
-// Custom arrow components
-const CustomPrevArrow = ({ onClick }) => (
-    <div className="prev-arrow" onClick={onClick}>
-        <img src={ArrowLeftImage} alt="Previous" />
-    </div>
-);
-
-const CustomNextArrow = ({ onClick }) => (
-    <div className="next-arrow" onClick={onClick}>
-        <img src={ArrowRightImage} alt="Next" />
-    </div>
-);
-
-
+function urlFor(source) {
+    return builder.image(source)
+}
 
 export default function CoffeeTalk(props) {
 
-    const [homeData, setHome] = useState(null);
-    const items = [1, 2, 3, 4, 5, 6]
-
+    const [coffeeData, setCoffee] = useState(null);
 
 
 
     useEffect(() => {
         createClient.fetch(
-            `*[_type == "home"]{
-      mainHeading,
-      mainBlurb,
-      about,
-      peopleRised,
-      volunteers,
-      poorPeopleSaved,
-      countryMembers,
-      funding,
-      consulting,
-      education,        
-      testimonials
+            `*[_type == "womencoffee"]{
+                backgroundImage,
+                mainHeading,
+                headingImage,
+                mainParagraph,
+                buttonLink,
+                speakersBlurb,
+                speakers,
     }`
         )
             .then(
-                (data) => setHome(data)
+                (data) => setCoffee(data)
             )
             .catch(console.error);
     }, []//dependency array 
@@ -88,10 +53,10 @@ export default function CoffeeTalk(props) {
 
     return (
         <ThemeProvider theme={appTheme}>
-            {homeData && (
+            {coffeeData && (
 
                 <div justifyContent="center" alignItems="center" style={{ position: "relative", height: "100vh", justifyContent: 'center', alignItems: 'center' }}>
-                    <Grid component="main" sx={{ height: "60vh", backgroundImage: `url(${headerBackgroundImage})`, backgroundSize: 'cover' }}>
+                    <Grid component="main" sx={{ height: "60vh", backgroundImage: `url(${urlFor(coffeeData[0].backgroundImage).url()})`, backgroundSize: 'cover' }}>
                         <NavBar />
                     </Grid>
 
@@ -99,7 +64,7 @@ export default function CoffeeTalk(props) {
                         <Grid container justifyContent="center" alignItems="center">
                             <CssBaseline />
                             <Grid container direction="row" md={6.5} xs={9} sx={{ justifyContent: "center" }}>
-                                <Typography variant="h1" sx={{ fontSize: 40, color: appTheme.palette.primary.green1 }}>Women's Coffee Talk Series</Typography>
+                                <Typography variant="h1" sx={{ fontSize: 40, color: appTheme.palette.primary.green1 }}>{coffeeData[0].mainHeading}</Typography>
                             </Grid>
                         </Grid>
                     </Grid>
@@ -109,7 +74,7 @@ export default function CoffeeTalk(props) {
                         <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ width: "95%" }}>
                             <Grid item md={4} xs={12} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', paddingBottom: 5 }}>
                                 <img className="squareImage"
-                                    src={"https://cdn.sanity.io/images/39eecjq4/production/54bfa5a4214c355ec6a31c57407e505126fad7b9-1288x1564.jpg"}
+                                    src={urlFor(coffeeData[0].headingImage).url()}
                                     alt="Logo"
                                     style={{
                                         top: 0,
@@ -125,24 +90,27 @@ export default function CoffeeTalk(props) {
 
                             <Grid item md={4} xs={12} >
                                 <Grid container justifyContent="flex-start" alignItems="center" direction="row" sx={{ textAlign: "left" }}>
-                                    <Typography variant="h2" sx={{ fontSize: 21, fontWeight: 200, mb: 3, color: appTheme.palette.primary.black }}>“Coffee Talk” is a series of events that ignites the spirit of women over conversation and coffee. Women learn how to cultivate meaningful relationships that are vital to successful lifestyles and prosperous businesses.</Typography>
-                                    <Typography variant="h2" sx={{ fontSize: 21, fontWeight: 200, mb: 3, color: appTheme.palette.primary.black }}>BiGAUSTIN is set to provide the necessary tools to initiate and grow these businesses. We accomplish this together through education, consulting, round-table discussions, innovative networking opportunities, and lending programs.</Typography>
-
-                                    <Button
-                                        width="150"
-                                        height="20"
-                                        variant="contained"
-                                        disableElevation
-                                        sx={{
-                                            color: appTheme.palette.primary.white, fontSize: 17, fontWeight: 500,
-                                            backgroundColor: appTheme.palette.primary.green2, borderRadius: .7, height: 40,
-                                            '&:hover': {
-                                                fontWeight: 700
-                                            },
-                                        }}>
-                                        Join Our Coffee Talks
-                                    </Button>
-
+                                    <Typography variant="h2" sx={{
+                                        fontSize: 21, fontWeight: 200, mb: 3, color: appTheme.palette.primary.black, whiteSpace: 'pre-line',
+                                    }}>
+                                        <ReactMarkdown rehypePlugins={[rehypeRaw]} children={coffeeData[0].mainParagraph} />
+                                    </Typography>
+                                    <Link to={coffeeData[0].buttonLink} style={{ textDecoration: 'none' }}>
+                                        <Button
+                                            width="150"
+                                            height="20"
+                                            variant="contained"
+                                            disableElevation
+                                            sx={{
+                                                color: appTheme.palette.primary.white, fontSize: 17, fontWeight: 500,
+                                                backgroundColor: appTheme.palette.primary.green2, borderRadius: .7, height: 40,
+                                                '&:hover': {
+                                                    fontWeight: 700
+                                                },
+                                            }}>
+                                            Join Our Coffee Talks
+                                        </Button>
+                                    </Link>
                                 </Grid>
                             </Grid>
 
@@ -177,7 +145,7 @@ export default function CoffeeTalk(props) {
                                         <img width={40} src={require('../images/decor.png')} />
                                     </Typography>                                </Grid>
                             </Grid>
-                            <Typography variant="h2" sx={{ fontSize: 20, textAlign: "center", color: appTheme.palette.primary.white }}>BiGAUSTIN has been committed to meeting the unique financial needs of new and existing entrepreneurs since its inception in 1995. As a local non-profit and micro-lender, BiGAUSTIN provides a streamlined loan process that allows for rapid loan decisions.</Typography>
+                            <Typography variant="h2" sx={{ fontSize: 20, textAlign: "center", color: appTheme.palette.primary.white }}>{coffeeData[0].speakersBlurb}</Typography>
                         </Grid>
 
 
@@ -193,7 +161,7 @@ export default function CoffeeTalk(props) {
                             mb: 12
                         }}>
                             <Grid container spacing={5}>
-                                {items.map((items) => (
+                                {coffeeData[0].speakers.map((items) => (
                                     <Grid item xs>
                                         <Card
                                             sx={{
@@ -206,35 +174,15 @@ export default function CoffeeTalk(props) {
                                             }}
                                         >
 
-                                            <img width={800} src={require('../images/coffeetalk/chelleneff.png')} />
+                                            <img width={800} src={urlFor(items).url()} />
 
 
                                         </Card>
                                     </Grid>
-
-
-
                                 ))}
                             </Grid>
-
-
                         </Grid>
-
-
-
-
-
-
-
-
-
                     </Grid>
-
-
-
-
-
-
 
                     <BottomBar />
                 </div>

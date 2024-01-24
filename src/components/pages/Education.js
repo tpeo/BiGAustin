@@ -1,82 +1,53 @@
 import React, { useState, useEffect } from "react";
 import {
-  AppBar,
-  Select,
   Typography,
-  CssBaseline,
   Card,
-  CardContent,
-  Container,
-  InputLabel,
-  IconButton,
-  MenuItem,
-  FormControl,
-  Paper,
-  TextField,
-  Toolbar,
-  Avatar,
   Button,
-  Box,
   Grid,
-  InputAdornment,
 } from "@mui/material";
 import BottomBar from "../bottomBar/bottomBar.js";
 import NavBar from "../navBar/navBar.js";
-import { Col, Row } from 'antd';
 import "../styles.css";
-import { Image, Carousel, Progress } from 'antd';
-import headerBackgroundImage from "../images/backgroundheader2.png"
+import { Link } from 'react-router-dom';
 import { ThemeProvider } from "@mui/material/styles";
 import { appTheme } from "../Theme.js";
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from "rehype-raw";
 import createClient from "/Users/aarushichitagi/Desktop/BiGAustin/src/client.js";
-import ArrowLeftImage from '../images/arrow-left.png'; // Import the left arrow image
-import ArrowRightImage from '../images/arrow-right.png'; // Import the right arrow image
+import imageUrlBuilder from '@sanity/image-url'
 
+const builder = imageUrlBuilder(createClient)
 
-
-const { Title } = Typography;
-
-
-// Custom arrow components
-const CustomPrevArrow = ({ onClick }) => (
-  <div className="prev-arrow" onClick={onClick}>
-    <img src={ArrowLeftImage} alt="Previous" />
-  </div>
-);
-
-const CustomNextArrow = ({ onClick }) => (
-  <div className="next-arrow" onClick={onClick}>
-    <img src={ArrowRightImage} alt="Next" />
-  </div>
-);
-
-
+function urlFor(source) {
+    return builder.image(source)
+}
 
 export default function Consulting(props) {
 
-  const [homeData, setHome] = useState(null);
-  const items = [1, 2, 3, 4, 5, 6]
-
-
+  const [educData, setEduc] = useState(null);
 
   useEffect(() => {
     createClient.fetch(
-      `*[_type == "home"]{
-      mainHeading,
-      mainBlurb,
-      about,
-      peopleRised,
-      volunteers,
-      poorPeopleSaved,
-      countryMembers,
-      funding,
-      consulting,
-      education,        
-      testimonials
+      `*[_type == "education"]{
+        backgroundImage,
+        mainHeading,
+        mainBlurb,
+        boldText1,
+        paragraph1,
+        boldText2,
+        paragraph2,
+        buttonLink,
+        skills[]{
+          skills-> {
+            title,
+            description,
+            image
+          }
+        },
     }`
     )
       .then(
-        (data) => setHome(data)
+        (data) => setEduc(data)
       )
       .catch(console.error);
   }, []//dependency array 
@@ -84,13 +55,12 @@ export default function Consulting(props) {
 
 
 
-
   return (
     <ThemeProvider theme={appTheme}>
-      {homeData && (
+      {educData && (
 
         <div justifyContent="center" alignItems="center" style={{ position: "relative", height: "100vh", justifyContent: 'center', alignItems: 'center' }}>
-          <Grid component="main" sx={{ height: "60vh", backgroundImage: `url(${headerBackgroundImage})`, backgroundSize: 'cover' }}>
+          <Grid component="main" sx={{ height: "60vh", backgroundImage: `url(${urlFor(educData[0].backgroundImage).url()})`, backgroundSize: 'cover' }}>
             <NavBar />
           </Grid>
 
@@ -101,14 +71,11 @@ export default function Consulting(props) {
             justifyContent: "center",
           }}>
 
-            <Typography variant="h1" sx={{ fontSize: 40, mb: 3, mt: 5, color: appTheme.palette.primary.blue1 }}>The BiGAUSTIN School of Business & Job Skills Development</Typography>
+            <Typography variant="h1" sx={{ fontSize: 40, mb: 3, mt: 5, color: appTheme.palette.primary.blue1 }}>{educData[0].mainHeading}</Typography>
             <Grid sx={{ height: "auto", width: "48%", mb: 1 }}>
-              <Typography variant="h2" sx={{ fontSize: 18, textAlign: "center", color: appTheme.palette.primary.space }}>De J. Lozada - Founder Of Soul Popped Gourmet Popcorn
-                BiGAUSTIN delivers innovative solutions and creates financial strength for our clients. We are committed to building healthy, sustainable communities by providing high-quality training to job seekers and entrepreneurs to prepare them for the evolving economic landscape in the Central Texas area.
-              </Typography>
+              <Typography variant="h2" sx={{ fontSize: 18, textAlign: "center", color: appTheme.palette.primary.space }}>{educData[0].mainBlurb}</Typography>
             </Grid>
           </Grid>
-
 
 
           <Grid item sx={{
@@ -121,22 +88,11 @@ export default function Consulting(props) {
           }}>
 
             <Grid sx={{ height: "auto", width: "45%", paddingTop: 8 }}>
-              <Typography variant="h2" sx={{ fontSize: 25, fontWeight: 400, textAlign: "center", color: appTheme.palette.primary.white, mb: 2 }}>The lack of access to high-quality and affordable education is one of the primary reasons businesses fail!            </Typography>
-              <Typography variant="h2" sx={{ fontSize: 20, textAlign: "center", color: appTheme.palette.primary.white, mb: 4 }}>Therefore, BiGAUSTIN takes an underserved business owner’s amazing talent and matches it with the resources needed to succeed and become a positive economic contributor.</Typography>
-              <Typography variant="h2" sx={{ fontSize: 25, fontWeight: 500, textAlign: "center", color: appTheme.palette.primary.white, mb: 2 }}>BiGAUSTIN’S MULTIMODAL APPROACH TO BUSINESS ED</Typography>
-              <Typography variant="h2" sx={{ fontSize: 20, textAlign: "center", color: appTheme.palette.primary.white}}>Seminars</Typography>
-              <Typography variant="h2" sx={{ fontSize: 20, textAlign: "center", color: appTheme.palette.primary.white}}>Industry-centric Courses</Typography>
-              <Typography variant="h2" sx={{ fontSize: 20, textAlign: "center", color: appTheme.palette.primary.white}}>Intensive Business Training</Typography>
-              <Typography variant="h2" sx={{ fontSize: 20, textAlign: "center", color: appTheme.palette.primary.white}}>Workshops</Typography>
-              <Typography variant="h2" sx={{ fontSize: 20, textAlign: "center", color: appTheme.palette.primary.white}}>Entrepreneurship</Typography>
-              <Typography variant="h2" sx={{ fontSize: 20, textAlign: "center", color: appTheme.palette.primary.white}}>Job Skills Development</Typography>
-
-
-
-
-
+              <Typography variant="h2" sx={{ fontSize: 25, fontWeight: 400, textAlign: "center", color: appTheme.palette.primary.white, mb: 2 }}>{educData[0].boldText1}</Typography>
+              <Typography variant="h2" sx={{ fontSize: 20, textAlign: "center", color: appTheme.palette.primary.white, mb: 4 }}>{educData[0].paragraph1}</Typography>
+              <Typography variant="h2" sx={{ fontSize: 25, fontWeight: 500, textAlign: "center", color: appTheme.palette.primary.white, mb: 2 }}>{educData[0].boldText2}</Typography>
+              <Typography variant="h2" sx={{ fontSize: 20, textAlign: "center", color: appTheme.palette.primary.white}}><ReactMarkdown rehypePlugins={[rehypeRaw]} children={educData[0].paragraph2}/> </Typography>
             </Grid>
-
 
             <Grid sx={{
                 display: 'flex',
@@ -148,24 +104,24 @@ export default function Consulting(props) {
                 mt: 5,
                 mb: 8
               }}>
-                <Button
-                  width="150"
-                  variant="contained"
-                  disableElevation
-                  sx={{
-                    color: appTheme.palette.primary.white, fontSize: 18, fontWeight: 500,
-                    backgroundColor: appTheme.palette.primary.green2, borderRadius: .9, height: 45, mr: 3,
-                    '&:hover': {
-                      fontWeight: 700
-                    },
-                  }}>
-                  Upcoming Sessions
-                </Button>
+              <Link to={educData[0].buttonLink} style={{ textDecoration: 'none' }}>
+                  <Button
+                    width="150"
+                    variant="contained"
+                    disableElevation
+                    sx={{
+                      color: appTheme.palette.primary.white, fontSize: 18, fontWeight: 500,
+                      backgroundColor: appTheme.palette.primary.green2, borderRadius: .9, height: 45, mr: 3,
+                      '&:hover': {
+                        fontWeight: 700
+                      },
+                    }}>
+                    Upcoming Sessions
+                  </Button>
+                </Link>
                 <img width={40} src={require('../images/decor.png')} />
               </Grid>
           </Grid>
-
-
 
 
           <Grid item sx={{
@@ -179,8 +135,9 @@ export default function Consulting(props) {
             mb: 12
           }}>
             <Grid container spacing={5}>
-            {items.map((items) => (
+            {educData[0].skills.map((item) => (
               <Grid item xs>
+                {console.log(item.skills)}
               <Card
                 sx={{
                   backgroundColor: appTheme.palette.primary.white,
@@ -192,11 +149,9 @@ export default function Consulting(props) {
                   flexDirection: "column",
                 }}
               >
-
                 <div style={{ "margin-bottom": "10px"}}>
-                  <img height={20} src={require('../images/money.jpeg')} />
+                  <img height={20} src={urlFor(item.skills.image).url()} />
                 </div>
-
 
                 <div style={{ "padding": "10px"}}>
                 <div>
@@ -204,7 +159,7 @@ export default function Consulting(props) {
                     variant="h1"
                     sx={{ fontWeight: 550, padding: 0, fontSize: 22, mb: 2 }}
                   >
-                    Lending
+                    {item.skills.title}
                   </Typography>
                 </div>
 
@@ -213,30 +168,19 @@ export default function Consulting(props) {
                     variant="h2"
                     sx={{fontSize: 17, mb: 1,  width: 220 }}
                   >
-                    We tailor our free consultations to meet your specific needs related to business startup, business plan development, expansion, marketing, and management assistance. We are here to help you figure it out.
+                    {item.skills.description}
                   </Typography>
                 </div>
                 </div>
 
                 <Grid item sx={{ textAlign: 'right', paddingRight: 0, mt: 1}}>
-                        <img width={35} src={require('../images/decor.png')} />
-                  </Grid>
-
-
+                    <img width={35} src={require('../images/decor.png')} />
+                </Grid>
               </Card>
             </Grid>
-               
             ))}
             </Grid>
-
-           
           </Grid>
-
-
-
-
-
-
 
           <BottomBar />
         </div>
