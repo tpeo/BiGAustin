@@ -356,7 +356,6 @@ export default function NavBar() {
               </ContentGroup>
 
               <ContentGroup fontFamily="League Spartan, sans-serif" title="ASPIRE" rootUrl="aspire" />
-              {/* <ContentGroup title="Open Source" rootUrl="https://github.com/yusinto" /> */}
               <ContentGroup title="DONATE" rootUrl="donate" background="white" />
 
               <ContentGroup title="CONTACT" rootUrl="/contact" background="appTheme.palette.primary.white" />
