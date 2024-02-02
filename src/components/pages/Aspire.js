@@ -143,12 +143,13 @@ export default function Aspire(props) {
                             <Typography variant="h2" sx={{ fontSize: 22, width: "60%", margin: "0 auto", textAlign: "center", mb: 7 }}>{aspireData[0].mainBlurb}</Typography>
 
 
-                            <div className="programs-image-container" style={{ width: 560, margin: "0 auto", display: "flex", justifyContent: "center" }}>
+                            <div className="programs-image-container" style={{ width: "50%", display: "flex",  margin: "0 auto", justifyContent: "center" }}>
                                 {/* <img src={urlFor(aspireData[0].headerImage).url()} /> */}
-                                <iframe width="560" height="315" src={aspireData[0].headingVideo} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                <iframe style={{ borderRadius: '10px' }} width="100%" height="315" src={aspireData[0].headingVideo} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
                             </div>
 
                             <Grid container justifyContent="center" alignItems="center" sx={{ mb: 3, mt: 5 }}>
+                                <Link to={""} target="_blank" style={{ textDecoration: 'none' }}>
                                 <Button
                                     width="200"
                                     height="40"
@@ -163,6 +164,7 @@ export default function Aspire(props) {
                                     }}>
                                     Sign up for Updates
                                 </Button>
+                                </Link>
 
                             </Grid>
 
@@ -339,7 +341,7 @@ export default function Aspire(props) {
                             <div ref={sliderRef} className="keen-slider">
                                 {aspireData[0].news.map((item) => (
                                     <div className="keen-slider__slide number-slide1">
-                                        {console.log("news", item)}
+                                        {/* {console.log("news", item)} */}
                                         <Grid container justifyContent="center" alignItems="center" sx={{ mb: 5, backgroundColor: appTheme.palette.primary.green4 }}>
                                        
                                             <Grid container direction="row" sx={{ width: "50%" }}>

@@ -141,7 +141,7 @@ export default function Services(props) {
 
                     {/* Learn More button and icon at the bottom */}
                     <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px' }}>
-                      <Link to={servicesData[0].card1link} style={{ textDecoration: 'none' }}>
+                      <Link to={servicesData[0].card1link} target="_blank" style={{ textDecoration: 'none' }}>
                         <Button
                           width="150"
                           height="20"
@@ -202,7 +202,7 @@ export default function Services(props) {
 
                     {/* Learn More button and icon at the bottom */}
                     <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px' }}>
-                      <Link to={servicesData[0].card2link} style={{ textDecoration: 'none' }}>
+                      <Link to={servicesData[0].card2link} target="_blank" style={{ textDecoration: 'none' }}>
                         <Button
                           width="150"
                           height="20"
@@ -262,7 +262,7 @@ export default function Services(props) {
 
                     {/* Learn More button and icon at the bottom */}
                     <div style={{ display: 'flex', justifyContent: 'space-between', padding: '10px' }}>
-                      <Link to={servicesData[0].card3link} style={{ textDecoration: 'none' }}>
+                      <Link to={servicesData[0].card3link} target="_blank" style={{ textDecoration: 'none' }}>
                         <Button
                           width="150"
                           height="20"
@@ -321,7 +321,7 @@ export default function Services(props) {
                         <span key={index} style={{ display: 'block' }}>{line}</span>
                       ))}
                   </Typography>
-                  <Link to={servicesData[0].programLink} style={{ textDecoration: 'none' }}>
+                  <Link to={servicesData[0].programLink} target="_blank" style={{ textDecoration: 'none' }}>
                     <Button
                       width="150"
                       height="20"

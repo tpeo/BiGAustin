@@ -95,7 +95,7 @@ export default function CoffeeTalk(props) {
                                     }}>
                                         <ReactMarkdown rehypePlugins={[rehypeRaw]} children={coffeeData[0].mainParagraph} />
                                     </Typography>
-                                    <Link to={coffeeData[0].buttonLink} style={{ textDecoration: 'none' }}>
+                                    <Link to={coffeeData[0].buttonLink} target="_blank" style={{ textDecoration: 'none' }}>
                                         <Button
                                             width="150"
                                             height="20"

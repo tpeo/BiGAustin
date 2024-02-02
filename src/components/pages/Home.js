@@ -88,17 +88,8 @@ function urlFor(source) {
 
 
 export default function Home(props) {
-  console.log('in home screen');
 
   const [homeData, setHome] = useState(null);
-
-  // console.log(homeData[0].testimonials);
-
-
-
-  const items = [1, 2, 3, 4, 5, 6]
-  const images = [1, 2, 3, 4]
-
 
 
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -187,7 +178,7 @@ export default function Home(props) {
         <div style={{ height: "100vh" }}>
           <NavBar />
 
-          <Grid component="main" sx={{ paddingBottom: 10, backgroundImage: `url(${urlFor(homeData[0].backgroundImage).url()})`, backgroundSize: 'cover', height: "650px" }}>
+          <Grid component="main" sx={{ paddingBottom: 10, backgroundImage: `url(${urlFor(homeData[0].backgroundImage).url()})`, backgroundSize: 'cover', height: "95vh" }}>
             <Grid container justifyContent="center" sx={{ paddingTop: "60px" }}>
               <CssBaseline />
               <Grid container direction="row" sx={{ mt: 15, textAlign: "center", width: 800 }}>
@@ -250,7 +241,7 @@ export default function Home(props) {
                     }}
                   >
                     <div className="image-container1" style={{ "margin-bottom": "10px" }}>
-                      <img width={90} src={require('../images/decor.png')} />
+                      <img width={90} src={require('../images/helpicon.png')} />
                     </div>
 
                     <div >
@@ -588,7 +579,7 @@ export default function Home(props) {
               <div ref={sliderRef} className="keen-slider">
                 {homeData[0].testimonials.map((item) => (
                   <div className="keen-slider__slide number-slide1">
-                    {console.log("home", item)}
+                    {/* {console.log("home", item)} */}
                     <Grid container justifyContent="center" alignItems="center" sx={{ mb: 10, backgroundColor: appTheme.palette.primary.blue1 }}>
                       <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ width: "95%" }}>
                         <Grid item md={4} xs={12} sx={{ justifyContent: 'center', alignItems: 'center' }}>
@@ -607,8 +598,8 @@ export default function Home(props) {
                           </Grid>
                         </Grid>
                         <Grid item md={5} xs={12} >
-                          <Grid container justifyContent="flex-start" alignItems="center" direction="row" sx={{ textAlign: "left" }}>
-                            <Typography variant="h2" sx={{ fontSize: 21, fontWeight: 200, color: appTheme.palette.primary.white, width: "90%" }}>{item.testimonial.blurb}</Typography>
+                          <Grid container alignItems="center" justifyContent="center" sx={{ }}>
+                            <Typography variant="h2" sx={{ fontSize: 21, fontWeight: 200, textAlign: "center", color: appTheme.palette.primary.white, width: "90%" }}>{item.testimonial.blurb}</Typography>
                           </Grid>
                         </Grid>
                       </Grid>

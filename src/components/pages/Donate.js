@@ -170,7 +170,7 @@ export default function Donate(props) {
 
 
           <Grid container justifyContent="center" alignItems="center" sx={{ mb: 8 }}>
-            <Link to={donateData[0].donateButton} style={{ textDecoration: 'none' }}>
+            <Link to={donateData[0].donateButton} target="_blank" style={{ textDecoration: 'none' }}>
 
               <Button
                 width="200"

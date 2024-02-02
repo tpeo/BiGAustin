@@ -9,6 +9,7 @@ import {
 import Switch from '@mui/material/Switch';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FullCalendar from '@fullcalendar/react'
+import Modal from '@mui/material/Modal';
 import dayGridPlugin from '@fullcalendar/daygrid'
 import BottomBar from "../bottomBar/bottomBar.js";
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -35,13 +36,31 @@ export default function Workshops(props) {
   const [toggleOn, setToggleOn] = useState(false);
   const [events, setEvents] = useState([]);
 
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+
   const handleChange = () => {
     setToggleOn((prevToggle) => !prevToggle);
   };
 
-  // const events = [
-  //   { title: 'Meeting', start: new Date() }
-  // ]
+  const handleEventClick = ({ event }) => {
+    // Open the modal when the event is clicked 
+    // console.log(event);
+    setSelectedEvent(event);
+    setModalOpen(true);
+  };
+
+  const handleClose = () => {
+    setModalOpen(false);
+  };
+
+  // const handleOpen = (item) => {
+  //   setSelectedTeamMember(item.people);
+  //   setOpen(true);
+  //   // other logic for opening the modal
+  // };
+
+
 
   useEffect(() => {
     createClient.fetch(
@@ -73,11 +92,14 @@ export default function Workshops(props) {
     if (workData) {
       const newEvents = workData[0].workshops.map(item => ({
         title: item.workshops.title,
+        description: item.workshops.description,
+        button: item.workshops.button,
+        image: item.workshops.image,
         date: new Date(item.workshops.dateTime),
       }));
-  
+
       setEvents(newEvents);
-      console.log(events);
+      // console.log(events);
     }
   }, [workData]); // Update events whenever workshopsData changes
 
@@ -170,12 +192,87 @@ export default function Workshops(props) {
                 plugins={[dayGridPlugin]}
                 initialView='dayGridMonth'
                 events={events}
+                eventClick={handleEventClick}
                 eventColor={appTheme.palette.primary.green1}
               />
 
+
+              {/* Modal */}
+              {selectedEvent && (
+                <Modal
+                  open={isModalOpen}
+                  onClose={handleClose}
+                  aria-labelledby="modal-modal-title"
+                  aria-describedby="modal-modal-description"
+                  disableAutoFocus={true}
+                  sx={{ borderRadius: '10px', border: 'none', outline: '0' }}
+                >
+                  <Grid
+                    sx={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      width: '50%',
+                      height: '70%',
+                      bgcolor: 'background.paper',
+                      borderRadius: '10px',
+                      overflow: 'hidden',
+                      backgroundImage: `url(${urlFor(selectedEvent.extendedProps.image).url()})`,
+                      backgroundSize: 'cover',
+                    }}
+                  >
+                    <Grid
+                      sx={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        width: '65%',
+                        height: '100%',
+                        backgroundColor: '#1c2029',
+                        opacity: 0.95,
+                        zIndex: 1,
+                        '@media only screen and (max-width: 600px)': {
+                          width: '100%', // Adjust the width for smaller screens
+                        },
+                      }}
+                    ></Grid>
+
+                    <Grid container>
+                      <Grid item xs={12} sm={7}
+                        sx={{
+                          position: 'relative',
+                          zIndex: 2,
+                          padding: '50px',
+                          color: 'white',
+                        }}
+                      >
+                        <Typography variant="h1" sx={{ fontSize: 27, padding: 0, mb: 3 }}>{selectedEvent.title}</Typography>
+                        <Typography variant="h2" sx={{ fontSize: 23, padding: 0, mb: 7 }}>{selectedEvent.extendedProps.description}</Typography>
+                        <Link to={selectedEvent.extendedProps.button} target="_blank" style={{ textDecoration: 'none' }}>
+                          <Button
+                            width="150"
+                            variant="contained"
+                            disableElevation
+                            sx={{
+                              color: appTheme.palette.primary.white, fontSize: 18, fontWeight: 500,
+                              backgroundColor: appTheme.palette.primary.green2, borderRadius: .9, height: 45, mr: 3,
+                              '&:hover': {
+                                fontWeight: 700
+                              },
+                            }}>
+                            Register Now
+                          </Button>
+                        </Link>
+                      </Grid>
+                    </Grid>
+
+                  </Grid>
+                </Modal>
+              )}
+
+
             </Grid>
-
-
 
             :
 
@@ -190,7 +287,7 @@ export default function Workshops(props) {
             }}>
               <Grid container spacing={5}>
                 {workData[0].workshops.map((items) => (
-              
+
                   <Grid item xs>
                     <Card
                       sx={{
@@ -249,21 +346,21 @@ export default function Workshops(props) {
                       </div>
 
                       <Grid>
-                      <Link to={items.workshops.button} style={{ textDecoration: 'none' }}>
-                        <Button
-                          width="150"
-                          height="20"
-                          variant="contained"
-                          disableElevation
-                          sx={{
-                            ml: 3, mb: 4, mt: 2, color: appTheme.palette.primary.white, fontSize: 15, fontWeight: 500,
-                            backgroundColor: appTheme.palette.primary.green2, borderRadius: .7, height: 35,
-                            '&:hover': {
-                              fontWeight: 700
-                            },
-                          }}>
-                          Learn More
-                        </Button>
+                        <Link to={items.workshops.button} target="_blank" style={{ textDecoration: 'none' }}>
+                          <Button
+                            width="150"
+                            height="20"
+                            variant="contained"
+                            disableElevation
+                            sx={{
+                              ml: 3, mb: 4, mt: 2, color: appTheme.palette.primary.white, fontSize: 15, fontWeight: 500,
+                              backgroundColor: appTheme.palette.primary.green2, borderRadius: .7, height: 35,
+                              '&:hover': {
+                                fontWeight: 700
+                              },
+                            }}>
+                            Learn More
+                          </Button>
                         </Link>
                       </Grid>
                     </Card>

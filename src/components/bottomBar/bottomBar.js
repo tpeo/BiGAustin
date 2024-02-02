@@ -1,43 +1,53 @@
 import React, { useState, useEffect } from "react";
 import {
-  AppBar,
-  Select,
   Typography,
-  CssBaseline,
   Card,
-  CardContent,
-  Container,
-  InputLabel,
-  IconButton,
-  MenuItem,
-  FormControl,
   Link,
-  Paper,
-  TextField,
-  Toolbar,
-  Avatar,
   Button,
   Box,
   Grid,
-  InputAdornment,
 } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { appTheme } from "../Theme.js";
 import "../styles.css";
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import PinterestIcon from '@mui/icons-material/Pinterest';
-import YouTubeIcon from '@mui/icons-material/YouTube';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import EmailIcon from '@mui/icons-material/Email';
-
+import createClient from "/Users/aarushichitagi/Desktop/BiGAustin/src/client.js";
+import FormComponent from "../form.js";
 
 export default function BottomBar() {
+
+  const [footerData, setFooter] = useState(null);
+
+
+  useEffect(() => {
+    createClient.fetch(
+      `*[_type == "footer"]{
+        address,
+        phone,
+        email,
+        twitterLink,
+        instaLink,
+        pinterestLink,
+        ytLink
+    }`
+    )
+      .then(
+        (data) => setFooter(data)
+      )
+      .catch(console.error);
+  }, []//dependency array 
+  )
 
 
   return (
     <ThemeProvider theme={appTheme}>
+      {footerData && (
 
 
 
@@ -69,29 +79,30 @@ export default function BottomBar() {
                 <div className="links" style={{"padding-right":"10px", "margin-top": "50px" }}>
                   <ul>
                     <li>
-                      <Link href="/education">
+                      <Link href="https://maps.app.goo.gl/8WnaWP4Ksy6jBjrC7">
                       <div style={{ display: 'flex', alignItems: 'center', width: "100%", margin: "0 auto" }}>
                           <LocationOnIcon style={{ border: '4px solid #B6F599', width: 30, height: 30, marginRight: 10 }} sx={{ borderRadius: 5, backgroundColor: appTheme.palette.primary.green3, color: appTheme.palette.primary.footer }}></LocationOnIcon>
-                          <span><Typography variant="h2" sx={{ fontSize: 18, fontWeight: 300, color: appTheme.palette.primary.platinum, }}>8000 Centre Park Drive, Suite 200 Austin TX 78754</Typography></span>
+                          <span><Typography variant="h2" sx={{ fontSize: 18, fontWeight: 300, color: appTheme.palette.primary.platinum, }}>{footerData[0].address}</Typography></span>
                         </div>
                        
                       </Link>
                     </li>
                     <li>
-                      <Link href="/education">
+                      <Link href="tel:5129288010">
                         <div style={{ display: 'flex', alignItems: 'center', width: "100%", margin: "0 auto" }}>
                           <LocalPhoneIcon style={{ border: '4px solid #B6F599', width: 30, height: 30, marginRight: 10 }} sx={{ borderRadius: 5, backgroundColor: appTheme.palette.primary.green3, color: appTheme.palette.primary.footer }}></LocalPhoneIcon>
-                          <span><Typography variant="h2" sx={{ fontSize: 18, fontWeight: 300, color: appTheme.palette.primary.platinum, }}>(512) 928-8010</Typography></span>
+                          <span><Typography variant="h2" sx={{ fontSize: 18, fontWeight: 300, color: appTheme.palette.primary.platinum, }}>{footerData[0].phone}</Typography></span>
                         </div>
 
                       </Link>
                     </li>
                     <li>
-                      <Link href="/education">
+                      <Link href="mailto:info@bigaustin.org">
 
                         <div style={{ display: 'flex', alignItems: 'center', width: "100%", margin: "0 auto" }}>
                           <EmailIcon style={{ border: '4px solid #B6F599', width: 30, height: 30, marginRight: 10 }} sx={{ borderRadius: 5, backgroundColor: appTheme.palette.primary.green3, color: appTheme.palette.primary.footer }}></EmailIcon>
-                          <span><Typography variant="h2" sx={{ fontSize: 18, fontWeight: 300, color: appTheme.palette.primary.platinum, }}>info@bigaustin.org</Typography></span>
+                         
+                          <span><Typography variant="h2" sx={{ fontSize: 18, fontWeight: 300, color: appTheme.palette.primary.platinum, }}>{footerData[0].email}</Typography></span>
                           </div>
                           
                       </Link>
@@ -256,7 +267,7 @@ export default function BottomBar() {
                       </Link>
                     </li>
                     <li>
-                      <Link href="/partner">
+                      <Link href="/partnership">
                         Partner
                       </Link>
                     </li>
@@ -273,6 +284,7 @@ export default function BottomBar() {
 
 
             <Grid item xs>
+{/* <div class="ctct-inline-form" data-form-id="d5b9e5f7-9420-4053-a13f-0a884308b4a3"></div> */}
               <Card
                 sx={{
                   width: 280,
@@ -317,25 +329,30 @@ export default function BottomBar() {
                     </Typography>
                   </div>
 
-                  <TwitterIcon style={{ border: '4px solid #B6F599', width: 30, height: 30, marginRight: 10 }} sx={{ borderRadius: 5, backgroundColor: appTheme.palette.primary.green3, color: appTheme.palette.primary.footer }}></TwitterIcon>
-                  <InstagramIcon style={{ border: '4px solid #B6F599', width: 30, height: 30, marginRight: 10 }} sx={{ borderRadius: 5, backgroundColor: appTheme.palette.primary.green3, color: appTheme.palette.primary.footer }}></InstagramIcon>
-                  <PinterestIcon style={{ border: '4px solid #B6F599', width: 30, height: 30, marginRight: 10 }} sx={{ borderRadius: 5, backgroundColor: appTheme.palette.primary.green3, color: appTheme.palette.primary.footer }}></PinterestIcon>
-                  <YouTubeIcon style={{ border: '4px solid #B6F599', width: 30, height: 30 }} sx={{ borderRadius: 5, backgroundColor: appTheme.palette.primary.green3, color: appTheme.palette.primary.footer }}></YouTubeIcon>
+                  <Link href={footerData[0].twitterLink} style={{ textDecoration: 'none' }} target="_blank">
+                    <TwitterIcon style={{ border: '4px solid #B6F599', width: 30, height: 30, marginRight: 10 }} sx={{ borderRadius: 5, backgroundColor: appTheme.palette.primary.green3, color: appTheme.palette.primary.footer }}></TwitterIcon>
+                  </Link>
+                  <Link href={footerData[0].instaLink} style={{ textDecoration: 'none' }} target="_blank">
+                    <InstagramIcon style={{ border: '4px solid #B6F599', width: 30, height: 30, marginRight: 10 }} sx={{ borderRadius: 5, backgroundColor: appTheme.palette.primary.green3, color: appTheme.palette.primary.footer }}></InstagramIcon>
+                  </Link>
+
+                  <Link href={footerData[0].pinterestLink} style={{ textDecoration: 'none' }} target="_blank">
+                    <FacebookIcon style={{ border: '4px solid #B6F599', width: 30, height: 30, marginRight: 10 }} sx={{ borderRadius: 5, backgroundColor: appTheme.palette.primary.green3, color: appTheme.palette.primary.footer }}></FacebookIcon>
+                  </Link>
+                  
+                  <Link href={footerData[0].ytLink} style={{ textDecoration: 'none' }} target="_blank">
+                    <LinkedInIcon style={{ border: '4px solid #B6F599', width: 30, height: 30 }} sx={{ borderRadius: 5, backgroundColor: appTheme.palette.primary.green3, color: appTheme.palette.primary.footer }}></LinkedInIcon>
+                  </Link>
 
                 </div>
               </Card>
             </Grid>
           </Grid>
 
-
-          {/* 
-            <img width={200} style={{
-            position: "relative",
-            bottom: 0,
-            left: 0
-        }} src='../images/decor.png'/> */}
+          {/* <FormComponent/> */}
 
 
+  
         </Grid>
 
         <div className="wrapperLeft">
@@ -354,7 +371,7 @@ export default function BottomBar() {
 
 
 
-
+)}
     </ThemeProvider>
 
 

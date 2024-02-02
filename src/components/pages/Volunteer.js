@@ -68,7 +68,7 @@ export default function Volunteer(props) {
                         <NavBar />
                     </Grid>
 
-                    {console.log(volunteerData[0])}
+                    {/* {console.log(volunteerData[0])} */}
 
                     <Grid item xs sx={{
                         display: "flex",
@@ -86,7 +86,7 @@ export default function Volunteer(props) {
                             <Typography variant="h2" sx={{ fontSize: 20, width: "60%", margin: "0 auto", textAlign: "center", mb: 5, color: "#444444" }}>{volunteerData[0].mainBlurb}</Typography>
 
 
-                            <div className="programs-image-container" style={{ width: "55%", display: "flex",  margin: "0 auto", justifyContent: "center" }}>
+                            <div className="programs-image-container" style={{ width: "50%", display: "flex",  margin: "0 auto", justifyContent: "center" }}>
                                 <img src={(urlFor(volunteerData[0].headingImage).url())} />
                             </div>
 
@@ -105,7 +105,7 @@ export default function Volunteer(props) {
                         margin: "auto",
                         paddingTop: 10,
                         paddingBottom: 10,
-                        mt: 12,
+                        mt: 9,
                         mb: 12
                     }}>
                         <Grid container spacing={3}>
@@ -197,7 +197,7 @@ export default function Volunteer(props) {
                             padding: 0,
                             mb: 4
                         }}>
-                            <Link to={volunteerData[0].volunteerButton} style={{ textDecoration: 'none' }}>
+                            <Link to={volunteerData[0].volunteerButton} target="_blank" style={{ textDecoration: 'none' }}>
                             <Button
                                 width="150"
                                 variant="contained"

@@ -104,7 +104,7 @@ export default function Consulting(props) {
                 mt: 5,
                 mb: 8
               }}>
-              <Link to={educData[0].buttonLink} style={{ textDecoration: 'none' }}>
+              <Link to={educData[0].buttonLink} target="_blank" style={{ textDecoration: 'none' }}>
                   <Button
                     width="150"
                     variant="contained"
@@ -137,7 +137,7 @@ export default function Consulting(props) {
             <Grid container spacing={5}>
             {educData[0].skills.map((item) => (
               <Grid item xs>
-                {console.log(item.skills)}
+                {/* {console.log(item.skills)} */}
               <Card
                 sx={{
                   backgroundColor: appTheme.palette.primary.white,

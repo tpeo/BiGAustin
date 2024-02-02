@@ -189,7 +189,7 @@ export default function SkillsDev(props) {
                             mt: 2,
                             mb: 8
                         }}>
-                         <Link to={skillsData[0].buttonLink} style={{ textDecoration: 'none' }}>
+                         <Link to={skillsData[0].buttonLink} target="_blank" style={{ textDecoration: 'none' }}>
 
                             <Button
                                 width="150"

@@ -77,14 +77,15 @@ export default function EnvisionCenter(props) {
               <Grid container justifyContent="center" alignItems="center">
                 <CssBaseline />
                 <Grid container direction="row" md={6.5} xs={9} sx={{ justifyContent: "center" }}>
-                  <Typography variant="h1" sx={{ fontSize: 40,  color: appTheme.palette.primary.green1 }}>{envisionData[0].mainHeading}</Typography>
+                  <Typography variant="h1" sx={{ fontSize: 40, color: appTheme.palette.primary.green1 }}>{envisionData[0].mainHeading}</Typography>
                 </Grid>
               </Grid>
-              <Typography variant="h2" sx={{ fontSize: 20,  margin:"0 auto", width: "65%", textAlign: "center", mb: 3 }}>{envisionData[0].mainBlurb}</Typography>
+              <Typography variant="h2" sx={{ fontSize: 20, margin: "0 auto", width: "65%", textAlign: "center", mb: 3 }}>{envisionData[0].mainBlurb}</Typography>
 
 
-              <div className="programs-image-container" style={{ width: "100%", display: "flex", justifyContent: "center" }}>
-              <iframe width="560" height="315" src={envisionData[0].headingVideo} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+              <div className="programs-image-container" style={{ width: "50%", display: "flex", margin: "0 auto", justifyContent: "center" }}>
+                {/* <img src={urlFor(aspireData[0].headerImage).url()} /> */}
+                <iframe style={{ borderRadius: '10px' }} width="100%" height="315" src={envisionData[0].headingVideo} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
               </div>
 
             </Grid>
@@ -135,7 +136,7 @@ export default function EnvisionCenter(props) {
             justifyContent="center"
             alignItems="center"
           >
-            <Grid sx={{ mb: 20}}>
+            <Grid sx={{ mb: 20 }}>
               <Grid container sx={{ justifyContent: "center", width: "100%", mb: -4 }}>
 
                 <CssBaseline />
@@ -148,7 +149,7 @@ export default function EnvisionCenter(props) {
                         backgroundColor: appTheme.palette.primary.main,
                         height: 420,
                         width: 250,
-                        margin:"auto",
+                        margin: "auto",
                         borderRadius: 3,
                         display: "flex",
                         flexDirection: "column",
@@ -173,21 +174,21 @@ export default function EnvisionCenter(props) {
                       <div>
                         <Typography
                           variant="h2"
-                          sx={{textAlign: "center", paddingLeft: 2, paddingRight: 2, fontSize: 18, mt: 1, mb: 1, color: appTheme.palette.primary.white }}
+                          sx={{ textAlign: "center", paddingLeft: 2, paddingRight: 2, fontSize: 18, mt: 1, mb: 1, color: appTheme.palette.primary.white }}
                         >
-                        {envisionData[0].card1text}                        
+                          {envisionData[0].card1text}
                         </Typography>
                       </div>
                     </Card>
                   </Grid>
 
                   <Grid item xs>
-                  <Card
+                    <Card
                       sx={{
                         backgroundColor: appTheme.palette.primary.main,
                         height: 420,
                         width: 250,
-                        margin:"auto",
+                        margin: "auto",
                         borderRadius: 3,
                         display: "flex",
                         flexDirection: "column",
@@ -212,21 +213,21 @@ export default function EnvisionCenter(props) {
                       <div>
                         <Typography
                           variant="h2"
-                          sx={{textAlign: "center", paddingLeft: 2, paddingRight: 2, fontSize: 18, mt: 1, mb: 1, color: appTheme.palette.primary.white }}
+                          sx={{ textAlign: "center", paddingLeft: 2, paddingRight: 2, fontSize: 18, mt: 1, mb: 1, color: appTheme.palette.primary.white }}
                         >
-                        {envisionData[0].card2text}                        
+                          {envisionData[0].card2text}
                         </Typography>
                       </div>
                     </Card>
                   </Grid>
 
                   <Grid item xs>
-                  <Card
+                    <Card
                       sx={{
                         backgroundColor: appTheme.palette.primary.main,
                         height: 420,
                         width: 250,
-                        margin:"auto",
+                        margin: "auto",
                         borderRadius: 3,
                         display: "flex",
                         flexDirection: "column",
@@ -251,21 +252,21 @@ export default function EnvisionCenter(props) {
                       <div>
                         <Typography
                           variant="h2"
-                          sx={{textAlign: "center", paddingLeft: 2, paddingRight: 2, fontSize: 18, mt: 1, mb: 1, color: appTheme.palette.primary.white }}
+                          sx={{ textAlign: "center", paddingLeft: 2, paddingRight: 2, fontSize: 18, mt: 1, mb: 1, color: appTheme.palette.primary.white }}
                         >
-                        {envisionData[0].card3text}                        
+                          {envisionData[0].card3text}
                         </Typography>
                       </div>
                     </Card>
                   </Grid>
 
                   <Grid item xs>
-                  <Card
+                    <Card
                       sx={{
                         backgroundColor: appTheme.palette.primary.main,
                         height: 420,
                         width: 250,
-                        margin:"auto",
+                        margin: "auto",
                         borderRadius: 3,
                         display: "flex",
                         flexDirection: "column",
@@ -290,26 +291,23 @@ export default function EnvisionCenter(props) {
                       <div>
                         <Typography
                           variant="h2"
-                          sx={{textAlign: "center", paddingLeft: 2, paddingRight: 2, fontSize: 18, mt: 1, mb: 1, color: appTheme.palette.primary.white }}
+                          sx={{ textAlign: "center", paddingLeft: 2, paddingRight: 2, fontSize: 18, mt: 1, mb: 1, color: appTheme.palette.primary.white }}
                         >
-                        {envisionData[0].card4text}                        
+                          {envisionData[0].card4text}
                         </Typography>
                       </div>
                     </Card>
                   </Grid>
 
-                  
-                 
-                </Grid>
+
+
                 </Grid>
               </Grid>
-
-
-              
             </Grid>
 
 
 
+          </Grid>
 
 
 
@@ -320,7 +318,10 @@ export default function EnvisionCenter(props) {
 
 
 
-            <BottomBar />
+
+
+
+          <BottomBar />
         </div>
       )}
     </ThemeProvider>

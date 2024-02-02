@@ -415,7 +415,7 @@ export default function RiseThrive(props) {
                 <span key={index} style={{ display: 'block' }}>{line}</span>
               ))}</Typography>
 
-            <Link to={riseData[0].surveyButton} style={{ textDecoration: 'none' }}>
+            <Link to={riseData[0].surveyButton} target="_blank" style={{ textDecoration: 'none' }}>
 
               <Button
                 width="150"

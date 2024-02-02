@@ -574,7 +574,7 @@ export default function StartSmart(props) {
                         flexDirection: "column",
                         alignItems: "center",
                         justifyContent: "center",
-                        mt: 5
+                        mt: -8
                     }}>
 
                         <Typography variant="h1" sx={{ fontSize: 25, textAlign: "center", color: appTheme.palette.primary.blue1 }}>Ready to transform your business dreams into reality?</Typography>

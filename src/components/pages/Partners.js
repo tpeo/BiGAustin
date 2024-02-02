@@ -58,7 +58,7 @@ function urlFor(source) {
 
 
 export default function Partners(props) {
-    console.log('in home screen');
+    // console.log('in home screen');
 
     const [partnersData, setPartners] = useState(null);
 
@@ -368,7 +368,7 @@ export default function Partners(props) {
                                 <div ref={sliderRef1} className="keen-slider">
                                     {partnersData[0].partners.map((items) => (
                                         <div className="keen-slider__slide number-slide1">
-                                            {console.log(items)}
+                                            {/* {console.log(items)} */}
                                             <Grid container justifyContent="center" alignItems="center" sx={{ mb: 6 }}>
                                                 <Grid container direction="row" justifyContent="center" alignItems="center" sx={{ width: "100%" }}>
                                                     {/* Image 1 */}
@@ -420,7 +420,7 @@ export default function Partners(props) {
 
 
                         <Grid container direction="column" alignItems="center">
-                        <Link to={partnersData[0].partnersButton} style={{ textDecoration: 'none' }}>
+                        <Link to={partnersData[0].partnersButton} target="_blank" style={{ textDecoration: 'none' }}>
 
                             <Button
                                 width="200"

@@ -50,14 +50,14 @@ function App() {
                 <ThemeProvider theme={appTheme}>
                 <CssBaseline />
                 <Routes>
-                    console.log("going to home");
+                    {/* console.log("going to home"); */}
                     <Route path={"/"} element={<Home />} />
                     <Route path={"/about"} element={<About />} />
                     <Route path={"/ourimpact"} element={<Impact />} />
                     <Route path={"/dreamteam"} element={<DreamTeam />} />
                     <Route path={"/programs"} element={<Programs />} />
                     <Route path={"/workshops"} element={<Workshops />} />
-                    <Route path={"/partner"} element={<Partners />} />
+                    <Route path={"/partnership"} element={<Partners />} />
                     <Route path={"/services"} element={<Services />} />
                     <Route path={"/workshops"} element={<Workshops />} />
                     <Route path={"/consulting"} element={<Consulting />} />

@@ -125,7 +125,7 @@ export default function Lending(props) {
 
 
                             <Grid container justifyContent="center" alignItems="center">
-                                <Link to={lendingData[0].leftButton} style={{ textDecoration: 'none' }}>
+                                <Link to={lendingData[0].leftButton} target="_blank" style={{ textDecoration: 'none' }}>
                                     <Button
                                         width="150"
                                         height="20"
@@ -142,7 +142,7 @@ export default function Lending(props) {
                                     </Button>
                                 </Link>
 
-                                <Link to={lendingData[0].rightButton} style={{ textDecoration: 'none' }}>
+                                <Link to={lendingData[0].rightButton} target="_blank" style={{ textDecoration: 'none' }}>
                                     <Button
                                         width="150"
                                         height="20"

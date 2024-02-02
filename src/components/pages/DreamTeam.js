@@ -15,6 +15,8 @@ import { appTheme } from "../Theme.js";
 import createClient from "/Users/aarushichitagi/Desktop/BiGAustin/src/client.js";
 import imageUrlBuilder from '@sanity/image-url'
 import "keen-slider/keen-slider.min.css"
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from "rehype-raw";
 
 
 const builder = imageUrlBuilder(createClient)
@@ -135,14 +137,17 @@ export default function DreamTeam(props) {
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
                     width: '50%',
-                    height: '70%',
                     bgcolor: 'background.paper',
-                    borderRadius: '10px'
+                    borderRadius: '10px',
+                    '@media only screen and (max-width: 600px)': {
+                      width: '80%', // Adjust the width for smaller screens
+                    },
                   }}
+                  
                 >
                   <Grid container>
                     {/* Left side  */}
-                    <Grid item xs={5} style={{ backgroundColor: appTheme.palette.primary.blue1, borderRadius: '10px 0 0 10px' }}>
+                    <Grid item xs={12} sm={5} style={{ backgroundColor: appTheme.palette.primary.blue1, borderRadius: '10px 0 0 10px' }}>
                       <div className="programs-image-container" style={{ width: "70%", margin: "0 auto", marginTop: "60px", marginBottom: "45px", display: "flex", justifyContent: "center" }}>
                         <img src={urlFor(selectedTeamMember.image).url()} />
                       </div>
@@ -164,11 +169,12 @@ export default function DreamTeam(props) {
                     </Grid>
 
                     {/* Right side  */}
-                    <Grid item xs={7} style={{ backgroundColor: appTheme.palette.primary.platinum, paddingTop: "60px", paddingLeft: "30px", borderRadius: '0 10px 10px 0', paddingBottom: "75px" }}>
+                    <Grid item xs={12} sm={7} style={{ backgroundColor: appTheme.palette.primary.platinum, paddingTop: "60px", paddingLeft: "30px", borderRadius: '0 10px 10px 0', paddingBottom: "75px" }}>
 
                       <Typography variant="h1" sx={{ fontSize: 25, padding: 0, paddingBottom: 1, fontWeight: 400 }}>{selectedTeamMember.name}</Typography>
                       <Typography variant="h2" sx={{ fontSize: 17, fontWeight: 400 }}>{selectedTeamMember.description}</Typography>
-                      <Typography variant="h2" sx={{ fontSize: 17, mt: 2, fontWeight: 300, width: "92%", }}>{selectedTeamMember.blurb.replace(/<\s*\/?br\s*\/?>/g, '\n').replace(/\n{2,}/g, '\n')}</Typography>
+
+                      <Typography variant="h2" sx={{ fontSize: 17, mt: 2, fontWeight: 300, width: "92%", }}>      <ReactMarkdown rehypePlugins={[rehypeRaw]} children={selectedTeamMember.blurb} /></Typography>
 
                     </Grid>
                   </Grid>

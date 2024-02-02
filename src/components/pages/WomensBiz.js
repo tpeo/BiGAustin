@@ -277,7 +277,7 @@ export default function WomensBiz(props) {
 
 
                             <Grid container justifyContent="center" alignItems="center">
-                                <Link to={womenData[0].buttonLink} style={{ textDecoration: 'none' }}>
+                                <Link to={womenData[0].buttonLink} target="_blank" style={{ textDecoration: 'none' }}>
                                     <Button
                                         width="150"
                                         height="20"

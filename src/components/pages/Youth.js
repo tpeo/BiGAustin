@@ -20,7 +20,7 @@ import imageUrlBuilder from '@sanity/image-url'
 const builder = imageUrlBuilder(createClient)
 
 function urlFor(source) {
-    return builder.image(source)
+  return builder.image(source)
 }
 
 // Custom arrow components
@@ -116,19 +116,22 @@ export default function Youth(props) {
               <Grid container justifyContent="center" alignItems="center">
                 <CssBaseline />
                 <Grid container direction="row" md={6.5} xs={9} sx={{ justifyContent: "center" }}>
-                  <Typography variant="h1" sx={{ fontSize: 40,color: appTheme.palette.primary.green1 }}>{youthData[0].mainHeading}</Typography>
+                  <Typography variant="h1" sx={{ fontSize: 40, color: appTheme.palette.primary.green1 }}>{youthData[0].mainHeading}</Typography>
                 </Grid>
               </Grid>
-              <Typography variant="h2" sx={{ fontSize: 20, margin: "0 auto", width: "75%", textAlign: "center", mb: 7, whiteSpace: 'pre-line',
-                  wordWrap: 'break-word', }}>{youthData[0].mainBlurb.split('<br>')
-                  .map((line, index) => (
-                    <span key={index} style={{ display: 'block' }}>{line}</span>
-                  ))}</Typography>
+              <Typography variant="h2" sx={{
+                fontSize: 20, margin: "0 auto", width: "75%", textAlign: "center", mb: 7, whiteSpace: 'pre-line',
+                wordWrap: 'break-word',
+              }}>{youthData[0].mainBlurb.split('<br>')
+                .map((line, index) => (
+                  <span key={index} style={{ display: 'block' }}>{line}</span>
+                ))}</Typography>
 
 
-              <div className="programs-image-container" style={{width: "70%", margin: "0 auto", display: "flex", justifyContent: "center" }}>
-                <iframe width="100%" height="auto" src={youthData[0].headingVideo} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                </div>
+              <div className="programs-image-container" style={{ width: "50%", display: "flex", margin: "0 auto", justifyContent: "center" }}>
+                {/* <img src={urlFor(aspireData[0].headerImage).url()} /> */}
+                <iframe style={{ borderRadius: '10px' }} width="100%" height="315" src={youthData[0].headingVideo} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+              </div>
 
             </Grid>
           </Grid>
@@ -138,20 +141,20 @@ export default function Youth(props) {
 
 
 
-          <div className="testimonials" style={{ backgroundColor: appTheme.palette.primary.green4, textAlign: "center", color: "white", marginTop: 100}}>
-            <h2 style={{ color: appTheme.palette.primary.white, paddingTop: 50}}>Photo Gallery</h2>
+          <div className="testimonials" style={{ backgroundColor: appTheme.palette.primary.green4, textAlign: "center", color: "white", marginTop: 40 }}>
+            <h2 style={{ color: appTheme.palette.primary.white, paddingTop: 50 }}>Photo Gallery</h2>
             <div className="navigation-wrapper">
               <div ref={sliderRef} className="keen-slider">
                 {youthData[0].photos.map((items) => (
                   <div className="keen-slider__slide number-slide1">
-                    <Grid container justifyContent="center" alignItems="center" sx={{backgroundColor: appTheme.palette.primary.green4 }}>
-                            <div>
-                              <img width={400}
-                                src={urlFor(items).url()}
-                                alt="Logo"
-                              ></img>
-                            </div>
-                        
+                    <Grid container justifyContent="center" alignItems="center" sx={{ backgroundColor: appTheme.palette.primary.green4 }}>
+                      <div>
+                        <img width={400}
+                          src={urlFor(items).url()}
+                          alt="Logo"
+                        ></img>
+                      </div>
+
                     </Grid>
 
                   </div>
@@ -203,7 +206,7 @@ export default function Youth(props) {
 
 
 
-       
+
 
           <BottomBar />
         </div>

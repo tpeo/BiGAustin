@@ -77,7 +77,7 @@ export default function Programs(props) {
                             alignItems: "center",
                             justifyContent: "center"
                         }}>
-                            {console.log(item)}
+                            {/* {console.log(item)} */}
                             <Card
                                 sx={{
                                     height: "auto",
@@ -118,7 +118,7 @@ export default function Programs(props) {
 
                                             <Grid container justifyContent="flex-start" alignItems="center" spacing={2} sx={{ mt: 5 }}>
                                                 <Grid item xs={6} md={4}>
-                                                    <Link to={item.programs.buttonLink} style={{ textDecoration: 'none' }}>
+                                                    <Link to={item.programs.buttonLink} target="_blank" style={{ textDecoration: 'none' }}>
                                                         <Button
                                                             width="100%"
                                                             variant="contained"

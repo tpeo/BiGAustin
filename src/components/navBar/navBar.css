@@ -69,7 +69,7 @@ ul li a {
   box-shadow: none !important;
   background-color: #435058 !important;
   margin-top: -8px !important;
-  height: 165px;
+  height: 160px;
   border-radius: 0px 0px 10px 10px !important;
 }
 
@@ -99,6 +99,10 @@ ul li a {
   font-weight: 200;
   color: blue;
 
+}
+
+.jEchia{
+  /* color: #219D80 !important; */
 }
 /* .src__ContentGroupContainer-sc-178mgjs-6 {
   -webkit-animation: none;

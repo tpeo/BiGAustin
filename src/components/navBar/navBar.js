@@ -94,7 +94,7 @@ export default function NavBar() {
         <div className="container-fluid">
           <header>
             <div className="logo">
-              <Link href="/">
+              <Link to="/">
                 <img
                   alt={"logo"}
                   src={require('../images/bigaustinlogo.png')}
@@ -167,7 +167,7 @@ export default function NavBar() {
                         </Link>
                       </ListItemButton>
                       <ListItemButton sx={{ pl: 4 }}>
-                        <Link to="/partner" style={{ textDecoration: 'none' }}>
+                        <Link to="/partnership" style={{ textDecoration: 'none' }}>
                           <ListItemText sx={{ fontFamily: "League Spartan" }} primary="Partnership" />
                         </Link>
                       </ListItemButton>
@@ -214,7 +214,7 @@ export default function NavBar() {
                         </Link>
                       </ListItemButton>
                       <ListItemButton sx={{ pl: 4 }}>
-                        <Link to="/partner" style={{ textDecoration: 'none' }}>
+                        <Link to="/partnership" style={{ textDecoration: 'none' }}>
                           <ListItemText sx={{ fontFamily: "League Spartan" }} primary="Partner" />
                         </Link>
                       </ListItemButton>
@@ -303,7 +303,7 @@ export default function NavBar() {
                   </li>
                   <li>
                     {/* <Link to="/link-2">Our Team</Link> */}
-                    <Link1 href="/partner">
+                    <Link1 href="/partnership">
                       Partnership
                     </Link1>
                   </li>
@@ -342,7 +342,7 @@ export default function NavBar() {
                   </li>
                   <li>
                     {/* <Link to="/link-2">Partner</Link> */}
-                    <Link1 href="/partner">
+                    <Link1 href="/partnership">
                       Partner
                     </Link1>
                   </li>
@@ -355,7 +355,7 @@ export default function NavBar() {
                 </ul>
               </ContentGroup>
 
-              <ContentGroup fontFamily="League Spartan, sans-serif" title="ASPIRE" rootUrl="aspire" />
+              <ContentGroup fontFamily="League Spartan, sans-serif" title="CALENDAR" rootUrl="workshops" />
               <ContentGroup title="DONATE" rootUrl="donate" background="white" />
 
               <ContentGroup title="CONTACT" rootUrl="/contact" background="appTheme.palette.primary.white" />
